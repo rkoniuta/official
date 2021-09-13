@@ -5,11 +5,11 @@
     <!--TAGS-->
     <meta charset="utf-8">
     <meta name="title" content="Paywake">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="That's not a typo. We’ll pay you to wake up on time and charge you if you don't. It’s that simple. Schedule your wake-up today.">
     <meta name="keywords" content="paywake, get paid to wake up, pay, wake, wake up, wake up on time, get paid to wake up on time, alarm, sleep, snooze, wakeup, paywake.net, get paid to wakeup, paid to wake up, get paid, paid">
     <meta name="robots" content="index, follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
     <meta name="revisit-after" content="1 days">
     <meta name="author" content="Paywake">
@@ -40,7 +40,8 @@
     <meta name="theme-color" content="#FFFFFF">
 
     <!--STYLING-->
-    <link rel="stylesheet" href="https://paywake.net/css/base.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/range.css">
     <link rel="stylesheet" href="css/index.css">
 
     <!--JQUERY-->
@@ -49,6 +50,8 @@
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
     <script src="js/preload.js"></script>
+    <link rel="preload" as="image" href="assets/images/sun-192.png" media="(max-width: 192px)">
+    <link rel="preload" as="image" href="assets/images/tear.png" media="(max-width: 4597px)">
 
     <!--TITLE-->
     <title>Paywake - Get paid to wake up</title>
@@ -65,14 +68,79 @@
   </head>
   <body>
     <!--CONTENT-->
-    <div class="fullscreen">
-        <h1></h1>
+    <div class="header">
+      <a href="https://launch.paywake.net" class="logo">
+        <img id="sun" src="assets/images/sun-192.png">
+        <h1>Paywake</h1>
+      </a>
+      <button class="gradient" onclick="getStartedClick()">Get Started</button>
     </div>
-    <div class="footer">
-      <p>&copy; 2021 Paywake Corporation</p>
-      <a href="mailto:hello@paywake.net">Contact</a>
-      <a href="mailto:press@paywake.net">Press</a>
-      <a href="mailto:legal@paywake.net">Legal</a>
+    <div class="content">
+      <div class="splash">
+        <h1>Get paid<br>to wake up.</h1>
+        <h3>Literally. We’ll pay you to wake up on time and charge you if you don't. It’s that simple. Schedule your wake-up below.</h3>
+        <br><br><br>
+        <div class="dollar-subtitle bounds">
+          <small>You pay</small>
+          <small>If you're up on time, you'll get</small>
+        </div>
+        <div class="dollar bounds">
+          <h1>
+            <span class="dollar-sign">$</span>
+            <span id="deposit-amount">00</span>
+          </h1>
+          <h1>
+            <span class="dollar-sign"><span id="roughly">~</span>$</span>
+            <span id="return-amount">00</span>
+            <span id="return-amount-cents" class="cents">.00</span>
+          </h1>
+        </div>
+        <div class="estimate-info">
+          <img src="assets/images/info.png" onclick="estimateAlert()">
+        </div>
+        <div class="dollar-subtitle bounds">
+          <small>Tonight</small>
+          <small>Tomorrow</small>
+        </div>
+        <input class="slider" type="range" value="30" min="5" max="100" onchange="slider(this)" oninput="slider(this)">
+        <div class="range bounds">
+          <small>$5 USD</small>
+          <small>$100</small>
+        </div>
+        <br><br>
+        <div class="middle">
+          <button>Schedule Wake-Up</button>
+        </div>
+        <img class="tear-image" src="assets/images/tear-logo.png">
+        <div class="launch-container">
+          <div class="launch">
+            <p id="countdown">00:00:00:00</p>
+            <br><br>
+            <h2>Launching October 27th</h2>
+            <h1 class="gradient">2021</h1>
+            <br>
+            <p>Like what you see? Drop your number below and we'll hit you up soon for <b>early access</b>.</p>
+            <br>
+            <input type="text" id="name" class="name" placeholder="What's your name?" maxlength="32" onblur="verifyName(this)">
+            <input inputmode="numeric" pattern="[0-9]*" type="text" id="phone" class="phone" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)" onblur="verifyPhone(this)">
+            <p class="small before-success">*Paywake is only available in the U.S.</p>
+            <br>
+            <div class="middle">
+              <button class="gradient before-success" id="submit">Notify Me</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-container">
+        <div class="footer">
+          <p>&copy; 2021 Paywake Corporation</p>
+          <div class="wrapper">
+            <a href="mailto:hello@paywake.net">Contact Us</a>
+            <a href="mailto:press@paywake.net">Press</a>
+            <a href="mailto:legal@paywake.net">Legal</a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!--POST-LOAD-->

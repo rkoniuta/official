@@ -1,52 +1,441 @@
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0px;
   padding: 0px;
   color: black;
   width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
-  background: rgb(221,221,221);
-  background: -moz-linear-gradient(0deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 40%);
-  background: -webkit-linear-gradient(0deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 40%);
-  background: linear-gradient(0deg, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 40%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dddddd",endColorstr="#ffffff",GradientType=1);
-  font-family: "Neue Haas Grotesk", sans-serif;
+  position: relative;
+  background: white;
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
 }
 
-.fullscreen {
+.header {
+  width: 100vw;
+  box-sizing: border-box;
+  background: white;
+  background-color: white;
   position: fixed;
   top: 0px;
   left: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  padding: 18px 30px;
+  z-index: 10000;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  transition: opacity linear 0.1s;
+}
+
+.logo:active {
+  opacity: 0.8;
+}
+
+.logo > #sun {
+  width: 36px;
+  height: 36px;
+  margin-right: 15px;
+}
+
+.logo > h1 {
+  margin: 0px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.content {
+  position: absolute;
+  top: 17vh;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
   width: 100vw;
-  height: 75vh;
+}
+
+.splash {
+  width: 300px;
+}
+
+.splash > h1 {
+  font-size: 55px;
+  line-height: 52px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 700;
+  margin: 0px;
+}
+
+.splash > h3 {
+  font-size: 20px;
+  line-height: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin: 0px;
+  margin-top: 20px;
+}
+
+button {
+  border-radius: 100px;
+  outline: none;
+  border: none;
+  background: black;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+  font-family: 'Urbanist', sans-serif;
+  padding: 13px 24px;
+  margin: 0px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity linear 0.1s;
+  cursor: pointer !important;
+}
+
+button.gradient {
+  background: rgb(102,0,255);
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+
+.bounds {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: -10px;
+}
+
+.bounds.range {
+  margin-top: -10px;
+}
+
+.bounds > h1 {
+  font-family: 'Urbanist';
+  font-size: 70px;
+  line-height: 70px;
+  font-weight: 300;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.bounds > small {
+  font-family: 'Urbanist', sans-serif;
+  color: rgba(0,0,0,0.4);
+  font-weight: 700;
+  font-size: 14px;
+  z-index: -1;
+  margin: 0px;
+}
+
+.slider {
+  margin-top: 16px !important;
+}
+
+.dollar-sign {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-weight: 300;
+  font-size: 30px;
+  vertical-align: super;
+  margin-right: -13px;
+}
+
+.middle {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+p.legal {
+  font-family: 'Urbanist', sans-serif;
+  color: rgba(0,0,0,0.4);
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+}
+
+p.legal > a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.cents {
+  font-family: 'Urbanist', sans-serif;
+  color: black;
+  font-weight: 300;
+  font-size: 30px;
+  vertical-align: super;
+  margin-left: -13px;
+}
+
+::selection {
+  color: white;
+  background: rgba(102,0,255,1);
+}
+::-moz-selection {
+  color: white;
+  background: rgba(102,0,255,1);
+}
+
+.tear-image {
+  z-index: 2;
+  width: 100vmax;
+  margin-left: calc(150px - 50vmax);
+  margin-top: -6vmax;
+  box-sizing: border-box;
+}
+
+.launch-container {
+  background: black;
+  background-color: black;
+  width: 150vw;
+  margin-left: calc(150px - 75vw);
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  align-content: center;
   justify-content: center;
+  align-content: center;
   flex-direction: column;
+  margin-top: -20px;
+  padding-top: 60px;
+}
+
+.launch {
+  width: 300px;
+  padding-bottom: 2vh;
+  box-sizing: border-box;
+  font-family: 'Urbanist', sans-serif;
+  color: white;
+}
+
+.launch > h2 {
+  font-size: 50px;
+  line-height: 50px;
+  font-weight: 600;
+  margin: 0px;
+  text-align: center;
+}
+
+.launch > h1 {
+  font-size: 170px;
+  line-height: 170px;
+  transform: translateX(-2px);
+  font-weight: 100;
+  margin: 0px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+h1.gradient {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+}
+
+.launch > p {
+  font-size: 20px;
+  line-height: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin: 0px;
+  margin-top: 20px;
+}
+
+.launch > #countdown {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: 200;
+  opacity: 0.4;
+  font-family: 'Urbanist', sans-serif;
+}
+
+input {
+  transition: border-color ease 0.2s;
+}
+
+input[invalid=true] {
+  border-color: red !important;
+}
+
+input[readonly=true] {
+  opacity: 0.4;
+}
+
+input.phone {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid white;
+  padding: 16px;
+  padding-left: 48px;
+  box-sizing: border-box;
+  width: 300px;
+  background: url('../assets/images/us-flag.png') no-repeat left;
+  background-size: 30px;
+  background-position: left;
+  background-repeat: no-repeat;
+  image-orientation: none;
+  color: white;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  margin: 16px 0px;
+  border-radius: 2px;
+}
+
+input.phone::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+input.name {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid white;
+  padding: 16px;
+  background: transparent;
+  box-sizing: border-box;
+  width: 300px;
+  color: white;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  border-radius: 2px;
+}
+
+.launch > p.small {
+  margin: 0px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+
+.footer-container {
+  background: rgb(102,0,255);
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
+  width: 100vw;
+  box-sizing: border-box;
+  z-index: 100;
 }
 
 .footer {
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
+  background: rgb(0,0,0);
+  background: -moz-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
+  background: -webkit-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   width: 100vw;
   box-sizing: border-box;
-  padding: 35px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
   align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 18px 30px;
+  padding-top: 12vh;
 }
 
-.footer > p, .footer > a {
-  font-size: 15px;
+.footer > div.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footer > p, .footer > div.wrapper > a {
+  font-size: 14px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
   color: #aaaaaa !important;
   text-decoration: none;
-  padding: 15px;
+  padding: 12px;
   margin: 0px;
+}
+
+.after-success {
+  display: none;
+}
+
+.launch > p.post-submit {
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.estimate-info {
+  width: 300px;
+  height: 0px;
+  margin-top: -38px;
+  margin-bottom: 27px;
+  padding-right: 1px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.estimate-info > img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.4;
+  float: right;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity linear 0.1s;
+}
+
+.estimate-info > img:active {
+  opacity: 0.3;
+}
+
+#roughly {
+  opacity: 0.4;
 }
