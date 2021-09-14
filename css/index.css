@@ -75,6 +75,7 @@ body {
 
 .splash {
   width: 300px;
+  padding-bottom: 17vmin;
 }
 
 .splash > h1 {
@@ -212,147 +213,6 @@ p.legal > a {
   background: rgba(102,0,255,1);
 }
 
-.tear-image {
-  z-index: 2;
-  width: 100vmax;
-  margin-left: calc(150px - 50vmax);
-  margin-top: -6vmax;
-  box-sizing: border-box;
-}
-
-.launch-container {
-  background: black;
-  background-color: black;
-  width: 150vw;
-  margin-left: calc(150px - 75vw);
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  margin-top: -20px;
-  padding-top: 60px;
-}
-
-.launch {
-  width: 300px;
-  padding-bottom: 2vh;
-  box-sizing: border-box;
-  font-family: 'Urbanist', sans-serif;
-  color: white;
-}
-
-.launch > h2 {
-  font-size: 50px;
-  line-height: 50px;
-  font-weight: 600;
-  margin: 0px;
-  text-align: center;
-}
-
-.launch > h1 {
-  font-size: 170px;
-  line-height: 170px;
-  transform: translateX(-2px);
-  font-weight: 100;
-  margin: 0px;
-  text-align: center;
-  margin-bottom: 0px;
-}
-
-h1.gradient {
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  background-image: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-}
-
-.launch > p {
-  font-size: 20px;
-  line-height: 30px;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  margin: 0px;
-  margin-top: 20px;
-}
-
-.launch > #countdown {
-  text-align: center;
-  margin: 0 auto;
-  font-size: 18px;
-  font-weight: 200;
-  opacity: 0.4;
-  font-family: 'Urbanist', sans-serif;
-}
-
-input {
-  transition: border-color ease 0.2s;
-}
-
-input[invalid=true] {
-  border-color: red !important;
-}
-
-input[readonly=true] {
-  opacity: 0.4;
-}
-
-input.phone {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid white;
-  padding: 16px;
-  padding-left: 48px;
-  box-sizing: border-box;
-  width: 300px;
-  background: url('../assets/images/us-flag.png') no-repeat left;
-  background-size: 30px;
-  background-position: left;
-  background-repeat: no-repeat;
-  image-orientation: none;
-  color: white;
-  font-size: 20px;
-  line-height: 20px;
-  font-family: 'Urbanist', sans-serif;
-  font-weight: 400;
-  margin: 16px 0px;
-  border-radius: 2px;
-}
-
-input.phone::placeholder {
-  color: rgba(255,255,255,0.4);
-}
-
-input.name {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid white;
-  padding: 16px;
-  background: transparent;
-  box-sizing: border-box;
-  width: 300px;
-  color: white;
-  font-size: 20px;
-  line-height: 20px;
-  font-family: 'Urbanist', sans-serif;
-  font-weight: 400;
-  border-radius: 2px;
-}
-
-.launch > p.small {
-  margin: 0px;
-  font-family: 'Urbanist', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  text-align: center;
-  color: rgba(255,255,255,0.4);
-  margin-top: -8px;
-  margin-bottom: 8px;
-}
-
 .footer-container {
   background: rgb(102,0,255);
   background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
@@ -365,10 +225,10 @@ input.name {
 }
 
 .footer {
-  background: rgb(0,0,0);
-  background: -moz-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
-  background: -webkit-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
-  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 100%);
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.5) 100%);
+  background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.5) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.5) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   width: 100vw;
   box-sizing: border-box;
@@ -395,21 +255,10 @@ input.name {
   font-size: 14px;
   font-family: 'Urbanist', sans-serif;
   font-weight: 600;
-  color: #aaaaaa !important;
+  color: rgba(0,0,0,0.4) !important;
   text-decoration: none;
   padding: 12px;
   margin: 0px;
-}
-
-.after-success {
-  display: none;
-}
-
-.launch > p.post-submit {
-  font-weight: 300;
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 32px;
 }
 
 .estimate-info {

@@ -1,10 +1,3 @@
-if (SOURCE === "qr") {
-  window.location.replace(QR_REDIRECT)
-}
-else if (SOURCE !== "dev") {
-  window.location.replace(REDIRECT)
-}
-
 const cleanPhone = (string) => {
   return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
 }
@@ -44,35 +37,6 @@ const slider = (obj) => {
 const sliderInit = (obj) => {
   obj.value = (Math.floor(Math.random() * (SLIDER_INIT_MAX - SLIDER_INIT_MIN)) + SLIDER_INIT_MIN)
   slider(obj)
-}
-
-const updateCountdown = (obj) => {
-  const distance = LAUNCH_DATE - (new Date().getTime())
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padEnd(COUNTDOWN_PAD, "0")
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padEnd(COUNTDOWN_PAD, "0")
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padEnd(COUNTDOWN_PAD, "0")
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padEnd(COUNTDOWN_PAD, "0")
-  obj.innerHTML = (days + "d " + hours + "h " + minutes + "m " + seconds + "s")
-}
-
-const verifyName = (obj) => {
-  const name = cleanName(obj.value)
-  if (name.length > 0) {
-    obj.removeAttribute("invalid")
-    return name
-  }
-  obj.setAttribute("invalid", "true")
-  return false
-}
-
-const verifyPhone = (obj) => {
-  const phone = cleanPhone(obj.value)
-  if (phone.length === 10) {
-    obj.removeAttribute("invalid")
-    return phone
-  }
-  obj.setAttribute("invalid", "true")
-  return false
 }
 
 const estimateAlert = () => {
