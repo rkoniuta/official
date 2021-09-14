@@ -1,7 +1,7 @@
-if ((new URLSearchParams(window.location.search)).get("source")) {
+if (SOURCE === "qr") {
   window.location.replace(QR_REDIRECT)
 }
-else {
+else if (SOURCE !== "dev") {
   window.location.replace(REDIRECT)
 }
 
