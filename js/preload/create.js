@@ -32,6 +32,9 @@ const nextScreen = () => {
     for (let i = SCREEN + 1; i < SCREENS; i++) {
       $("#screen-" + i.toString()).addClass("unloaded bottom")
     }
+    setTimeout(() => {
+      document.getElementById("screen-" + SCREEN.toString()).focus()
+    },1)
   }
 }
 
