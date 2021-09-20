@@ -94,7 +94,7 @@
           <h3>A few more things.</h3>
           <h1>What's your number?</h1>
           <div class="input-container">
-            <input type="text" name="phone" spellcheck="false" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
+            <input inputmode="numeric" pattern="[0-9]*" type="text" name="phone" spellcheck="false" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
           </div>
           <br>
           <div class="spread">
