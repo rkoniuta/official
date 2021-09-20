@@ -34,7 +34,7 @@ const nextScreen = () => {
     }
     setTimeout(() => {
       document.getElementById("screen-" + SCREEN.toString()).focus()
-    },1)
+    })
   }
 }
 

@@ -84,7 +84,7 @@
         <div class="screen unloaded bottom" id="screen-0">
           <h3>Let's get to know each other.</h3>
           <h1>What's your name?</h1>
-          <input type="text" name="name" max-length="32" spellcheck="false" placeholder="Type here...">
+          <input type="text" name="name" max-length="32" spellcheck="false" placeholder="Type here..." autofocus>
           <br>
           <div class="spread">
             <a class="back" href="https://paywake.net/login">Have an account? <u>Login</u></a>
@@ -111,7 +111,9 @@
           <br>
           <div class="spread">
             <a class="back" onclick="previousScreen()">Go back</a>
-            <button class="small gradient" onclick="nextScreen()">Create Account</button>
+            <button class="small gradient" onclick="(() => {
+              document.getElementById('screen-2').focus()
+            })()">Create Account</button>
           </div>
         </div>
       </div>

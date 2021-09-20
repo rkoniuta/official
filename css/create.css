@@ -140,6 +140,11 @@ input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  transition: border-color ease 0.2s;
+}
+
+input:focus {
+  border-color: rgba(255,255,255,0.3);
 }
 
 input::placeholder {
