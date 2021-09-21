@@ -25,33 +25,30 @@ const codeFormatter = (obj) => {
 const SCREENS = 6
 let SCREEN = 0
 
+const setScreen = (n) => {
+  SCREEN = n
+  for (let i = 0; i < SCREEN; i++) {
+    $("#screen-" + i.toString()).addClass("unloaded top")
+  }
+  $("#screen-" + SCREEN.toString()).removeClass("unloaded top bottom")
+  for (let i = SCREEN + 1; i < SCREENS; i++) {
+    $("#screen-" + i.toString()).addClass("unloaded bottom")
+  }
+  setTimeout(() => {
+    try {
+      $("#screen-" + SCREEN.toString() + "-input")[0].focus()
+    } catch (e) {}
+  })
+}
+
 const nextScreen = () => {
   if (SCREEN < (SCREENS - 1)) {
-    SCREEN++
-    for (let i = 0; i < SCREEN; i++) {
-      $("#screen-" + i.toString()).addClass("unloaded top")
-    }
-    $("#screen-" + SCREEN.toString()).removeClass("unloaded top bottom")
-    for (let i = SCREEN + 1; i < SCREENS; i++) {
-      $("#screen-" + i.toString()).addClass("unloaded bottom")
-    }
-    setTimeout(() => {
-      try {
-        $("#screen-" + SCREEN.toString() + "-input")[0].focus()
-      } catch (e) {}
-    })
+    setScreen(SCREEN + 1)
   }
 }
 
 const previousScreen = () => {
   if (SCREEN > 0) {
-    SCREEN--
-    for (let i = 0; i < SCREEN; i++) {
-      $("#screen-" + i.toString()).addClass("unloaded top")
-    }
-    $("#screen-" + SCREEN.toString()).removeClass("unloaded top bottom")
-    for (let i = SCREEN + 1; i < SCREENS; i++) {
-      $("#screen-" + i.toString()).addClass("unloaded bottom")
-    }
+    setScreen(SCREEN - 1)
   }
 }
