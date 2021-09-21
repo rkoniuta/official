@@ -1,5 +1,6 @@
 $("input").on("keyup", (e) => {
-  if (e.keyCode === 13) {
+  let n = parseInt(e.target.id.replace(/\D/g,''))
+  if ((e.keyCode === 13) && (n !== 2)) {
     nextScreen()
   }
 })

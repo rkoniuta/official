@@ -84,7 +84,7 @@
         <div class="screen unloaded bottom" id="screen-0">
           <h3>Let's get to know each other.</h3>
           <h1>What's your name?</h1>
-          <input type="text" name="name" max-length="32" spellcheck="false" placeholder="Type here..." autofocus>
+          <input id="screen-0-input" type="text" name="name" max-length="32" spellcheck="false" placeholder="Type here..." autofocus>
           <br>
           <div class="spread">
             <a class="back" href="https://paywake.net/login">Have an account? <u>Login</u></a>
@@ -95,9 +95,9 @@
           <h3>A few more things.</h3>
           <h1>What's your number?</h1>
           <div class="input-container">
-            <input inputmode="numeric" pattern="[0-9]*" type="text" name="phone" spellcheck="false" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
+            <input id="screen-1-input" inputmode="numeric" pattern="[0-9]*" type="text" name="phone" spellcheck="false" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
           </div>
-          <small>*Paywake is only available in the U.S.</small>
+          <small>Paywake is only available in the U.S.</small>
           <br>
           <div class="spread">
             <a class="back" onclick="previousScreen()">Go back</a>
@@ -107,13 +107,35 @@
         <div class="screen unloaded bottom" id="screen-2">
           <h3>Last one.</h3>
           <h1>Create a password</h1>
-          <input type="password" name="password" max-length="64" spellcheck="false" placeholder="Type here...">
+          <input id="screen-2-input" type="password" name="password" max-length="64" spellcheck="false" placeholder="Type here...">
+          <small>Password must be at least 8 characters.</small>
           <br>
           <div class="spread">
             <a class="back" onclick="previousScreen()">Go back</a>
-            <button class="small gradient" onclick="(() => {
-              document.getElementById('screen-2').focus()
-            })()">Create Account</button>
+            <button class="small gradient">Create Account</button>
+          </div>
+        </div>
+        <div class="screen unloaded bottom" id="screen-3">
+          <h1>One moment.</h1>
+          <h3>Creating your account...</h3>
+        </div>
+        <div class="screen unloaded bottom" id="screen-4">
+          <h3>We texted you a 6-digit code.</h3>
+          <h1>Verify your number</h1>
+          <input id="screen-3-input" inputmode="numeric" pattern="[0-9]*" type="text" name="otp-code" auto-complete="one-time-code" spellcheck="false" placeholder="Type your code here..." maxlength="6" onkeyup="codeFormatter(this)" onpaste="codeFormatter(this)">
+          <br>
+          <div class="spread">
+            <a id="pre-resend" class="back">Didn't get the code? <u>Resend</u></a>
+            <a id="post-resend" class="back invisible">We resent your code.</a>
+            <button class="small">Verify</button>
+          </div>
+        </div>
+        <div class="screen unloaded bottom" id="screen-5">
+          <h3>Your account is ready.</h3>
+          <h1>Nice to meet you, <span id="first-name">Jack</span>.</h1>
+          <br>
+          <div class="middle">
+            <button class="small gradient">Get Started</button>
           </div>
         </div>
       </div>

@@ -18,8 +18,11 @@ const phoneFormatter = (obj) => {
   obj.value = value
 }
 
+const codeFormatter = (obj) => {
+  obj.value = obj.value.replace(/\D/g,'')
+}
 
-const SCREENS = 3
+const SCREENS = 6
 let SCREEN = 0
 
 const nextScreen = () => {
@@ -33,7 +36,9 @@ const nextScreen = () => {
       $("#screen-" + i.toString()).addClass("unloaded bottom")
     }
     setTimeout(() => {
-      document.getElementById("screen-" + SCREEN.toString()).focus()
+      try {
+        $("#screen-" + SCREEN.toString() + "-input")[0].focus()
+      } catch (e) {}
     })
   }
 }
