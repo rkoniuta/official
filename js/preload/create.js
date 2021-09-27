@@ -105,31 +105,36 @@ const resend = () => {
   })
 }
 
+let isVerifying = false
 const verify = () => {
-  const codeInput = document.getElementById("screen-3-input")
-  if (verifyCode(codeInput)) {
-    const code = cleanPhone(codeInput.value)
-    ROUTINES.verify(code, (err) => {
-      if (err) {
-        codeInput.placeholder = "Incorrect code."
-        codeInput.setAttribute("invalid", "true")
-        codeInput.value = ""
-      }
-      else {
-        const firstName = localStorage.getItem("__paywake-temp-name").split(" ")[0].trim()
-        document.getElementById("first-name").innerHTML = firstName
-        localStorage.setItem("__paywake-screen", (5).toString())
-        ROUTINES.login(
-          localStorage.getItem("__paywake-temp-username"),
-          localStorage.getItem("__paywake-temp-password"),
-          (err) => {
-            localStorage.removeItem("__paywake-temp-username")
-            localStorage.removeItem("__paywake-temp-password")
-            nextScreen()
-          }
-        )
-      }
-    })
+  if (!isVerifying) {
+    const codeInput = document.getElementById("screen-3-input")
+    if (verifyCode(codeInput)) {
+      const code = cleanPhone(codeInput.value)
+      isVerifying = true
+      ROUTINES.verify(code, (err) => {
+        if (err) {
+          codeInput.placeholder = "Incorrect code."
+          codeInput.setAttribute("invalid", "true")
+          codeInput.value = ""
+          isVerifying = false
+        }
+        else {
+          const firstName = localStorage.getItem("__paywake-temp-name").split(" ")[0].trim()
+          document.getElementById("first-name").innerHTML = firstName
+          localStorage.setItem("__paywake-screen", (5).toString())
+          ROUTINES.login(
+            localStorage.getItem("__paywake-temp-username"),
+            localStorage.getItem("__paywake-temp-password"),
+            (err) => {
+              localStorage.removeItem("__paywake-temp-username")
+              localStorage.removeItem("__paywake-temp-password")
+              nextScreen()
+            }
+          )
+        }
+      })
+    }
   }
 }
 
