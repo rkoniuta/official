@@ -253,3 +253,7 @@ input[name=otp-code]::placeholder {
 .invisible {
   display: none;
 }
+
+input[invalid=true] {
+  border-color: rgba(255, 0, 0, 0.3);
+}
