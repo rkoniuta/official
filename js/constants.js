@@ -5,9 +5,9 @@ const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 
 const REDIRECTS = {
-  home: "./",
-  onAuth: "./dashboard",
-  noAuth: "./login"
+  home: "https://paywake.net",
+  onAuth: "https://paywake.net/dashboard",
+  noAuth: "https://paywake.net/login"
 }
 
 if (JSON.parse(localStorage.getItem("__paywake-dev"))) {

@@ -1,0 +1,3 @@
+const logout = () => {
+  ROUTINES.logout()
+}
