@@ -136,7 +136,16 @@ const verify = () => {
         codeInput.value = ""
       }
       else {
-        nextScreen()
+        localStorage.setItem("__paywake-screen", (5).toString())
+        ROUTINES.login(
+          localStorage.getItem("__paywake-temp-username"),
+          localStorage.getItem("__paywake-temp-password"),
+          (err) => {
+            localStorage.removeItem("__paywake-temp-username"),
+            localStorage.removeItem("__paywake-temp-password")
+            nextScreen()
+          }
+        )
       }
     })
   }
