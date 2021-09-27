@@ -16,3 +16,11 @@ if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
     REDIRECTS[key] = (REDIRECTS[key] + add)
   }
 }
+
+const cleanPhone = (string) => {
+  return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
+}
+
+const cleanName = (string) => {
+  return string.toString().trim().replace(/[^a-zA-Z\.\- ]+/g, "")
+}

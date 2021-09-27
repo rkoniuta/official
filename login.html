@@ -51,6 +51,11 @@
     <link rel="stylesheet" href="https://dev.paywake.net/package/dev.css">
     <script src="https://dev.paywake.net/package/dev.js"></script>
 
+    <!--COGNITO-->
+    <script src="js/aws/sdk.min.js"></script>
+    <script src="js/aws/cognito.min.js"></script>
+    <script src="js/aws/identity.min.js"></script>
+
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
     <script src="js/preload/login.js"></script>
@@ -85,11 +90,11 @@
         <h1>Log in</h1>
         <h3>No account yet? <a href="https://paywake.net/create">Create one.</a></h3>
         <br>
-        <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="username" type="text" id="phone" class="phone" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
-        <input type="password" placeholder="Password" name="password" maxlength="64">
+        <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="username" type="text" id="phone" class="phone" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)" onblur="verifyPhone(this)">
+        <input type="password" placeholder="Password" name="password" maxlength="64" onblur="verifyPassword(this)">
         <br><br><br>
         <div class="middle">
-          <button>Log In</button>
+          <button onclick="login()">Log In</button>
         </div>
       </div>
       <div class="footer-container">

@@ -1,13 +1,5 @@
 const CREATION_DELAY_MS = 500
 
-const cleanPhone = (string) => {
-  return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
-}
-
-const cleanName = (string) => {
-  return string.toString().trim().replace(/[^a-zA-Z\.\- ]+/g, "")
-}
-
 const formatPhone = (value) => {
   if (!value) {
     return value

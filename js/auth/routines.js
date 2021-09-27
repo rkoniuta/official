@@ -14,7 +14,6 @@ const ROUTINES = {
       onSuccess: (result) => {
         USER = result.user
         callback(null)
-        window.location.href = REDIRECTS.onAuth
       },
       onFailure: (err) => {
         callback(err)
@@ -43,6 +42,8 @@ const ROUTINES = {
       else {
         USER = result.user
         localStorage.setItem("__paywake-verify", phone)
+        localStorage.setItem("__paywake-temp-username", phone)
+        localStorage.setItem("__paywake-temp-password", password)
         callback(null)
       }
     })

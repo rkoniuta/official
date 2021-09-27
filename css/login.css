@@ -65,3 +65,7 @@ input[name=username] {
   background-repeat: no-repeat;
   image-orientation: none;
 }
+
+input[invalid=true] {
+  border-color: red;
+}
