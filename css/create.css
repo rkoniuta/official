@@ -257,3 +257,7 @@ input[name=otp-code]::placeholder {
 input[invalid=true] {
   border-color: rgba(255, 0, 0, 0.3);
 }
+
+#first-name {
+  text-transform: capitalize;
+}

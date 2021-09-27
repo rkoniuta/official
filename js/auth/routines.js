@@ -42,6 +42,7 @@ const ROUTINES = {
       else {
         USER = result.user
         localStorage.setItem("__paywake-verify", phone)
+        localStorage.setItem("__paywake-temp-name", name)
         localStorage.setItem("__paywake-temp-username", phone)
         localStorage.setItem("__paywake-temp-password", password)
         callback(null)

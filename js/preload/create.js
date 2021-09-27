@@ -73,7 +73,7 @@ const createAccount = () => {
     setScreen(1)
   }
   if (verifyPassword(document.getElementById("screen-2-input"))) {
-    const name = cleanPhone(document.getElementById("screen-0-input").value)
+    const name = cleanName(document.getElementById("screen-0-input").value)
     const phone = ("+1" + cleanPhone(document.getElementById("screen-1-input").value))
     const password = document.getElementById("screen-2-input").value
     setScreen(3)
@@ -116,12 +116,14 @@ const verify = () => {
         codeInput.value = ""
       }
       else {
+        const firstName = localStorage.getItem("__paywake-temp-name").split(" ")[0].trim()
+        document.getElementById("first-name").innerHTML = firstName
         localStorage.setItem("__paywake-screen", (5).toString())
         ROUTINES.login(
           localStorage.getItem("__paywake-temp-username"),
           localStorage.getItem("__paywake-temp-password"),
           (err) => {
-            localStorage.removeItem("__paywake-temp-username"),
+            localStorage.removeItem("__paywake-temp-username")
             localStorage.removeItem("__paywake-temp-password")
             nextScreen()
           }
@@ -172,5 +174,6 @@ const verifyCode = (obj) => {
 }
 
 const toDashboard = () => {
+  localStorage.removeItem("__paywake-temp-name", name)
   window.location.href = REDIRECTS.onAuth
 }
