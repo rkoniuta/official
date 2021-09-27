@@ -91,8 +91,10 @@
         <h3>No account yet? <a href="https://paywake.net/create">Create one.</a></h3>
         <br>
         <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="username" type="text" id="phone" class="phone" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)" onblur="verifyPhone(this)">
-        <input type="password" placeholder="Password" name="password" maxlength="64" onblur="verifyPassword(this)">
-        <br><br><br>
+        <input id="password" type="password" placeholder="Password" name="password" maxlength="64" onblur="verifyPassword(this)">
+        <br>
+        <p class="small" id="message"></p>
+        <br>
         <div class="middle">
           <button onclick="login()">Log In</button>
         </div>

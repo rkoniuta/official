@@ -18,6 +18,34 @@ const verifyPassword = (obj) => {
   return false
 }
 
-const login = () => {
+const phoneNumberDoesntExist = () => {
+  document.getElementById("message").innerHTML = "No account exists with that phone number."
+  document.getElementById("phone").setAttribute("invalid", "true")
+}
 
+const incorrectPassword = () => {
+  document.getElementById("message").innerHTML = "Incorrect password."
+  document.getElementById("password").setAttribute("invalid", "true")
+}
+
+const login = () => {
+  const phoneInput = document.getElementById("phone")
+  const passwordInput = document.getElementById("password")
+  if (verifyPhone(phoneInput) && verifyPassword(passwordInput)) {
+    const phone = ("+1" + cleanPhone(phoneInput.value))
+    const password = passwordInput.value
+    ROUTINES.login(phone, password, (err) => {
+      if (err) {
+        if (err.code === "UserNotFoundException") {
+          phoneNumberDoesntExist()
+        }
+        else {
+          incorrectPassword()
+        }
+      }
+      else {
+        window.location.href = REDIRECTS.onAuth
+      }
+    })
+  }
 }

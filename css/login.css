@@ -69,3 +69,14 @@ input[name=username] {
 input[invalid=true] {
   border-color: red;
 }
+
+p.small {
+  margin-top: 12px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  color: rgba(0,0,0,0.4);
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+  width: 300px;
+  text-align: center;
+}
