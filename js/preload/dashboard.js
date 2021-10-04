@@ -37,7 +37,7 @@ const estimateAlert = () => {
   const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
   const returns =  (Math.floor(deposit * ((ESTIMATED_RETURN / 100) + 1) * 100) / 100)
   const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0")))
-  const text = ("This $" + dollarString + " average return is based the last 30 days of Paywake user data.")
+  const text = ("This $" + dollarString + " average return is based on the last 30 days of Paywake user data.")
   alert(text)
 }
 
