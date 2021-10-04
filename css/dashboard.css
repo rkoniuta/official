@@ -8,8 +8,16 @@
   z-index: -1;
 }
 
+.hero-padding {
+  width: 100vw;
+  height: 120px;
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(0deg, rgba(255,255,255,1) 1%, rgba(255,255,255,0) 80%);
+  background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 1%, rgba(255,255,255,0) 80%);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 1%, rgba(255,255,255,0) 80%);
+}
+
 .hero {
-  padding-bottom: 120px;
   height: 320px;
   box-sizing: border-box;
   background: rgba(0,0,0,0.6);
