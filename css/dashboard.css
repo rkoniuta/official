@@ -5,7 +5,7 @@
   background: linear-gradient(166deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
   position: fixed;
-  z-index: -1;
+  z-index: 1;
 }
 
 .hero-padding {
