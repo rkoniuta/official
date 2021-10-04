@@ -41,6 +41,7 @@
 
     <!--STYLING-->
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/range.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
@@ -104,6 +105,40 @@
       </div>
     </div>
     <div class="content">
+      <div class="buffer"></div>
+      <br>
+      <button>Schedule a Wakeup</button>
+      <br>
+      <h3>Earnings Data</h3>
+      <div class="dollar-subtitle bounds">
+        <small>Users who deposited</small>
+        <small>Received</small>
+      </div>
+      <div class="dollar bounds">
+        <h1>
+          <span class="dollar-sign">$</span>
+          <span id="deposit-amount">0</span>
+        </h1>
+        <h1>
+          <span class="dollar-sign">$</span>
+          <span id="return-amount">0</span>
+          <span id="return-amount-cents" class="cents">.00</span>
+        </h1>
+      </div>
+      <div class="estimate-info">
+        <img src="assets/images/info.png" onclick="estimateAlert()">
+      </div>
+      <div class="dollar-subtitle bounds bottom">
+        <small></small>
+        <small>in return on average</small>
+      </div>
+      <input id="estimate-slider" class="slider" type="range" value="30" min="5" max="99" onchange="slider(this)" oninput="slider(this)">
+      <div class="range bounds">
+        <small>$5 USD</small>
+        <small>$99</small>
+      </div>
+      <br>
+      <h3>Upcoming Wakeups</h3>
     </div>
 
     <!--POST-LOAD-->

@@ -5,6 +5,7 @@ const API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/dev"
 const ESTIMATED_RETURN = 10
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
+const SLIDER_DURATION_MS = 1200
 
 const REDIRECTS = {
   home: "https://paywake.net",
