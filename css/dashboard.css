@@ -248,8 +248,7 @@
   background: linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
   margin-right: 18px;
-  border-radius: 11px;
-  overflow: hidden;
+  border-radius: 13px;
   border: 1px solid white;
   box-sizing: border-box;
   width: 72px;
@@ -260,11 +259,13 @@
   width: 72px;
   height: 72px;
   border-radius: 11px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
   box-sizing: border-box;
   background: rgb(255,255,255);
-  background: -moz-linear-gradient(20deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
-  background: -webkit-linear-gradient(20deg, rgba(255,255,255,0) 40%, rgba(255,255,255,1) 50%);
-  background: linear-gradient(20deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
+  background: -moz-linear-gradient(17deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
+  background: -webkit-linear-gradient(17deg, rgba(255,255,255,0) 40%, rgba(255,255,255,1) 50%);
+  background: linear-gradient(17deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   display: flex;
   flex-direction: row;
