@@ -186,7 +186,7 @@
 }
 
 #schedule-button {
-  margin-bottom: 4px;
+  margin: 12px 0px;
 }
 
 #grab-handle {
@@ -250,6 +250,10 @@
   margin-right: 18px;
   border-radius: 11px;
   overflow: hidden;
+  border: 1px solid white;
+  box-sizing: border-box;
+  width: 72px;
+  height: 72px;
 }
 
 .wakeup > .deposit-container > .deposit {
@@ -275,7 +279,7 @@
   font-family: 'Urbanist', sans-serif;
   line-height: 32px;
   margin: 0px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 
@@ -307,7 +311,7 @@
 
 .wakeup > .info > h3 {
   font-size: 40px;
-  font-weight: 300;
+  font-weight: 600;
   font-family: 'Urbanist', sans-serif;
   margin: 0px;
 }
@@ -320,7 +324,7 @@
 }
 
 .wakeup > .info > h3 > .colon {
-  font-weight: 400;
+  font-weight: 800;
   font-size: 36px;
   margin: 0px -4px;
   vertical-align: text-top;
