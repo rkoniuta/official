@@ -57,6 +57,8 @@
   align-items: center;
   justify-content: flex-start;
   align-content: center;
+  padding-top: 12px;
+  padding-bottom: 100px;
 }
 
 .balance-container {
@@ -116,12 +118,6 @@
   margin-left: 1px;
 }
 
-.content > .buffer {
-  height: 12px;
-  width: 300px;
-  box-sizing: border-box;
-}
-
 .content > h3 {
   font-family: 'Urbanist', sans-serif;
   font-size: 24px;
@@ -136,4 +132,55 @@
 
 .dollar-subtitle.bounds.bottom {
   margin-top: 1px;
+}
+
+.toolbar-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  box-sizing: border-box;
+  background: white;
+  z-index: 1000;
+}
+
+.toolbar {
+  width: 100vw;
+  min-width: 476px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  box-sizing: border-box;
+  padding: 18px 30px;
+}
+
+.toolbar > a > img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity linear 0.1s;
+}
+
+.toolbar > a > img:active {
+  opacity: 0.8;
+}
+
+#schedule-button {
+  margin-bottom: 8px;
+}
+
+.filler {
+  box-sizing: border-box;
+  width: 300px;
+  height: 500px;
+  background: #f0f0f0;
+  border-radius: 22px;
 }
