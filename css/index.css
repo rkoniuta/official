@@ -13,6 +13,7 @@ body {
   background-color: white;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
+  -webkit-overflow-scrolling: touch;
 }
 
 .header {
