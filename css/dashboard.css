@@ -57,7 +57,7 @@
   align-items: center;
   justify-content: flex-start;
   align-content: center;
-  padding-top: 12px;
+  padding-top: 14px;
   padding-bottom: 100px;
 }
 
@@ -146,7 +146,7 @@
   left: 0px;
   box-sizing: border-box;
   background: white;
-  z-index: 1000;
+  z-index: 3;
 }
 
 .toolbar {
@@ -174,7 +174,20 @@
 }
 
 #schedule-button {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+#grab-handle {
+  position: absolute;
+  z-index: 3;
+  background: black;
+  box-sizing: border-box;
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  top: 228px;
+  left: calc(50vw - 30px);
+  opacity: 0.16;
 }
 
 .filler {
