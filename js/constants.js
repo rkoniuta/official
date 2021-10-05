@@ -7,6 +7,12 @@ const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
 
+const IS_IOS = (
+  (/iPad|iPhone|iPod/.test(navigator.platform) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+  !window.MSStream
+)
+
 const REDIRECTS = {
   home: "https://paywake.net",
   onAuth: "https://paywake.net/dashboard",
