@@ -1,5 +1,5 @@
 $("#password").on("keyup", (e) => {
   if (e.keyCode === 13) {
-    login()
+    login(document.getElementById("login-button"))
   }
 })
