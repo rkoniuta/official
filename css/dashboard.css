@@ -341,3 +341,43 @@
 #buffer.if-ios {
   display: none;
 }
+
+.earnings-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  flex-direction: row;
+  width: 300px;
+}
+
+.earnings-container > h3 {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.earnings-container > p > span.button {
+  font-weight: 700;
+  font-size: 12px;
+  vertical-align: middle;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  padding: 3px 6px;
+  border-radius: 7px;
+  margin-left: 4px;
+}
+
+.earnings-container > p > span.button.active {
+  font-weight: 700;
+  font-size: 12px;
+  vertical-align: middle;
+  background: rgba(0,0,0,1);
+  color: white;
+  padding: 3px 6px;
+  border-radius: 7px;
+  margin-left: 1px;
+}
