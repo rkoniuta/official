@@ -53,6 +53,7 @@ const set1DayReturns = () => {
   RETURN_TOGGLE = 1
   $("#1d-button").addClass("active")
   $("#30d-button").removeClass("active")
+  document.getElementById("1d-30d-text").innerHTML = "Today,"
   slider(document.getElementById("estimate-slider"))
 }
 
@@ -60,6 +61,7 @@ const set30DayReturns = () => {
   RETURN_TOGGLE = 0
   $("#30d-button").addClass("active")
   $("#1d-button").removeClass("active")
+  document.getElementById("1d-30d-text").innerHTML = "In the last 30 days,"
   slider(document.getElementById("estimate-slider"))
 }
 
