@@ -28,13 +28,15 @@ const incorrectPassword = () => {
   document.getElementById("password").setAttribute("invalid", "true")
 }
 
-const login = () => {
+const login = (obj) => {
   const phoneInput = document.getElementById("phone")
   const passwordInput = document.getElementById("password")
   if (verifyPhone(phoneInput) && verifyPassword(passwordInput)) {
     const phone = ("+1" + cleanPhone(phoneInput.value))
     const password = passwordInput.value
+    $(obj).addClass("loading")
     ROUTINES.login(phone, password, (err) => {
+      $(obj).removeClass("loading")
       if (err) {
         if (err.code === "UserNotFoundException") {
           phoneNumberDoesntExist()

@@ -1,3 +1,14 @@
+.backplate {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgb(255,204,0);
+  z-index: -100000;
+  top: 0px;
+  left: 0px;
+  box-sizing: border-box;
+}
+
 .hero-container {
   background: rgb(102,0,255);
   background: -moz-linear-gradient(166deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
@@ -12,9 +23,9 @@
   width: 100vw;
   height: 120px;
   background: rgb(255,255,255);
-  background: -moz-linear-gradient(0deg, rgba(255,255,255,1) 1%, rgba(255,255,255,0) 80%);
-  background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 1%, rgba(255,255,255,0) 80%);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 1%, rgba(255,255,255,0) 80%);
+  background: -moz-linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
+  background: -webkit-linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
+  background: linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
 }
 
 .hero {

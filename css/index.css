@@ -293,3 +293,11 @@ p.legal > a {
 #roughly {
   opacity: 0.4;
 }
+
+button.loading {
+  background-image: url('../assets/images/loader-white.svg');
+  background-size: 24px 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+}
