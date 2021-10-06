@@ -4,9 +4,17 @@ const logout = () => {
   ROUTINES.logout()
 }
 
+let MONTH_RETURN = 8
+let TODAY_RETURN = 12
+let RETURN_TOGGLE = 1
+
 const slider = (obj) => {
+  let historic = MONTH_RETURN
+  if (RETURN_TOGGLE) {
+    historic = TODAY_RETURN
+  }
   const deposit = Math.round(obj.value)
-  const returns = (Math.floor(deposit * ((ESTIMATED_RETURN / 100) + 1) * 100) / 100)
+  const returns = (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
   document.getElementById("return-amount").innerHTML = Math.floor(returns).toString()
   document.getElementById("return-amount-cents").innerHTML = ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0"))
@@ -39,6 +47,20 @@ const estimateAlert = () => {
   const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0")))
   const text = ("This $" + dollarString + " average return is based on the last 30 days of Paywake user data.")
   alert(text)
+}
+
+const set1DayReturns = () => {
+  RETURN_TOGGLE = 1
+  $("#1d-button").addClass("active")
+  $("#30d-button").removeClass("active")
+  slider(document.getElementById("estimate-slider"))
+}
+
+const set30DayReturns = () => {
+  RETURN_TOGGLE = 0
+  $("#30d-button").addClass("active")
+  $("#1d-button").removeClass("active")
+  slider(document.getElementById("estimate-slider"))
 }
 
 /* STRIPE TESTING */

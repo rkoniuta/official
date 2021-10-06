@@ -139,7 +139,11 @@
 }
 
 .dollar-subtitle.bounds.bottom {
-  margin-top: 1px;
+  margin-top: 0px;
+}
+
+.bounds {
+  align-items: flex-end;
 }
 
 .toolbar-container {
@@ -372,12 +376,5 @@
 }
 
 .earnings-container > p > span.button.active {
-  font-weight: 700;
-  font-size: 12px;
-  vertical-align: middle;
   background: rgba(0,0,0,1);
-  color: white;
-  padding: 3px 6px;
-  border-radius: 7px;
-  margin-left: 1px;
 }
