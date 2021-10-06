@@ -384,6 +384,7 @@
   padding: 3px 6px;
   border-radius: 7px;
   margin-left: 4px;
+  cursor: pointer;
 }
 
 .earnings-container > p > span.button.active {
