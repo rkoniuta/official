@@ -65,24 +65,26 @@ const set30DayReturns = () => {
   slider(document.getElementById("estimate-slider"))
 }
 
-/* STRIPE TESTING */
-const elements = stripe.elements()
-const card = elements.create('card', {
-  style: {
-    base: {
-      fontSize: "15px",
-      fontFamily: "'Urbanist', sans-serif",
-      color: "rgba(0,0,0,0.4)",
-      width: "300px",
+const setBalance = (balance = 0) => {
+  localStorage.setItem("__paywake-balance", balance.toString())
+  const dollars = Math.floor(balance / 100)
+  const cents = Math.floor(balance % 100)
+  document.getElementById("balance-dollars").innerHTML = dollars.toString()
+  document.getElementById("balance-cents").innerHTML = ("." + cents.toString().padEnd(2, "0"))
+}
+
+const fetchBalance = () => {
+  $.ajax({
+    url: (API + "/balance"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
     },
-  }
-})
-const submitToken = () => {
-  stripe.createToken(card).then((result) => {
-   if (result.error) {
-     console.log("There was an error.")
-   } else {
-     console.log("Token: ", result.token)
-   }
- })
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setBalance(data.balance)
+    }
+  })
 }

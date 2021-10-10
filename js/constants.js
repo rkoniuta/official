@@ -53,3 +53,5 @@ const phoneFormatter = (obj) => {
   const value = formatPhone(obj.value)
   obj.value = value
 }
+
+const ID_TOKEN = localStorage.getItem("CognitoIdentityServiceProvider." + CLIENT_ID + "." + USER.username + ".idToken")

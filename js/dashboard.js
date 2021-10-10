@@ -4,5 +4,4 @@ if (IS_IOS) {
   $(".if-ios").removeClass("if-ios")
 }
 
-/* STRIPE TESTING */
-card.mount('#card-element')
+setBalance(localStorage.getItem("__paywake-balance") || 0)
