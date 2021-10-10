@@ -1,7 +1,7 @@
 let USER_POOL = null;
 let USER = null;
 let SESSION = false;
-let ID_TOKEN = ""
+let ID_TOKEN = "";
 
 (() => {
   AWSCognito.config.region = AWS.config.region
