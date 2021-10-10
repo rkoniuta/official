@@ -1,12 +1,15 @@
 const YEAR = (new Date()).getFullYear()
 
-const stripe = Stripe("pk_test_51JUdOkLpUT5ZEdXBfLc7zrtfyF0ZExQDolGH78FwUuRIC3O2qPalOclEL8mCNISHrXhGuxNA7mX17ARbY28hsvMT00QUcJY6MC")
-const STRIPE = stripe
 const API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/dev"
 const ESTIMATED_RETURN = 10
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
+
+if (Stripe) {
+  const stripe = Stripe("pk_test_51JUdOkLpUT5ZEdXBfLc7zrtfyF0ZExQDolGH78FwUuRIC3O2qPalOclEL8mCNISHrXhGuxNA7mX17ARbY28hsvMT00QUcJY6MC")
+  const STRIPE = stripe
+}
 
 const IS_IOS = (
   (/iPad|iPhone|iPod/.test(navigator.platform) ||
