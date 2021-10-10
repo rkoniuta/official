@@ -1,4 +1,5 @@
 /* STRIPE TESTING */
+const stripe = Stripe("pk_test_51JUdOkLpUT5ZEdXBfLc7zrtfyF0ZExQDolGH78FwUuRIC3O2qPalOclEL8mCNISHrXhGuxNA7mX17ARbY28hsvMT00QUcJY6MC")
 const elements = stripe.elements()
 const card = elements.create('card', {
   style: {
