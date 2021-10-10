@@ -1,6 +1,7 @@
 let USER_POOL = null;
 let USER = null;
 let SESSION = false;
+let ID_TOKEN = ""
 
 (() => {
   AWSCognito.config.region = AWS.config.region
@@ -20,12 +21,12 @@ let SESSION = false;
       })
       if (session.isValid()) {
         SESSION = true
+        ID_TOKEN = localStorage.getItem("CognitoIdentityServiceProvider." + CLIENT_ID + "." + USER.username + ".idToken")
       }
     })
   }
   try {
     if (AUTH) {
-      const ID_TOKEN = localStorage.getItem("CognitoIdentityServiceProvider." + CLIENT_ID + "." + USER.username + ".idToken")
       AUTH()
     }
   } catch (e) {}
