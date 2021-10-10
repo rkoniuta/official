@@ -5,3 +5,4 @@ if (IS_IOS) {
 }
 
 setBalance(localStorage.getItem("__paywake-balance") || 0)
+fetchBalance()
