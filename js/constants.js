@@ -6,11 +6,6 @@ const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
 
-if (Stripe) {
-  const stripe = Stripe("pk_test_51JUdOkLpUT5ZEdXBfLc7zrtfyF0ZExQDolGH78FwUuRIC3O2qPalOclEL8mCNISHrXhGuxNA7mX17ARbY28hsvMT00QUcJY6MC")
-  const STRIPE = stripe
-}
-
 const IS_IOS = (
   (/iPad|iPhone|iPod/.test(navigator.platform) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
