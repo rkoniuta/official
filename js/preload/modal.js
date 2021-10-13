@@ -6,9 +6,9 @@ const MODAL = {
       const backdrop = document.getElementById("__modal-backdrop")
       const container = document.getElementById("__modal-container")
       backdrop.className = "on"
+      container.style.top = (Math.ceil(window.innerHeight - container.offsetHeight).toString() + "px")
       setTimeout(() => {
         $(backdrop).addClass("visible")
-        container.style.top = (Math.ceil(window.innerHeight - container.offsetHeight).toString() + "px")
       }, 50)
     }
   },
