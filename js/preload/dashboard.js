@@ -92,6 +92,27 @@ const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
   }
 }
 
+const cancelWakeup = (wakeup, node) => {
+  const balance = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "balance"))
+  let elements = []
+  let title = document.createElement("h3")
+  title.innerHTML = "Confirm Cancellation"
+  elements.push(title)
+  elements.push(node)
+  let text = document.createElement("p")
+  let fee = Math.min(Math.floor(wakeup.deposit * 0.015), balance)
+  let dollars = Math.floor(fee / 100)
+  let cents = Math.floor(fee % 100)
+  if (fee > 0) {
+    text.innerHTML = ("Are you sure you want to cancel this wakeup? A cancellation fee of $" + dollars.toString() + "." + cents.toString().padEnd(2, "0") + " will be deducted from your Paywake balance.")
+  }
+  else {
+    text.innerHTML = "Are you sure you want to cancel this wakeup?"
+  }
+  elements.push(text)
+  MODAL.display(elements)
+}
+
 const setWakeups = (data = []) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
   let container = document.getElementById("wakeup-container")
@@ -162,9 +183,16 @@ const setWakeups = (data = []) => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    const node = parent.cloneNode(true)
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (!wakeup.verified) {
+      button.onclick = () => {
+        cancelWakeup(wakeup, node)
+      }
+    }
   }
 }
 

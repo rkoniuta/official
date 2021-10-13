@@ -53,6 +53,9 @@ $(window).on("load", () => {
   container.appendChild(modal)
   let backdrop = document.createElement("div")
   backdrop.id = "__modal-backdrop"
+  backdrop.onclick = () => {
+    MODAL.hide()
+  }
   document.body.appendChild(backdrop)
   document.body.appendChild(container)
 })
