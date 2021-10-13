@@ -7,6 +7,7 @@ let TODAY_RETURN = 10
 let RETURN_TOGGLE = 1
 let YESTERDAY_FLAG = 0
 const DEFAULT_EARNINGS_DATA = {
+  today: 0.1,
   lastMonth: 0.1,
   earnings: []
 }
