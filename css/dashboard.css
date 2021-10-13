@@ -377,6 +377,11 @@
   box-sizing: border-box;
   opacity: 0.4;
   cursor: pointer;
+  transition: opacity linear 0.1s;
+}
+
+.wakeup > .cancel > img:not(.verified):active {
+  opacity: 0.8;
 }
 
 .wakeup > .cancel > img.verified {
