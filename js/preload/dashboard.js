@@ -2,8 +2,8 @@ const logout = () => {
   ROUTINES.logout()
 }
 
-let MONTH_RETURN = 8
-let TODAY_RETURN = 12
+let MONTH_RETURN = 10
+let TODAY_RETURN = 10
 let RETURN_TOGGLE = 1
 let YESTERDAY_FLAG = 0
 const DEFAULT_EARNINGS_DATA = {
