@@ -137,7 +137,12 @@ const setWakeups = (data = []) => {
     am.className = "am"
     am.innerHTML = "am"
     let p = document.createElement("p")
-    p.innerHTML = (date + " &#8212; " + fromNow)
+    if (wakeup.verified) {
+      p.innerHTML = (date + " &#8212; <b>Verified</b>")
+    }
+    else {
+      p.innerHTML = (date + " &#8212; " + fromNow)
+    }
 
     h1.appendChild(dollarSign)
     h1.appendChild(depositAmount)
