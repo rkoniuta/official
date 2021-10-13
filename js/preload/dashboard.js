@@ -110,6 +110,47 @@ const cancelWakeup = (wakeup, node) => {
     text.innerHTML = "Are you sure you want to cancel this wakeup?"
   }
   elements.push(text)
+  let group = document.createElement("div")
+  group.className = "button-group"
+  let goback = document.createElement("button")
+  goback.innerHTML = "Go Back"
+  goback.className = "transparent"
+  let confirm = document.createElement("button")
+  confirm.innerHTML = "Confirm"
+  group.appendChild(goback)
+  group.appendChild(confirm)
+  elements.push(group)
+  goback.onclick = () => {
+    MODAL.hide()
+  }
+  confirm.onclick = () => {
+    confirm.className = "loading"
+    $.ajax({
+      url: (API + "/cancel"),
+      type: "PUT",
+      data: {
+        id: wakeup.id
+      },
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", ID_TOKEN)
+      },
+      success: (data) => {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1)
+      },
+      error: (data) => {
+        confirm.className = ""
+        MODAL.hide()
+        setTimeout(() => {
+          MODAL.displayHTML("<p>Error - cancellation failed</p>")
+        }, 1000)
+      }
+    })
+  }
   MODAL.display(elements)
 }
 
