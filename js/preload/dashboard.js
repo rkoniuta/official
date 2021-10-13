@@ -162,6 +162,8 @@ const setWakeups = (data = []) => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    cancel.appendChild(button)
+    parent.appendChild(cancel)
     container.appendChild(parent)
   }
 }
