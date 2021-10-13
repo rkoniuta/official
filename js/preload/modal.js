@@ -9,7 +9,7 @@ const MODAL = {
       setTimeout(() => {
         $(backdrop).addClass("visible")
         container.style.top = (Math.ceil(window.innerHeight - container.offsetHeight).toString() + "px")
-      }, 1)
+      }, 50)
     }
   },
   hide: () => {
