@@ -3,7 +3,7 @@ const setBalance = (balance = 0) => {
   const dollars = Math.floor(balance / 100)
   const cents = Math.floor(balance % 100)
   document.getElementById("balance-dollars").innerHTML = dollars.toString()
-  document.getElementById("balance-cents").innerHTML = ("." + cents.toString().padEnd(2, "0"))
+  document.getElementById("balance-cents").innerHTML = ("." + cents.toString().padStart(2, "0"))
 }
 
 const fetchBalance = () => {

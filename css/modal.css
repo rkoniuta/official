@@ -74,3 +74,12 @@
   width: 300px;
   box-sizing: border-box;
 }
+
+#__modal > .center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  width: 300px;
+}

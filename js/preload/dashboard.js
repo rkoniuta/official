@@ -21,7 +21,7 @@ const slider = (obj) => {
   const returns = (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
   document.getElementById("return-amount").innerHTML = Math.floor(returns).toString()
-  document.getElementById("return-amount-cents").innerHTML = ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0"))
+  document.getElementById("return-amount-cents").innerHTML = ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0"))
 }
 
 const sliderInit = (obj) => {
@@ -48,7 +48,7 @@ const sliderInit = (obj) => {
 const estimateAlert = () => {
   const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
   const returns =  (Math.floor(deposit * ((ESTIMATED_RETURN / 100) + 1) * 100) / 100)
-  const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0")))
+  const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0")))
   const text = ("This $" + dollarString + " average return is based on the last 30 days of Paywake user data.")
   alert(text)
 }
@@ -100,11 +100,11 @@ const cancelWakeup = (wakeup, node) => {
   elements.push(title)
   elements.push(node)
   let text = document.createElement("p")
-  let fee = Math.min(Math.floor(wakeup.deposit * 0.015), balance)
+  let fee = Math.min(Math.max(Math.floor(wakeup.deposit * 0.015), 15), balance)
   let dollars = Math.floor(fee / 100)
   let cents = Math.floor(fee % 100)
   if (fee > 0) {
-    text.innerHTML = ("Are you sure you want to cancel this wakeup? A cancellation fee of $" + dollars.toString() + "." + cents.toString().padEnd(2, "0") + " will be deducted from your Paywake balance.")
+    text.innerHTML = ("Are you sure you want to cancel this wakeup? A cancellation fee of $" + dollars.toString() + "." + cents.toString().padStart(2, "0") + " will be deducted from your Paywake balance.")
   }
   else {
     text.innerHTML = "Are you sure you want to cancel this wakeup?"
@@ -231,7 +231,7 @@ const setWakeups = (data = []) => {
 
     if (!wakeup.verified) {
       button.onclick = () => {
-        cancelWakeup(wakeup, node)
+        cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
       }
     }
   }
