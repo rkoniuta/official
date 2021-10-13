@@ -92,12 +92,89 @@ const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
   }
 }
 
+const setWakeups = (data = []) => {
+  localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
+  let container = document.getElementById("wakeup-container")
+  let noWakeups = document.getElementById("no-wakeups")
+  if (data.length > 0) {
+    noWakeups.style.display = "none"
+  }
+  else {
+    noWakeups.style.display = "block"
+  }
+  for (const wakeup of data) {
+    const deposit = (wakeup.deposit / 100).toString()
+    const hour = Math.floor(wakeup.time / 60).toString()
+    const minute = (wakeup.time % 60).toString()
+    const date = moment(EPOCH).tz(TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
+    const fromNow = moment(EPOCH).tz(TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+
+    let parent = document.createElement("div")
+    parent.className = "wakeup"
+    let depositContainer = document.createElement("div")
+    depositContainer.className = "deposit-container"
+    let depositBox = document.createElement("div")
+    depositBox.className = "deposit"
+    let h1 = document.createElement("h1")
+    let dollarSign = document.createElement("span")
+    dollarSign.className = "dollar-sign"
+    dollarSign.innerHTML = "$"
+    let depositAmount = document.createElement("span")
+    depositAmount.innerHTML = deposit
+    let info = document.createElement("div")
+    info.className = "info"
+    let h3 = document.createElement("h3")
+    let hourSpan = document.createElement("span")
+    hourSpan.innerHTML = hour
+    let colon = document.createElement("span")
+    colon.className = "colon"
+    colon.innerHTML = ":"
+    let minuteSpan = document.createElement("span")
+    minuteSpan.innerHTML = minutes
+    let am = document.createElement("span")
+    am.className = "am"
+    am.innerHTML = "am"
+    let p = document.createElement("p")
+    p.innerHTML = (date + " &#8212; " + fromNow)
+
+    h1.appendChild(dollarSign)
+    h1.appendChild(depositAmount)
+    depositBox.appendChild(h1)
+    depositContainer.appendChild(depositBox)
+    parent.appendChild(depositContainer)
+    h3.appendChild(hourSpan)
+    h3.appendChild(colon)
+    h3.appendChild(minuteSpan)
+    h3.appendChild(am)
+    info.appendChild(h3)
+    info.appendChild(p)
+    parent.appendChild(info)
+    container.appendChild(parent)
+  }
+}
+
 const fetchEarnings = () => {
   $.ajax({
     url: (API + "/earnings"),
     type: "GET",
     success: (data) => {
       setEarnings(data)
+    }
+  })
+}
+
+const fetchWakeups = () => {
+  $.ajax({
+    url: (API + "/wakeups"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setWakeups(data.wakeups)
     }
   })
 }
