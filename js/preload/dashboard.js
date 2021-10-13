@@ -130,7 +130,7 @@ const setWakeups = (data = []) => {
     colon.className = "colon"
     colon.innerHTML = ":"
     let minuteSpan = document.createElement("span")
-    minuteSpan.innerHTML = minutes
+    minuteSpan.innerHTML = minute
     let am = document.createElement("span")
     am.className = "am"
     am.innerHTML = "am"
