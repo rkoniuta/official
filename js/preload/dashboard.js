@@ -137,11 +137,17 @@ const setWakeups = (data = []) => {
     am.className = "am"
     am.innerHTML = "am"
     let p = document.createElement("p")
+    let cancel = document.createElement("div")
+    cancel.className = "cancel"
+    let button = document.createElement("img")
     if (wakeup.verified) {
       p.innerHTML = (date + " &#8212; <b>Verified</b>")
+      button.src = "assets/images/verified.png"
+      button.className = "verified"
     }
     else {
       p.innerHTML = (date + " &#8212; " + fromNow)
+      button.src = "assets/images/cancel.png"
     }
 
     h1.appendChild(dollarSign)
