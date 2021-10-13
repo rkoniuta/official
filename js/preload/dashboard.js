@@ -96,6 +96,8 @@ const setWakeups = (data = []) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
   let container = document.getElementById("wakeup-container")
   let noWakeups = document.getElementById("no-wakeups")
+  document.getElementById("wakeup-count").innerHTML = ("(" + data.length.toString() + ")")
+  $(".wakeup").remove()
   if (data.length > 0) {
     noWakeups.style.display = "none"
   }
