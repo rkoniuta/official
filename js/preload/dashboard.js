@@ -75,8 +75,8 @@ const set30DayReturns = () => {
 
 const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "earnings", JSON.stringify(data))
-  MONTH_RETURN = data.lastMonth
-  TODAY_RETURN = (data.today || data.yesterday)
+  MONTH_RETURN = (data.lastMonth * 100)
+  TODAY_RETURN = ((data.today || data.yesterday) * 100)
   if (!data.today) {
     YESTERDAY_FLAG = 1
   }
