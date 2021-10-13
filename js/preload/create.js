@@ -17,7 +17,7 @@ const setScreen = (n) => {
     $("#screen-" + i.toString()).addClass("unloaded bottom")
   }
   if (SCREEN > 3) {
-    localStorage.setItem("__paywake-screen", SCREEN.toString())
+    localStorage.setItem(LOCAL_STORAGE_TAG + "screen", SCREEN.toString())
   }
   setTimeout(() => {
     try {
@@ -88,7 +88,7 @@ const createAccount = () => {
           }
         }
         else {
-          localStorage.setItem("__paywake-screen", (4).toString())
+          localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (4).toString())
           setTimeout(() => {
             setScreen(4)
           },1)
@@ -120,15 +120,15 @@ const verify = () => {
           isVerifying = false
         }
         else {
-          const firstName = localStorage.getItem("__paywake-temp-name").split(" ")[0].trim()
+          const firstName = localStorage.getItem(LOCAL_STORAGE_TAG + "temp-name").split(" ")[0].trim()
           document.getElementById("first-name").innerHTML = firstName
-          localStorage.setItem("__paywake-screen", (5).toString())
+          localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
           ROUTINES.login(
-            localStorage.getItem("__paywake-temp-username"),
-            localStorage.getItem("__paywake-temp-password"),
+            localStorage.getItem(LOCAL_STORAGE_TAG + "temp-username"),
+            localStorage.getItem(LOCAL_STORAGE_TAG + "temp-password"),
             (err) => {
-              localStorage.removeItem("__paywake-temp-username")
-              localStorage.removeItem("__paywake-temp-password")
+              localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-username")
+              localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-password")
               nextScreen()
             }
           )
@@ -179,6 +179,6 @@ const verifyCode = (obj) => {
 }
 
 const toDashboard = () => {
-  localStorage.removeItem("__paywake-temp-name", name)
+  localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-name", name)
   window.location.href = REDIRECTS.onAuth
 }

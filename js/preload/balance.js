@@ -1,5 +1,5 @@
 const setBalance = (balance = 0) => {
-  localStorage.setItem("__paywake-balance", balance.toString())
+  localStorage.setItem(LOCAL_STORAGE_TAG + "balance", balance.toString())
   const dollars = Math.floor(balance / 100)
   const cents = Math.floor(balance % 100)
   document.getElementById("balance-dollars").innerHTML = dollars.toString()

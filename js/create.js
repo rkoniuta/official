@@ -12,8 +12,8 @@ $("input").on("keyup", (e) => {
 
 SCREEN = (-1)
 
-if (localStorage.getItem("__paywake-screen")) {
-  setScreen(parseInt(localStorage.getItem("__paywake-screen")))
+if (localStorage.getItem(LOCAL_STORAGE_TAG + "screen")) {
+  setScreen(parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "screen")))
 }
 else {
   setScreen(0)

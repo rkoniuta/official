@@ -5,6 +5,9 @@ const ESTIMATED_RETURN = 10
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
+const TIME_ZONE = "America/Los_Angeles"
+const EPOCH = [1970, 0, 1]
+const LOCAL_STORAGE_TAG = "__paywake-"
 
 const IS_IOS = (
   (/iPad|iPhone|iPod/.test(navigator.platform) ||

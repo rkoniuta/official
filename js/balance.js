@@ -1,2 +1,2 @@
-setBalance(localStorage.getItem("__paywake-balance") || 0)
+setBalance(localStorage.getItem(LOCAL_STORAGE_TAG + "balance") || 0)
 fetchBalance()

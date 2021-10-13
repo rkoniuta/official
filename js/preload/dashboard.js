@@ -5,6 +5,11 @@ const logout = () => {
 let MONTH_RETURN = 8
 let TODAY_RETURN = 12
 let RETURN_TOGGLE = 1
+let YESTERDAY_FLAG = 0
+const DEFAULT_EARNINGS_DATA = {
+  lastMonth: 0.1,
+  earnings: []
+}
 
 const slider = (obj) => {
   let historic = MONTH_RETURN
@@ -51,7 +56,12 @@ const set1DayReturns = () => {
   RETURN_TOGGLE = 1
   $("#1d-button").addClass("active")
   $("#30d-button").removeClass("active")
-  document.getElementById("1d-30d-text").innerHTML = "Today,"
+  if (YESTERDAY_FLAG) {
+    document.getElementById("1d-30d-text").innerHTML = "Yesterday,"
+  }
+  else {
+    document.getElementById("1d-30d-text").innerHTML = "Today,"
+  }
   slider(document.getElementById("estimate-slider"))
 }
 
@@ -61,4 +71,32 @@ const set30DayReturns = () => {
   $("#1d-button").removeClass("active")
   document.getElementById("1d-30d-text").innerHTML = "In the last 30 days,"
   slider(document.getElementById("estimate-slider"))
+}
+
+const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
+  localStorage.setItem(LOCAL_STORAGE_TAG + "earnings", JSON.stringify(data))
+  MONTH_RETURN = data.lastMonth
+  TODAY_RETURN = (data.today || data.yesterday)
+  if (!data.today) {
+    YESTERDAY_FLAG = 1
+  }
+  else {
+    YESTERDAY_FLAG = 0
+  }
+  if (RETURN_TOGGLE === 1) {
+    set1DayReturns()
+  }
+  else {
+    set30DayReturns()
+  }
+}
+
+const fetchEarnings = () => {
+  $.ajax({
+    url: (API + "/earnings"),
+    type: "GET",
+    success: (data) => {
+      setEarnings(data)
+    }
+  })
 }
