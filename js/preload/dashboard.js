@@ -181,6 +181,7 @@ const verifiedClick = (node) => {
   elements.push(node)
   elements.push(text)
   elements.push(group)
+  node.querySelector("b").onclick = () => {}
   MODAL.display(elements)
 }
 
