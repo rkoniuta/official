@@ -154,6 +154,16 @@ const cancelWakeup = (wakeup, node) => {
   MODAL.display(elements)
 }
 
+const verifiedClick = (node) => {
+  let elements = []
+  let title = document.createElement("h3")
+  title.className = "center"
+  title.innerHTML = "Verification Successful"
+  elements.push(title)
+  elements.push(node)
+  MODAL.display(elements)
+}
+
 const setWakeups = (data = []) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
   let container = document.getElementById("wakeup-container")
@@ -233,6 +243,12 @@ const setWakeups = (data = []) => {
       button.onclick = () => {
         cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
       }
+    }
+    else {
+      button.onclick = () => {
+        verifiedClick(node)
+      }
+      p.querySelector("b").onclick = button.onclick
     }
   }
 }
