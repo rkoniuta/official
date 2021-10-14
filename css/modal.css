@@ -84,6 +84,12 @@
   width: 300px;
 }
 
+#__modal > div.center > img {
+  height: 72px;
+  margin-top: -4px;
+  margin-bottom: 20px;
+}
+
 #__modal > h3.center {
   width: 300px;
   text-align: center;

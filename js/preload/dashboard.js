@@ -155,12 +155,32 @@ const cancelWakeup = (wakeup, node) => {
 }
 
 const verifiedClick = (node) => {
+  const time = moment().hour(11).add(moment().get("hour") - moment.tz(moment.now(), "America/Los_Angeles").get("hour"), "hours").format("h a")
   let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/verified.png"
+  center.appendChild(img)
   let title = document.createElement("h3")
   title.className = "center"
   title.innerHTML = "Verification Successful"
+  let text = document.createElement("p")
+  text.innerHTML = ("You successfully verified this wakeup and will be paid at " + time + " today.")
+  let group = document.createElement("div")
+  group.className = "center"
+  let dismiss = document.createElement("button")
+  dismiss.className = "transparent"
+  dismiss.innerHTML = "Dismiss"
+  dismiss.onclick = () => {
+    MODAL.hide()
+  }
+  group.appendChild(dismiss)
+  elements.push(center)
   elements.push(title)
   elements.push(node)
+  elements.push(text)
+  elements.push(group)
   MODAL.display(elements)
 }
 
