@@ -176,12 +176,14 @@ const verifiedClick = (node) => {
     MODAL.hide()
   }
   group.appendChild(dismiss)
+  let b = node.querySelector("b")
+  b.onclick = () => {}
+  b.style.cursor = "default"
   elements.push(center)
   elements.push(title)
   elements.push(node)
   elements.push(text)
   elements.push(group)
-  node.querySelector("b").onclick = () => {}
   MODAL.display(elements)
 }
 
