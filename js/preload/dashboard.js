@@ -127,6 +127,7 @@ const cancelWakeup = (wakeup, node) => {
   goback.className = "transparent"
   let confirm = document.createElement("button")
   confirm.innerHTML = "Confirm"
+  confirm.id = "__modal-dismiss"
   group.appendChild(goback)
   group.appendChild(confirm)
   elements.push(group)
@@ -177,15 +178,6 @@ const verifiedClick = (node) => {
   title.innerHTML = "Verification Successful"
   let text = document.createElement("p")
   text.innerHTML = ("You successfully verified this wakeup and will be paid at " + time + " today.")
-  let group = document.createElement("div")
-  group.className = "center"
-  let dismiss = document.createElement("button")
-  dismiss.className = "transparent"
-  dismiss.innerHTML = "Dismiss"
-  dismiss.onclick = () => {
-    MODAL.hide()
-  }
-  group.appendChild(dismiss)
   let b = node.querySelector("b")
   b.onclick = () => {}
   b.style.cursor = "default"
@@ -193,7 +185,6 @@ const verifiedClick = (node) => {
   elements.push(title)
   elements.push(node)
   elements.push(text)
-  elements.push(group)
   MODAL.display(elements)
 }
 

@@ -6,7 +6,7 @@ const MODAL = {
       const backdrop = document.getElementById("__modal-backdrop")
       const container = document.getElementById("__modal-container")
       backdrop.className = "on"
-      container.style.top = (Math.ceil(window.innerHeight - container.offsetHeight).toString() + "px")
+      $(container).addClass("visible")
       setTimeout(() => {
         $(backdrop).addClass("visible")
       }, 50)
@@ -18,7 +18,7 @@ const MODAL = {
       const backdrop = document.getElementById("__modal-backdrop")
       const container = document.getElementById("__modal-container")
       $(backdrop).removeClass("visible")
-      container.style.top = ""
+      $(container).removeClass("visible")
       setTimeout(() => {
         backdrop.className = ""
       }, 650)
@@ -30,10 +30,30 @@ const MODAL = {
     for (let element of elements) {
       modal.appendChild(element)
     }
+    if (!document.getElementById("__modal-dismiss")) {
+      MODAL.addDismiss()
+    }
   },
   setHTML: (html = "") => {
     const modal = document.getElementById("__modal")
     modal.innerHTML = html
+    if (!document.getElementById("__modal-dismiss")) {
+      MODAL.addDismiss()
+    }
+  },
+  addDismiss: () => {
+    const modal = document.getElementById("__modal")
+    let group = document.createElement("div")
+    group.className = "center"
+    let dismiss = document.createElement("button")
+    dismiss.className = "transparent"
+    dismiss.innerHTML = "Dismiss"
+    dismiss.id = "__modal-dismiss"
+    dismiss.onclick = () => {
+      MODAL.hide()
+    }
+    group.appendChild(dismiss)
+    modal.appendChild(group)
   },
   display: (elements = []) => {
     MODAL.setContent(elements)

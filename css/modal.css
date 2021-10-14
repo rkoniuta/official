@@ -40,9 +40,13 @@
   justify-content: center;
   align-content: center;
   padding: 36px 0px;
-  top: calc(100vh + 1px);
-  max-height: 90vh;
-  transition: top ease 0.5s;
+  bottom: -50vh;
+  max-height: 50vh;
+  transition: bottom ease 0.5s;
+}
+
+#__modal-container.visible {
+  bottom: 0px;
 }
 
 #__modal {

@@ -323,6 +323,7 @@
 
 .wakeup > .info > * {
   margin: 0px;
+  white-space: nowrap;
 }
 
 .wakeup > .info > p > b {
