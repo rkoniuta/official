@@ -186,6 +186,9 @@ const verifiedClick = (node) => {
 }
 
 const setWakeups = (data = []) => {
+  data = data.sort((a, b) => {
+    return (a.day - b.day)
+  })
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
   let container = document.getElementById("wakeup-container")
   let noWakeups = document.getElementById("no-wakeups")
