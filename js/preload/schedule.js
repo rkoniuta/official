@@ -9,6 +9,13 @@ const toggleDay = (obj) => {
   else {
     $(obj).removeClass("selected")
   }
+  let c = 0
+  for (const day of SELECTED_DAYS) {
+    if (day) {
+      c++
+    }
+  }
+  document.getElementById("mornings-amt").innerHTML = ("(" + c.toString() + ")")
 }
 
 const slider = (obj) => {
