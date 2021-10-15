@@ -21,6 +21,7 @@ const toggleDay = (obj) => {
 const slider = (obj) => {
   const deposit = Math.round(obj.value)
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
+  localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
 }
 
 const sliderInit = (obj) => {
