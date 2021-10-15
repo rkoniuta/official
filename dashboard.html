@@ -150,7 +150,7 @@
         <small>$99</small>
       </div>
       <br>
-      <button id="schedule-button">Schedule a Wakeup</button>
+      <button id="schedule-button" onclick="scheduleClick()">Schedule a Wakeup</button>
       <h3>Upcoming Wakeups <span class="light" id="wakeup-count">(3)</span></h3>
       <div class="wakeup-container" id="wakeup-container">
         <p id="no-wakeups">Nothing to see here. <a href="https://paywake.net/schedule">Schedule yours</a></p>
@@ -162,7 +162,7 @@
         <a class="disabled">
           <img src="assets/images/home.png">
         </a>
-        <a href="https://paywake.net/schedule">
+        <a id="schedule-link" href="https://paywake.net/schedule">
           <img src="assets/images/schedule.png">
         </a>
         <a href="https://paywake.net/settings">

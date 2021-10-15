@@ -165,6 +165,13 @@ const cancelWakeup = (wakeup, node) => {
   MODAL.display(elements)
 }
 
+const scheduleClick = () => {
+  let value = document.getElementById("estimate-slider").value
+  let urlParams = new URLSearchParams(document.getElementById("schedule-link").href)
+  urlParams.set("deposit", value.toString())
+  window.location.href = decodeURIComponent(urlParams.toString())
+}
+
 const verifiedClick = (node) => {
   const time = moment().hour(11).add(moment().get("hour") - moment.tz(moment.now(), "America/Los_Angeles").get("hour"), "hours").format("h a")
   let elements = []
