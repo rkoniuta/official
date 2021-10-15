@@ -1,4 +1,10 @@
-sliderInit(document.getElementById("estimate-slider"))
+if (localStorage.getItem(LOCAL_STORAGE_TAG + "deposit") === null) {
+  sliderInit(document.getElementById("estimate-slider"))
+}
+else {
+  document.getElementById("estimate-slider").value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 50)
+  slider(document.getElementById("estimate-slider"))
+}
 
 if (IS_IOS) {
   $(".if-ios").removeClass("if-ios")

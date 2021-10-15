@@ -22,6 +22,7 @@ const slider = (obj) => {
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
   document.getElementById("return-amount").innerHTML = Math.floor(returns).toString()
   document.getElementById("return-amount-cents").innerHTML = ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0"))
+  localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
 }
 
 const sliderInit = (obj) => {
@@ -166,10 +167,7 @@ const cancelWakeup = (wakeup, node) => {
 }
 
 const scheduleClick = () => {
-  let value = document.getElementById("estimate-slider").value
-  let urlParams = new URLSearchParams(document.getElementById("schedule-link").href)
-  urlParams.set("deposit", value.toString())
-  window.location.href = decodeURIComponent(urlParams.toString())
+  window.location.href = document.getElementById("schedule-link").href
 }
 
 const verifiedClick = (node) => {
