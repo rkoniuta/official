@@ -89,7 +89,7 @@ h3 {
   color: rgba(0,0,0,1);
 }
 
-p {
+p.subtitle {
   font-family: 'Urbanist', sans-serif;
   color: rgba(0,0,0,0.4);
   font-weight: 700;
