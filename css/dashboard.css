@@ -434,3 +434,7 @@
 .earnings-container > p > span.button.active {
   background: rgba(0,0,0,1);
 }
+
+#schedule-link {
+  display: none;
+}
