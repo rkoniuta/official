@@ -236,7 +236,7 @@ const setWakeups = (data = []) => {
     colon.className = "colon"
     colon.innerHTML = ":"
     let minuteSpan = document.createElement("span")
-    minuteSpan.innerHTML = minute
+    minuteSpan.innerHTML = minute.padStart(2, "0")
     let am = document.createElement("span")
     am.className = "am"
     am.innerHTML = "am"
