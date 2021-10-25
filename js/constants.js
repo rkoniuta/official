@@ -28,10 +28,6 @@ if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
   }
 }
 
-if (moment) {
-  const LOCAL_TIME_ZONE = moment.tz.guess()
-}
-
 const cleanPhone = (string) => {
   return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
 }

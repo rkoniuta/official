@@ -2,6 +2,7 @@ const logout = () => {
   ROUTINES.logout()
 }
 
+const LOCAL_TIME_ZONE = moment.tz.guess()
 let MONTH_RETURN = 10
 let TODAY_RETURN = 10
 let RETURN_TOGGLE = 0
