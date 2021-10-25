@@ -311,7 +311,7 @@ button.loading {
 
 .backplate {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 50px);
   position: absolute;
   background: rgb(255,204,0);
   z-index: -100000;
