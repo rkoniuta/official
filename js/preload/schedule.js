@@ -79,6 +79,37 @@ const adjustDepositInput = (obj) => {
   obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
 }
 
+const initDays = () => {
+  const container = document.getElementById("day-container")
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  for (let i = 0; i < 6; i++) {
+    let m = moment().add(i + 1, "days").subtract(2, "hours")
+    let day = m.format("DD").toString().trim()
+    let month = m.format("MMM").toUpperCase().trim()
+    let ofWeek = m.format("ddd").trim()
+    if (i === 0) {
+      ofWeek = "Tmrw"
+    }
+    let div = document.createElement("div")
+    div.className = "day"
+    div.onclick = () => {
+      toggleDay(div)
+    }
+    div.id = ("day-select-" + i.toString())
+    div.name = (TODAY + i + 1).toString()
+    let p1 = document.createElement("p")
+    p1.innerHTML = month
+    div.appendChild(p1)
+    let h3 = document.createElement("h3")
+    h3.innerHTML = day
+    div.appendChild(h3)
+    let p2 = document.createElement("p")
+    p2.innerHTML = ofWeek
+    div.appendChild(p2)
+    container.appendChild(div)
+  }
+}
+
 /* STRIPE TESTING */
 const elements = stripe.elements()
 const card = elements.create('card', {

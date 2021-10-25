@@ -1,3 +1,4 @@
+initDays()
 toggleDay(document.getElementById("day-select-0"))
 toggleDay(document.getElementById("day-select-1"))
 
