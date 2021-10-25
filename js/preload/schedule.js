@@ -1,7 +1,37 @@
 const SELECTED_DAYS = [false, false, false, false, false, false]
 const WAKEUPS = []
 let NUM_SELECTED_DAYS = 0
-const DEFAULT_WAKEUP_TIME = 540
+const DEFAULT_WAKEUP_TIME = 480
+const MIN_WAKEUP_TIME = 300
+const MAX_WAKEUP_TIME = 600
+
+const displayTimeNotice = () => {
+  const p = document.createElement("p")
+  p.innerHTML = "You can only schedule wakeups from<br><b>5 am</b> to <b>10 am</b>."
+  MODAL.display([p])
+}
+
+const setWakeupHour = (wakeup, obj) => {
+  const hour = Math.floor(wakeup.time / 60)
+  const minute = (wakeup.time % 60)
+  const updatedHour = Math.min(Math.max(obj.value, 5), 10)
+  wakeup.time = Math.min(Math.max((updatedHour * 60) + minute, MIN_WAKEUP_TIME), MAX_WAKEUP_TIME)
+  if (obj.value < Math.floor(MIN_WAKEUP_TIME / 60) || obj.value > Math.floor(MAX_WAKEUP_TIME / 60)) {
+    displayTimeNotice()
+  }
+  genWakeups()
+}
+
+const setWakeupMinute = (wakeup, obj) => {
+  const hour = Math.floor(wakeup.time / 60)
+  const minute = (wakeup.time % 60)
+  const updatedMinute = Math.min(Math.max(obj.value, 0), 59)
+  wakeup.time = Math.min(Math.max((hour * 60) + updatedMinute, MIN_WAKEUP_TIME), MAX_WAKEUP_TIME)
+  if (hour === Math.floor(MAX_WAKEUP_TIME / 60) && obj.value > 0) {
+    displayTimeNotice()
+  }
+  genWakeups()
+}
 
 const addWakeup = (index) => {
   const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
@@ -120,6 +150,15 @@ const adjustDepositInput = (obj) => {
   obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
 }
 
+const adjustHourInput = (obj) => {
+  if (obj.value.toString().length === 2) {
+    obj.style.width = "36px"
+  }
+  else {
+    obj.style.width = "24px"
+  }
+}
+
 const initDays = () => {
   const container = document.getElementById("day-container")
   const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
@@ -188,13 +227,36 @@ const genWakeups = () => {
     let info = document.createElement("div")
     info.className = "info"
     let h3 = document.createElement("h3")
-    let hourSpan = document.createElement("span")
-    hourSpan.innerHTML = hour
+    let hourInput = document.createElement("input")
+    hourInput.className = "hour-input"
+    hourInput.maxLength = 2
+    hourInput.inputmode = "numeric"
+    hourInput.pattern = "[0-9]*"
+    hourInput.placeholder = Math.floor(DEFAULT_WAKEUP_TIME / 60).toString()
+    hourInput.value = hour
+    hourInput.onblur = () => {
+      setWakeupHour(wakeup, hourInput)
+    }
+    const adjustment = () => {
+      adjustHourInput(hourInput)
+    }
+    hourInput.onkeyup = adjustment
+    hourInput.onkeydown = adjustment
+    hourInput.onpaste = adjustment
+    adjustment()
     let colon = document.createElement("span")
     colon.className = "colon"
     colon.innerHTML = ":"
-    let minuteSpan = document.createElement("span")
-    minuteSpan.innerHTML = minute.padStart(2, "0")
+    let minuteInput = document.createElement("input")
+    minuteInput.className = "minute-input"
+    minuteInput.maxLength = 2
+    minuteInput.inputmode = "numeric"
+    minuteInput.pattern = "[0-9]*"
+    minuteInput.placeholder = Math.floor(DEFAULT_WAKEUP_TIME % 60).toString().padStart(2, "0")
+    minuteInput.value = minute.padStart(2, "0")
+    minuteInput.onblur = () => {
+      setWakeupMinute(wakeup, minuteInput)
+    }
     let am = document.createElement("span")
     am.className = "am"
     am.innerHTML = "am"
@@ -206,9 +268,9 @@ const genWakeups = () => {
     depositBox.appendChild(h1)
     depositContainer.appendChild(depositBox)
     parent.appendChild(depositContainer)
-    h3.appendChild(hourSpan)
+    h3.appendChild(hourInput)
     h3.appendChild(colon)
-    h3.appendChild(minuteSpan)
+    h3.appendChild(minuteInput)
     h3.appendChild(am)
     info.appendChild(h3)
     info.appendChild(p)
