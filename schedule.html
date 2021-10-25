@@ -119,7 +119,7 @@
         <p class="subtitle">Select Deposit Amount</p>
         <h1>
           <span class="dollar-sign">$</span>
-          <input inputmode="numeric" pattern="[0-9]*" type="text" id="deposit-amount" value="5" maxlength="2" onblur="depositInput(this)" onkeydown="adjustDepositInput(this)" onkeyup="adjustDepositInput(this)" onpaste="adjustDepositInput(this)">
+          <input type="text" id="deposit-amount" value="5" maxlength="2" onblur="depositInput(this)" onkeydown="adjustDepositInput(this)" onkeyup="adjustDepositInput(this)" onpaste="adjustDepositInput(this)">
         </h1>
       </div>
       <input id="deposit-slider" class="slider" type="range" value="30" min="5" max="99" onchange="slider(this, true)" oninput="slider(this, true)">
