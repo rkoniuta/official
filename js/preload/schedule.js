@@ -18,13 +18,34 @@ const toggleDay = (obj) => {
   }
   document.getElementById("mornings-amt").innerHTML = ("(" + c.toString() + ")")
   NUM_SELECTED_DAYS = c
+  if (NUM_SELECTED_DAYS < 2) {
+    $("#deposit-slider").addClass("limited")
+    $("#deposit-notice").addClass("visible")
+    $("#deposit-slider")[0].value = Math.min($("#deposit-slider")[0].value, 10)
+    slider($("#deposit-slider")[0])
+  }
+  else {
+    $("#deposit-slider").removeClass("limited")
+    $("#deposit-notice").removeClass("visible")
+    $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
+    slider($("#deposit-slider")[0])
+  }
 }
 
-const slider = (obj) => {
-  const deposit = Math.round(obj.value)
+const slider = (obj, userInputted = false) => {
+  let deposit = Math.round(obj.value)
+  if (NUM_SELECTED_DAYS < 2) {
+    if (deposit > 10) {
+      userInputted = false
+    }
+    deposit = Math.min(deposit, 10)
+    obj.value = deposit
+  }
   document.getElementById("deposit-amount").value = deposit.toString()
   document.getElementById("deposit-amount").style.width = ((deposit.toString().length * 40) + "px")
-  localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
+  if (userInputted) {
+    localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
+  }
 }
 
 const sliderInit = (obj) => {
@@ -51,7 +72,7 @@ const sliderInit = (obj) => {
 const depositInput = (obj) => {
   const element = document.getElementById("deposit-slider")
   element.value = Math.min(Math.max((parseInt(obj.value) || 5), 5), 99)
-  slider(element)
+  slider(element, true)
 }
 
 const adjustDepositInput = (obj) => {

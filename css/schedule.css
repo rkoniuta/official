@@ -147,3 +147,19 @@ p.subtitle {
 #deposit-amount:focus {
   border-color: #dfe3e7;
 }
+
+#deposit-notice {
+  width: 300px;
+  margin: 0px;
+  color: rgba(0,0,0,1);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Urbanist", sans-serif;
+  margin-bottom: -2px;
+  text-align: center;
+  display: none;
+}
+
+#deposit-notice.visible {
+  display: block;
+}
