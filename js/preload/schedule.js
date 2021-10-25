@@ -7,7 +7,7 @@ const MAX_WAKEUP_TIME = 600
 
 const displayTimeNotice = () => {
   const p = document.createElement("p")
-  p.innerHTML = "You can only schedule wakeups from<br><b>5 am</b> to <b>10 am</b>."
+  p.innerHTML = "You can only use Paywake to wake up between <b>5 am</b> and <b>10 am</b>."
   MODAL.display([p])
 }
 
