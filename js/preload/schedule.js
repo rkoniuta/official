@@ -42,7 +42,7 @@ const slider = (obj, userInputted = false) => {
     obj.value = deposit
   }
   document.getElementById("deposit-amount").value = deposit.toString()
-  document.getElementById("deposit-amount").style.width = ((deposit.toString().length * 40) + "px")
+  adjustDepositInput(document.getElementById("deposit-amount"))
   if (userInputted) {
     localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
   }
@@ -76,7 +76,15 @@ const depositInput = (obj) => {
 }
 
 const adjustDepositInput = (obj) => {
-  obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
+  let span = document.createElement("span")
+  span.innerHTML = obj.value.toString()
+  span.style.fontFamily = "Urbanist, sans-serif"
+  span.style.fontSize = "70px"
+  span.style.display = "none"
+  document.body.appendChild(span)
+  const val = Math.round($(span).innerWidth() + 2).toString()
+  $(span).remove()
+  obj.style.width = val + "px"
 }
 
 /* STRIPE TESTING */
