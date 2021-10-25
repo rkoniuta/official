@@ -1,4 +1,5 @@
 const SELECTED_DAYS = [false, false, false, false, false, false]
+let NUM_SELECTED_DAYS = 0
 
 const toggleDay = (obj) => {
   const index = parseInt(obj.id.split("-")[2])
@@ -16,11 +17,13 @@ const toggleDay = (obj) => {
     }
   }
   document.getElementById("mornings-amt").innerHTML = ("(" + c.toString() + ")")
+  NUM_SELECTED_DAYS = c
 }
 
 const slider = (obj) => {
   const deposit = Math.round(obj.value)
-  document.getElementById("deposit-amount").innerHTML = deposit.toString()
+  document.getElementById("deposit-amount").value = deposit.toString()
+  document.getElementById("deposit-amount").style.width = ((deposit.toString().length * 40) + "px")
   localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
 }
 
@@ -43,6 +46,16 @@ const sliderInit = (obj) => {
       clearInterval(interval)
     }
   }, (duration / steps))
+}
+
+const depositInput = (obj) => {
+  const element = document.getElementById("deposit-slider")
+  element.value = Math.min(Math.max((parseInt(obj.value) || 5), 5), 99)
+  slider(element)
+}
+
+const adjustDepositInput = (obj) => {
+  obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
 }
 
 /* STRIPE TESTING */
