@@ -6,7 +6,6 @@ const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
 const TIME_ZONE = "America/Los_Angeles"
-const LOCAL_TIME_ZONE = moment.tz.guess()
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
 
@@ -27,6 +26,10 @@ if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
   for (let key in REDIRECTS) {
     REDIRECTS[key] = (REDIRECTS[key] + add)
   }
+}
+
+if (moment) {
+  const LOCAL_TIME_ZONE = moment.tz.guess()
 }
 
 const cleanPhone = (string) => {
