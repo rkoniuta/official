@@ -218,6 +218,7 @@ p.subtitle {
 
 .minute-input {
   width: 48px;
+  text-align: left;
 }
 
 .minute-input:focus, .hour-input:focus {
