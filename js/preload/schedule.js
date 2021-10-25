@@ -262,6 +262,13 @@ const genWakeups = () => {
     am.innerHTML = "am"
     let p = document.createElement("p")
     p.innerHTML = (date + " &#8212; " + fromNow)
+    let cancel = document.createElement("div")
+    cancel.className = "cancel"
+    let button = document.createElement("img")
+    button.src = "assets/images/cancel.png"
+    button.onclick = () => {
+      toggleDay(document.getElementById("day-select-" + wakeup.index.toString()))
+    }
 
     h1.appendChild(dollarSign)
     h1.appendChild(depositAmount)
@@ -275,6 +282,8 @@ const genWakeups = () => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    cancel.appendChild(button)
+    parent.appendChild(cancel)
     container.appendChild(parent)
   }
 }
