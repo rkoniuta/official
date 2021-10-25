@@ -129,14 +129,22 @@
       </div>
       <p id="deposit-notice"><br>Select 2+ mornings to deposit more than $10</p>
       <br>
+      <br>
       <p class="subtitle">Select Mornings <span id="mornings-amt">(0)</span></p>
       <div class="day-container" id="day-container"></div>
       <br>
-      <p class="subtitle">Select Wakeup Time(s)</p>
       <br>
-      <br>
+      <p class="subtitle" id="wakeup-times-subtitle">Select Wakeup Time(s)</p>
+      <div class="wakeup-container" id="wakeup-container">
+        <p id="no-wakeups">No mornings selected.</p>
+      </div>
+      <h3>Payment Information</h3>
       <!--FIXME: Remove-->
-      <div id="card-element" style="width: 300px; box-sizing: border-box;"></div>
+      <div id="card-element"></div>
+      <br><br>
+      <div class="middle">
+        <button id="schedule-button">Schedule Wake-Up</button>
+      </div>
     </div>
     <div class="toolbar-container">
       <div class="toolbar">

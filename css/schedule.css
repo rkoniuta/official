@@ -164,3 +164,31 @@ p.subtitle {
 #deposit-notice.visible {
   display: block;
 }
+
+.wakeup-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding-top: 8px;
+}
+
+.wakeup-container > p {
+  width: 300px;
+  margin: 0px;
+  color: rgba(0,0,0,1);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Urbanist", sans-serif;
+  text-align: center;
+  margin: 0px;
+}
+
+#card-element {
+  width: 300px;
+  font-family: "Urbanist", sans-serif;
+  box-sizing: border-box;
+  margin-top: 8px;
+}

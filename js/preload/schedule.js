@@ -1,14 +1,41 @@
 const SELECTED_DAYS = [false, false, false, false, false, false]
+const WAKEUPS = []
 let NUM_SELECTED_DAYS = 0
+const DEFAULT_WAKEUP_TIME = 540
+
+const addWakeup = (index) => {
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const m = moment().add(index + 1, "days").subtract(2, "hours")
+  const ofWeek = m.format("ddd").toLowerCase().trim()
+  const day = (TODAY + index + 1)
+  const deposit = (parseInt(document.getElementById("deposit-slider").value) * 100)
+  const wakeup = {
+    day, deposit, index,
+    time: (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek)) || DEFAULT_WAKEUP_TIME)
+  }
+  WAKEUPS.push(wakeup)
+  genWakeups()
+}
+
+const removeWakeup = (index) => {
+  for (let i = 0; i < WAKEUPS.length; i++) {
+    if (WAKEUPS[i].index === index) {
+      WAKEUPS.splice(i, 1)
+    }
+  }
+  genWakeups()
+}
 
 const toggleDay = (obj) => {
   const index = parseInt(obj.id.split("-")[2])
   SELECTED_DAYS[index] = (!SELECTED_DAYS[index])
   if (SELECTED_DAYS[index]) {
     $(obj).addClass("selected")
+    addWakeup(index)
   }
   else {
     $(obj).removeClass("selected")
+    removeWakeup(index)
   }
   let c = 0
   for (const day of SELECTED_DAYS) {
@@ -23,12 +50,22 @@ const toggleDay = (obj) => {
     $("#deposit-notice").addClass("visible")
     $("#deposit-slider")[0].value = Math.min($("#deposit-slider")[0].value, 10)
     slider($("#deposit-slider")[0])
+    $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
+    $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Time"
   }
   else {
     $("#deposit-slider").removeClass("limited")
     $("#deposit-notice").removeClass("visible")
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
+    $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
+    $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Times"
+  }
+  if (NUM_SELECTED_DAYS < 1) {
+    $("#schedule-button")[0].disabled = true
+  }
+  else {
+    $("#schedule-button")[0].disabled = false
   }
 }
 
@@ -46,6 +83,10 @@ const slider = (obj, userInputted = false) => {
   if (userInputted) {
     localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
   }
+  for (let wakeup of WAKEUPS) {
+    wakeup.deposit = (deposit * 100)
+  }
+  genWakeups()
 }
 
 const sliderInit = (obj) => {
@@ -107,6 +148,72 @@ const initDays = () => {
     p2.innerHTML = ofWeek
     div.appendChild(p2)
     container.appendChild(div)
+  }
+}
+
+const genWakeups = () => {
+  const data = WAKEUPS.sort((a, b) => {
+    return (a.day - b.day)
+  })
+  let container = document.getElementById("wakeup-container")
+  let noWakeups = document.getElementById("no-wakeups")
+  $(".wakeup").remove()
+  if (data.length > 0) {
+    noWakeups.style.display = "none"
+  }
+  else {
+    noWakeups.style.display = "block"
+  }
+  for (const wakeup of data) {
+    const ofWeek = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").format("ddd").toLowerCase().trim()
+    localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek, wakeup.time.toString())
+    const deposit = (wakeup.deposit / 100).toString()
+    const hour = Math.floor(wakeup.time / 60).toString()
+    const minute = (wakeup.time % 60).toString()
+    const date = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
+    const fromNow = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+
+    let parent = document.createElement("div")
+    parent.className = "wakeup"
+    let depositContainer = document.createElement("div")
+    depositContainer.className = "deposit-container"
+    let depositBox = document.createElement("div")
+    depositBox.className = "deposit"
+    let h1 = document.createElement("h1")
+    let dollarSign = document.createElement("span")
+    dollarSign.className = "dollar-sign"
+    dollarSign.innerHTML = "$"
+    let depositAmount = document.createElement("span")
+    depositAmount.innerHTML = deposit
+    let info = document.createElement("div")
+    info.className = "info"
+    let h3 = document.createElement("h3")
+    let hourSpan = document.createElement("span")
+    hourSpan.innerHTML = hour
+    let colon = document.createElement("span")
+    colon.className = "colon"
+    colon.innerHTML = ":"
+    let minuteSpan = document.createElement("span")
+    minuteSpan.innerHTML = minute.padStart(2, "0")
+    let am = document.createElement("span")
+    am.className = "am"
+    am.innerHTML = "am"
+    let p = document.createElement("p")
+    p.innerHTML = (date + " &#8212; " + fromNow)
+
+    h1.appendChild(dollarSign)
+    h1.appendChild(depositAmount)
+    depositBox.appendChild(h1)
+    depositContainer.appendChild(depositBox)
+    parent.appendChild(depositContainer)
+    h3.appendChild(hourSpan)
+    h3.appendChild(colon)
+    h3.appendChild(minuteSpan)
+    h3.appendChild(am)
+    info.appendChild(h3)
+    info.appendChild(p)
+    parent.appendChild(info)
+    container.appendChild(parent)
   }
 }
 

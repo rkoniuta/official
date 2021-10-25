@@ -212,8 +212,8 @@ const setWakeups = (data = []) => {
     const deposit = (wakeup.deposit / 100).toString()
     const hour = Math.floor(wakeup.time / 60).toString()
     const minute = (wakeup.time % 60).toString()
-    const date = moment(EPOCH).tz(TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
-    const fromNow = moment(EPOCH).tz(TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+    const date = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
+    const fromNow = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
 
     let parent = document.createElement("div")
     parent.className = "wakeup"

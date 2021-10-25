@@ -14,5 +14,7 @@ else {
   sliderInit(document.getElementById("deposit-slider"))
 }
 
+genWakeups()
+
 /* STRIPE TESTING */
 card.mount('#card-element')
