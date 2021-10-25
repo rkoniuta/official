@@ -20,8 +20,8 @@ const slider = (obj) => {
   const deposit = Math.round(obj.value)
   const returns = (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
-  document.getElementById("return-amount").innerHTML = (Math.floor(returns) || "-").toString()
-  document.getElementById("return-amount-cents").innerHTML = ("." + (Math.round((returns - Math.floor(returns)) * 100) || "--").toString().padStart(2, "0"))
+  document.getElementById("return-amount").innerHTML = (Math.floor(returns) || 0).toString()
+  document.getElementById("return-amount-cents").innerHTML = ("." + (Math.round((returns - Math.floor(returns)) * 100) || 0).toString().padStart(2, "0"))
   localStorage.setItem(LOCAL_STORAGE_TAG + "deposit", deposit.toString())
 }
 
