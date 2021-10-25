@@ -76,15 +76,7 @@ const depositInput = (obj) => {
 }
 
 const adjustDepositInput = (obj) => {
-  let span = document.createElement("span")
-  span.innerHTML = obj.value.toString()
-  span.style.fontFamily = "Urbanist, sans-serif"
-  span.style.fontSize = "70px"
-  span.style.display = "none"
-  document.body.appendChild(span)
-  const val = Math.round($(span).innerWidth() + 2).toString()
-  $(span).remove()
-  obj.style.width = val + "px"
+  obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
 }
 
 /* STRIPE TESTING */
