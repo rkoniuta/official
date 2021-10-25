@@ -1,6 +1,4 @@
 initDays()
-toggleDay(document.getElementById("day-select-0"))
-toggleDay(document.getElementById("day-select-1"))
 
 if (parseInt((new URLSearchParams(window.location.href)).get("deposit"))) {
   document.getElementById("deposit-slider").value = Math.min(Math.max(parseInt((new URLSearchParams(window.location.href)).get("deposit")), 5), 99)
@@ -14,7 +12,7 @@ else {
   sliderInit(document.getElementById("deposit-slider"))
 }
 
-genWakeups()
+setExistingWakeups(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
+fetchWakeups()
 
-/* STRIPE TESTING */
-card.mount('#card-element')
+PAYMENT_INFO.mount("#payment-information")

@@ -89,6 +89,16 @@
   color: rgba(0,0,0,1);
 }
 
+.day-container > .day.disabled {
+  background: #dfe3e7;
+  cursor: default;
+}
+
+.day-container > .day.disabled > p:last-child {
+  color: transparent;
+  display: none;
+}
+
 p.subtitle {
   font-family: 'Urbanist', sans-serif;
   color: rgba(0,0,0,0.4);
@@ -186,7 +196,7 @@ p.subtitle {
   margin: 0px;
 }
 
-#card-element {
+#payment-information {
   width: 300px;
   font-family: "Urbanist", sans-serif;
   box-sizing: border-box;

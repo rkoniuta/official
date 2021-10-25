@@ -1,6 +1,9 @@
-const SELECTED_DAYS = [false, false, false, false, false, false]
+let SELECTED_DAYS = [false, false, false, false, false, false]
+let EXISTING_WAKEUPS = SELECTED_DAYS
+let WAKEUPS_FETCHED = false
 const WAKEUPS = []
 let NUM_SELECTED_DAYS = 0
+
 const DEFAULT_WAKEUP_TIME = 480
 const MIN_WAKEUP_TIME = 300
 const MAX_WAKEUP_TIME = 600
@@ -58,6 +61,14 @@ const removeWakeup = (index) => {
 
 const toggleDay = (obj) => {
   const index = parseInt(obj.id.split("-")[2])
+  if (EXISTING_WAKEUPS[index]) {
+    if (WAKEUPS_FETCHED) {
+      const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+      const formattedDay = moment.tz(EPOCH, TIME_ZONE).add(TODAY + 1 + index, "days").format("MMMM Do")
+      MODAL.displayHTML("<p>You already have a wakeup scheduled on " + formattedDay + ".</p>")
+    }
+    return;
+  }
   SELECTED_DAYS[index] = (!SELECTED_DAYS[index])
   if (SELECTED_DAYS[index]) {
     $(obj).addClass("selected")
@@ -288,24 +299,88 @@ const genWakeups = () => {
   }
 }
 
-/* STRIPE TESTING */
-const elements = stripe.elements()
-const card = elements.create('card', {
+const setExistingWakeups = (data = []) => {
+  data = data.sort((a, b) => {
+    return (a.day - b.day)
+  })
+  localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  EXISTING_WAKEUPS = [false, false, false, false, false, false]
+  for (let wakeup of data) {
+    let index = ((wakeup.day - TODAY) - 1)
+    if (index < 6 && index > (-1)) {
+      EXISTING_WAKEUPS[index] = true
+      for (let i = 0; i < WAKEUPS.length; i++) {
+        if (WAKEUPS[i].day === wakeup.day) {
+          WAKEUPS.splice(i, 1)
+        }
+      }
+    }
+  }
+  for (let i = 0; i < EXISTING_WAKEUPS.length; i++) {
+    if (EXISTING_WAKEUPS[i]) {
+      SELECTED_DAYS[i] = false
+      $("#day-select-" + i.toString()).addClass("disabled")
+      $("#day-select-" + i.toString()).removeClass("selected")
+    }
+    else {
+      $("#day-select-" + i.toString()).removeClass("disabled")
+    }
+  }
+  genWakeups()
+  for (let i = 0; i < 6; i++) {
+    if (NUM_SELECTED_DAYS > 1) {
+      break;
+    }
+    if (!SELECTED_DAYS[i]) {
+      toggleDay(document.getElementById("day-select-" + i.toString()))
+    }
+  }
+}
+
+const fetchWakeups = () => {
+  $.ajax({
+    url: (API + "/wakeups"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setExistingWakeups(data.wakeups)
+      WAKEUPS_FETCHED = true
+    }
+  })
+}
+
+const STRIPE_ELEMENTS = stripe.elements({
+  fonts: [{
+    cssSrc: "https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap"
+  }]
+})
+
+const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
   style: {
     base: {
-      fontSize: "15px",
+      fontSize: "16px",
+      fontWeight: "500",
       fontFamily: "'Urbanist', sans-serif",
-      color: "rgba(0,0,0,0.4)",
+      color: "black",
       width: "300px",
+      background: "transparent",
+      backgroundColor: "transparent"
     },
   }
 })
-const submitToken = () => {
-  stripe.createToken(card).then((result) => {
-   if (result.error) {
-     console.log("There was an error.")
-   } else {
-     console.log("Token: ", result.token)
-   }
- })
+
+const submitToken = (callback) => {
+  stripe.createToken(PAYMENT_INFO).then((result) => {
+    if (result.error) {
+      callback(false)
+    } else {
+      callback(result.token)
+    }
+  })
 }
