@@ -210,10 +210,11 @@ const setWakeups = (data = []) => {
   }
   for (const wakeup of data) {
     const deposit = (wakeup.deposit / 100).toString()
-    const hour = Math.floor(wakeup.time / 60).toString()
-    const minute = (wakeup.time % 60).toString()
-    const date = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
-    const fromNow = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+    const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes")
+    const hour = m.format("h")
+    const minute = m.format("mm")
+    const date = m.format("MMMM Do")
+    const fromNow = m.fromNow()
 
     let parent = document.createElement("div")
     parent.className = "wakeup"

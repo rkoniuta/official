@@ -6,6 +6,7 @@ const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
 const TIME_ZONE = "America/Los_Angeles"
+const LOCAL_TIME_ZONE = moment.tz.guess()
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
 
