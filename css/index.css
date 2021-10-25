@@ -308,3 +308,14 @@ button.loading {
   background-repeat: no-repeat;
   color: transparent;
 }
+
+.backplate {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgb(255,204,0);
+  z-index: -100000;
+  top: 0px;
+  left: 0px;
+  box-sizing: border-box;
+}
