@@ -76,7 +76,12 @@ const depositInput = (obj) => {
 }
 
 const adjustDepositInput = (obj) => {
-  obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
+  if (IS_IOS) {
+    obj.style.width = ((Math.max(obj.value.toString().length, 1) * 20) + "px")
+  }
+  else {
+    obj.style.width = ((Math.max(obj.value.toString().length, 1) * 40) + "px")
+  }
 }
 
 /* STRIPE TESTING */
