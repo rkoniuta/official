@@ -79,8 +79,8 @@ const toggleDay = (obj) => {
     removeWakeup(index)
   }
   let c = 0
-  for (const day of SELECTED_DAYS) {
-    if (day) {
+  for (let i = 0; i < SELECTED_DAYS.length; i++) {
+    if (SELECTED_DAYS[i] && !EXISTING_WAKEUPS[i]) {
       c++
     }
   }
@@ -353,6 +353,12 @@ const fetchWakeups = () => {
       WAKEUPS_FETCHED = true
     }
   })
+}
+
+const schedule = () => {
+  if (NUM_SELECTED_DAYS > 0) {
+    //TODO: Implement
+  }
 }
 
 const STRIPE_ELEMENTS = stripe.elements({
