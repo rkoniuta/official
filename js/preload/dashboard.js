@@ -115,7 +115,7 @@ const cancelWakeup = (wakeup, node) => {
   let dollars = Math.floor(fee / 100)
   let cents = Math.floor(fee % 100)
   if (fee > 0) {
-    text.innerHTML = ("Are you sure you want to cancel this wakeup? A cancellation fee of $" + dollars.toString() + "." + cents.toString().padStart(2, "0") + " (up to 1.5%) will be deducted from your Paywake balance.")
+    text.innerHTML = ("Are you sure you want to cancel this wakeup? A cancellation fee of $" + dollars.toString() + "." + cents.toString().padStart(2, "0") + " will be deducted from your Paywake balance.")
   }
   else {
     text.innerHTML = "Are you sure you want to cancel this wakeup?"
