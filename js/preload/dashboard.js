@@ -186,7 +186,7 @@ const verifiedClick = (node) => {
   title.className = "center"
   title.innerHTML = "Verification Successful"
   let text = document.createElement("p")
-  text.innerHTML = ("You successfully verified this wakeup and will be paid at " + time + " (12 pm PST) today.")
+  text.innerHTML = ("You successfully verified this wakeup and will be paid at <b>" + time + "</b> (12 pm PST) today.")
   let b = node.querySelector("b")
   b.onclick = () => {}
   b.style.cursor = "default"
