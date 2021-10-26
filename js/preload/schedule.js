@@ -129,6 +129,12 @@ const slider = (obj, userInputted = false) => {
     wakeup.deposit = (deposit * 100)
   }
   genWakeups()
+  if (NUM_SELECTED_DAYS < 1) {
+    $("#schedule-button")[0].disabled = true
+  }
+  else {
+    $("#schedule-button")[0].disabled = false
+  }
 }
 
 const sliderInit = (obj) => {
