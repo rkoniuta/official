@@ -121,7 +121,7 @@ body {
   box-sizing: border-box;
   position: fixed;
   z-index: 0;
-  top: calc(50vh - 9px);
+  bottom: calc(50vh - 9px);
   left: calc(50vw - 150px);
   color: white;
   text-align: center;
