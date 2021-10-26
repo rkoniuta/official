@@ -363,7 +363,7 @@ const schedule = () => {
       if (token) {
         const paymentToken = token.id
         const cardToken = token.card.id
-        const c = 0
+        let c = 0
         const success = () => {
           $("#schedule-button").removeClass("loading")
           $("#home-button").click()
