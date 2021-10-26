@@ -84,7 +84,6 @@ body {
 video {
   pointer-events: none;
 }
-
 video::-webkit-media-controls {
   display: none;
 }
