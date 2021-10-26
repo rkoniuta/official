@@ -370,7 +370,7 @@ const schedule = () => {
         MODAL.displayHTML("<p>Server Error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
       }
       else {
-        MODAL.displayHTML("<p>Server Error - your wakeups could not be scheduled.")
+        MODAL.displayHTML("<p>Server Error - your wakeup(s) could not be scheduled.")
       }
     }
     const recurse = () => {
