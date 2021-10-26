@@ -172,7 +172,10 @@ const scheduleClick = () => {
 }
 
 const verifiedClick = (node) => {
-  const time = moment().hour(11).add(moment().get("hour") - moment.tz(moment.now(), "America/Los_Angeles").get("hour"), "hours").format("h a")
+  let time = moment().hour(12).add(moment().get("hour") - moment.tz(moment.now(), "America/Los_Angeles").get("hour"), "hours").format("h a")
+  if (time === "12 pm") {
+    time = "noon"
+  }
   let elements = []
   let center = document.createElement("div")
   center.className = "center"
@@ -183,7 +186,7 @@ const verifiedClick = (node) => {
   title.className = "center"
   title.innerHTML = "Verification Successful"
   let text = document.createElement("p")
-  text.innerHTML = ("You successfully verified this wakeup and will be paid at " + time + " today.")
+  text.innerHTML = ("You successfully verified this wakeup and will be paid at " + time + " (12 pm PST) today.")
   let b = node.querySelector("b")
   b.onclick = () => {}
   b.style.cursor = "default"
