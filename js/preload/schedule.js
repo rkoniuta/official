@@ -358,18 +358,18 @@ const fetchWakeups = () => {
 
 const schedule = () => {
   if (NUM_SELECTED_DAYS > 0) {
-    $("#schedule-button")[0].addClass("loading")
+    $("#schedule-button").addClass("loading")
     submitToken((token) => {
       if (token) {
         const paymentToken = token.id
         const cardToken = token.card.id
         const c = 0
         const success = () => {
-          $("#schedule-button")[0].removeClass("loading")
+          $("#schedule-button").removeClass("loading")
           $("#home-button").click()
         }
         const error = () => {
-          $("#schedule-button")[0].removeClass("loading")
+          $("#schedule-button").removeClass("loading")
           MODAL.displayHTML("<p>Error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
         }
         const recurse = () => {
@@ -409,7 +409,7 @@ const schedule = () => {
         recurse()
       }
       else {
-        $("#schedule-button")[0].removeClass("loading")
+        $("#schedule-button").removeClass("loading")
       }
     })
   }
