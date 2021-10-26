@@ -13,7 +13,7 @@ const malformedCamera = () => {
 }
 
 const initVideo = async () => {
-  const FRAME_RATE = 29
+  const FRAME_RATE = 29 //~30 FPS
   const videoElement = document.getElementById("video")
   const streamElement = document.getElementById("stream")
   let interval = null
