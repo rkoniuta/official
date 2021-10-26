@@ -110,6 +110,30 @@ body {
   opacity: 0.4;
 }
 
+#photo-too-dark {
+  display: inline-block;
+  width: 300px;
+  height: 18px;
+  font-size: 18px;
+  margin: 0px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 0;
+  top: calc(50vh - 9px);
+  left: calc(50vw - 150px);
+  color: white;
+  text-align: center;
+  transition: opacity ease 0.5s;
+  -webkit-transition: opacity ease 0.5s;
+  opacity: 0;
+}
+
+#photo-too-dark.visible {
+  opacity: 1;
+}
+
 video {
   pointer-events: none;
 }

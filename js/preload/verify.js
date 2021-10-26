@@ -1,5 +1,9 @@
-let STREAM = false
+const FRAME_RATE = 14 //1/2 ~30FPS
+const CAPTURE_DIMENSION = 300
+const DARKNESS_THRESHOLD = 56 //out of 255
 
+let STREAM = false
+let TOO_DARK = true
 const VIDEO_CONSTRAINTS = {
   audio: false,
   video: {
@@ -31,19 +35,44 @@ const initVideo = async () => {
       videoElement.srcObject = STREAM
       videoElement.play()
       videoElement.controls = false
-      setInterval(() => {
-        videoElement.play()
-      }, Math.floor(1000 / 29))
+      setTimeout(() => {
+        setInterval(() => {
+          videoElement.play()
+          checkForDarkness()
+        }, Math.floor(1000 / FRAME_RATE))
+      }, 1000)
     }
+  }
+}
+
+const checkForDarkness = () => {
+  const videoElement = document.getElementById("stream")
+  const canvas = document.createElement("canvas")
+  canvas.width = CAPTURE_DIMENSION
+  canvas.height = CAPTURE_DIMENSION
+  canvas.getContext("2d").drawImage(videoElement, ((CAPTURE_DIMENSION - videoElement.videoWidth) / 2), ((CAPTURE_DIMENSION - videoElement.videoHeight) / 2))
+  let imageData = canvas.getContext("2d").getImageData(0, 0, CAPTURE_DIMENSION, CAPTURE_DIMENSION).data
+  let sum = 0
+  for (let i = 0; i < imageData.length; i += 4) {
+    sum += (imageData[i] + imageData[i + 1] + imageData[i + 2])
+  }
+  let average = sum / (imageData.length * (3 / 4))
+  if (average > DARKNESS_THRESHOLD) {
+    TOO_DARK = false
+    $("#photo-too-dark").removeClass("visible")
+  }
+  else {
+    TOO_DARK = true
+    $("#photo-too-dark").addClass("visible")
   }
 }
 
 const getBase64Capture = () => {
   const videoElement = document.getElementById("stream")
   const canvas = document.createElement("canvas")
-  canvas.width = 300
-  canvas.height = 300
-  canvas.getContext("2d").drawImage(videoElement, (300 - videoElement.videoWidth) / 2, (300 - videoElement.videoHeight) / 2);
+  canvas.width = CAPTURE_DIMENSION
+  canvas.height = CAPTURE_DIMENSION
+  canvas.getContext("2d").drawImage(videoElement, ((CAPTURE_DIMENSION - videoElement.videoWidth) / 2), ((CAPTURE_DIMENSION - videoElement.videoHeight) / 2))
   return canvas.toDataURL().replace("data:image/png;base64,","").trim()
 }
 
