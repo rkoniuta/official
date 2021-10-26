@@ -3,14 +3,14 @@ let STREAM = false
 const VIDEO_CONSTRAINTS = {
   video: {
     width: {
-      min: 0,
+      min: 720,
       ideal: 1080,
-      max: 4000,
+      max: 2560,
     },
     height: {
-      min: 0,
+      min: 720,
       ideal: 1920,
-      max: 4000
+      max: 2560
     },
     facingMode: "environment"
   }
@@ -18,7 +18,7 @@ const VIDEO_CONSTRAINTS = {
 
 const malformedCamera = () => {
   //TODO: Implement
-  alert("malformed camera")
+  alert("Malformed Camera.")
 }
 
 const initVideo = async () => {
@@ -31,8 +31,6 @@ const initVideo = async () => {
       STREAM = await navigator.mediaDevices.getUserMedia(VIDEO_CONSTRAINTS)
     }
     catch (e) {
-      //FIXME: remove
-      alert(e.message)
       malformedCamera()
     }
     if (STREAM) {
