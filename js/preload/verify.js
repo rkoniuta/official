@@ -13,9 +13,7 @@ const malformedCamera = () => {
 }
 
 const initVideo = async () => {
-  const FRAME_RATE = 29 //~30 FPS
-  const videoElement = document.getElementById("video")
-  const streamElement = document.getElementById("stream")
+  const videoElement = document.getElementById("stream")
   let interval = null
   if (!("mediaDevices" in navigator && "getUserMedia" in navigator.mediaDevices)) {
     malformedCamera()
@@ -30,14 +28,6 @@ const initVideo = async () => {
     if (STREAM) {
       videoElement.srcObject = STREAM
       videoElement.play()
-      interval = setInterval(() => {
-        videoElement.play()
-        const canvas = document.createElement("canvas")
-        canvas.width = videoElement.videoWidth
-        canvas.height = videoElement.videoHeight
-        canvas.getContext("2d").drawImage(videoElement, 0, 0)
-        streamElement.src = canvas.toDataURL("image/webp")
-      }, Math.floor(1000 / FRAME_RATE))
     }
   }
 }
