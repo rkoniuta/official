@@ -1,17 +1,8 @@
 let STREAM = false
 
 const VIDEO_CONSTRAINTS = {
+  audio: false,
   video: {
-    width: {
-      min: 720,
-      ideal: 1080,
-      max: 2560,
-    },
-    height: {
-      min: 720,
-      ideal: 1920,
-      max: 2560
-    },
     facingMode: "environment"
   }
 }
