@@ -359,8 +359,6 @@ const fetchWakeups = () => {
 const schedule = () => {
   if (NUM_SELECTED_DAYS > 0) {
     $("#schedule-button").addClass("loading")
-    const paymentToken = token.id
-    const cardToken = token.card.id
     let c = 0
     const success = () => {
       $("#schedule-button").removeClass("loading")
@@ -378,10 +376,8 @@ const schedule = () => {
     const recurse = () => {
       submitToken((token) => {
         if (token) {
-          if (c === WAKEUPS.length) {
-            success()
-            return;
-          }
+          const paymentToken = token.id
+          const cardToken = token.card.id
           const wakeup = WAKEUPS[c]
           const m = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(TIME_ZONE)
           const hour = parseInt(m.get("hour"))
@@ -404,7 +400,12 @@ const schedule = () => {
             },
             success: (data) => {
               c++;
-              recurse()
+              if (c === WAKEUPS.length) {
+                success()
+              }
+              else {
+                recurse()
+              }
             },
             error: (e) => {
               error()
