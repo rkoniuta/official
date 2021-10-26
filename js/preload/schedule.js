@@ -413,7 +413,7 @@ const schedule = () => {
           })
         }
         else {
-          error()
+          $("#schedule-button").removeClass("loading")
         }
       })
     }
