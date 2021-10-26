@@ -79,12 +79,18 @@ body {
   border-radius: 100%;
   outline: none;
   border: 8px solid white;
-  transition: background-color linear 0.1s, border-color linear 0.1s;
+  transition: background-color ease 0.2s, border-color ease 0.2s, width ease 0.2s, height ease 0.2s, bottom ease 0.2s, left ease 0.2s, border-width ease 0.2s;
+  -webkit-transition: background-color ease 0.2s, border-color ease 0.2s, width ease 0.2s, height ease 0.2s, bottom ease 0.2s, left ease 0.2s, border-width ease 0.2s;
 }
 
 #capture-button:active {
   background-color: rgba(255,255,255,0.2);
   border-color: rgba(255,255,255,0.8);
+  width: 96px;
+  height: 96px;
+  bottom: 30px;
+  left: calc(50vw - 48px);
+  border-width: 20px;
 }
 
 video {
