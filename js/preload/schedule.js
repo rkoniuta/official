@@ -3,6 +3,7 @@ let EXISTING_WAKEUPS = SELECTED_DAYS
 let WAKEUPS_FETCHED = false
 const WAKEUPS = []
 let NUM_SELECTED_DAYS = 0
+const LOCAL_TIME_ZONE = moment.tz.guess()
 
 const DEFAULT_WAKEUP_TIME = 480
 const MIN_WAKEUP_TIME = 300
@@ -215,13 +216,13 @@ const genWakeups = () => {
     noWakeups.style.display = "block"
   }
   for (const wakeup of data) {
-    const ofWeek = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").format("ddd").toLowerCase().trim()
+    const ofWeek = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("ddd").toLowerCase().trim()
     localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek, wakeup.time.toString())
     const deposit = (wakeup.deposit / 100).toString()
     const hour = Math.floor(wakeup.time / 60).toString()
     const minute = (wakeup.time % 60).toString()
-    const date = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
-    const fromNow = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+    const date = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
+    const fromNow = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
 
     let parent = document.createElement("div")
     parent.className = "wakeup"
@@ -357,7 +358,60 @@ const fetchWakeups = () => {
 
 const schedule = () => {
   if (NUM_SELECTED_DAYS > 0) {
-    //TODO: Implement
+    $("#schedule-button")[0].addClass("loading")
+    submitToken((token) => {
+      if (token) {
+        const paymentToken = token.id
+        const cardToken = token.card.id
+        const c = 0
+        const success = () => {
+          $("#schedule-button")[0].removeClass("loading")
+          $("#home-button").click()
+        }
+        const error = () => {
+          $("#schedule-button")[0].removeClass("loading")
+          MODAL.displayHTML("<p>Error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
+        }
+        const recurse = () => {
+          if (c === WAKEUPS.length) {
+            success()
+            return;
+          }
+          const wakeup = WAKEUPS[c]
+          const m = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(TIME_ZONE)
+          const hour = parseInt(m.get("hour"))
+          const minute = parseInt(m.get("minute"))
+          const time = ((hour * 60) + minute)
+          $.ajax({
+            url: (API + "/schedule"),
+            type: "PUT",
+            xhrFields: {
+              withCredentials: true
+            },
+            beforeSend: (xhr) => {
+              xhr.setRequestHeader("Authorization", ID_TOKEN)
+            },
+            data: {
+              token: paymentToken,
+              time: time,
+              deposit: wakeup.deposit,
+              day: wakeup.day
+            },
+            success: (data) => {
+              c++;
+              recurse()
+            },
+            error: (e) => {
+              error()
+            }
+          })
+        }
+        recurse()
+      }
+      else {
+        $("#schedule-button")[0].removeClass("loading")
+      }
+    })
   }
 }
 
@@ -376,8 +430,11 @@ const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
       color: "black",
       width: "300px",
       background: "transparent",
-      backgroundColor: "transparent"
-    },
+      backgroundColor: "transparent",
+      "::placeholder": {
+        color: "rgba(0,0,0,0.4)",
+      }
+    }
   }
 })
 
