@@ -362,7 +362,7 @@ const schedule = () => {
     let c = 0
     const success = () => {
       $("#schedule-button").removeClass("loading")
-      $("#home-button").click()
+      $("#home-button")[0].click()
     }
     const error = () => {
       $("#schedule-button").removeClass("loading")
