@@ -8,7 +8,6 @@ const VIDEO_CONSTRAINTS = {
 }
 
 const malformedCamera = () => {
-  //TODO: Implement
   MODAL.hide()
   MODAL.displayHTML("<p>We weren't able to access your device's camera. Please reattempt verification on a <b>different device</b>.")
 }
@@ -37,4 +36,19 @@ const initVideo = async () => {
       }, Math.floor(1000 / 29))
     }
   }
+}
+
+const getBase64Capture = () => {
+  const videoElement = document.getElementById("stream")
+  const canvas = document.createElement("canvas")
+  canvas.width = 300
+  canvas.height = 300
+  canvas.getContext("2d").drawImage(videoElement, (300 - videoElement.videoWidth) / 2, (300 - videoElement.videoHeight) / 2);
+  return canvas.toDataURL().replace("data:image/png;base64,","").trim()
+}
+
+const capture = () => {
+  //TODO: Implement
+  //FIXME: remove
+  MODAL.displayHTML("<p>Size: " + getBase64Capture().length + ".</p>")
 }
