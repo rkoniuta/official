@@ -28,6 +28,8 @@ const initVideo = async () => {
     if (STREAM) {
       videoElement.srcObject = STREAM
       videoElement.play()
+      videoElement.pause()
+      videoElement.controls = false
       setInterval(() => {
         videoElement.play()
       }, (1000 / 60))
