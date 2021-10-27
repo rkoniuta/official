@@ -436,6 +436,10 @@ button.loading {
   vertical-align: text-top;
 }
 
+.wakeup > .info > p {
+  max-width: 200px;
+}
+
 .wakeup > .cancel {
   height: 72px;
   box-sizing: border-box;
