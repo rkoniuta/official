@@ -188,6 +188,7 @@ const fetchWakeups = () => {
 }
 
 const setWakeups = (data = []) => {
+  const element = document.getElementById("time-left")
   data = data.sort((a, b) => {
     return (a.day - b.day)
   })
@@ -204,20 +205,35 @@ const setWakeups = (data = []) => {
       const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
       const minutes = Math.floor(diff / 60)
       const seconds = (diff % 60)
-      document.getElementById("time-left").innerHTML = (minutes.toString() + " : " + seconds.toString().padStart(2, "0"))
-      if (diff === 0 && !flag) {
+      if (diff < 60) {
+        element.style.color = "red"
+        element.style.fontWeight = "bold"
+      }
+      else {
+        element.style.color = "white"
+        element.style.fontWeight = "400"
+      }
+      element.innerHTML = (minutes.toString() + " : " + seconds.toString().padStart(2, "0"))
+      if ((diff === 0 || diff > (5 * 60)) && !flag) {
         flag = true
         setTimeout(() => {
-          let devAdd = ""
-          if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
-            devAdd = "?source=dev"
-            if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
-              devAdd = "?source=dev&hidebanner=true"
-            }
-          }
-          window.location.href = ("./dashboard" + devAdd)
+          leavePage()
         }, 5000)
       }
     }, (1000 / FRAME_RATE))
   }
+  else {
+    leavePage()
+  }
+}
+
+const leavePage = () => {
+  let devAdd = ""
+  if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
+    devAdd = "?source=dev"
+    if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
+      devAdd = "?source=dev&hidebanner=true"
+    }
+  }
+  window.location.href = ("./dashboard" + devAdd)
 }
