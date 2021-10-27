@@ -199,7 +199,7 @@ const setWakeups = (data = []) => {
   }
   if (WAKEUP) {
     const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
-    const flag = false
+    let flag = false
     setInterval(() => {
       const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
       const minutes = Math.floor(diff / 60)
