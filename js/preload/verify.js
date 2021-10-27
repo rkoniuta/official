@@ -59,7 +59,7 @@ const initVideo = async () => {
 const setInstruction = (item = "") => {
   const element = document.getElementById("instructions")
   if (item.length) {
-    element.innerHTML = ("Take a photo of " + item.split(" ")[0]  + " <b>" + item.substring(item.split(" ")[0].length).trim() + "</b>")
+    element.innerHTML = ("To verify you're out of bed,<br>take a photo of " + item.split(" ")[0]  + " <b>" + item.substring(item.split(" ")[0].length).trim() + "</b>")
   }
   else {
     element.innerHTML = ""

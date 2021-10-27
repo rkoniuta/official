@@ -141,7 +141,7 @@ body {
   width: 300px;
   height: 24px;
   font-size: 18px;
-  line-height: 18px;
+  line-height: 24px;
   padding: 0px;
   margin: 0px;
   font-family: 'Urbanist', sans-serif;
@@ -149,10 +149,9 @@ body {
   box-sizing: border-box;
   position: fixed;
   overflow: visible;
-  white-space: nowrap;
   z-index: 1;
   left: calc(50vw - 150px);
-  bottom: calc(50vh - 200px);
+  bottom: calc(50vh - 196px);
   text-shadow: 0px 0px 30px rgba(0,0,0,1);
   text-align: center;
   color: white;
