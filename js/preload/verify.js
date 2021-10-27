@@ -199,11 +199,25 @@ const setWakeups = (data = []) => {
   }
   if (WAKEUP) {
     const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
+    const flag = false
     setInterval(() => {
       const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
       const minutes = Math.floor(diff / 60)
       const seconds = (diff % 60)
       document.getElementById("time-left").innerHTML = (minutes.toString() + " : " + seconds.toString().padStart(2, "0"))
+      if (diff === 0 && !flag) {
+        flag = true
+        setTimeout(() => {
+          let devAdd = ""
+          if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
+            devAdd = "?source=dev"
+            if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
+              devAdd = "?source=dev&hidebanner=true"
+            }
+          }
+          window.location.href = ("./dashboard" + devAdd)
+        }, 5000)
+      }
     }, (1000 / FRAME_RATE))
   }
 }
