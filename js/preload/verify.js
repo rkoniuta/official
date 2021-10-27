@@ -201,10 +201,12 @@ const setWakeups = (data = []) => {
   if (WAKEUP) {
     const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(5, "minutes").tz(LOCAL_TIME_ZONE)
     let flag = false
+    let c = 0
     setInterval(() => {
       const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
       const minutes = Math.floor(diff / 60)
       const seconds = (diff % 60)
+      c++
       if (diff < 60) {
         element.style.color = "red"
         element.style.fontWeight = "bold"
@@ -216,9 +218,13 @@ const setWakeups = (data = []) => {
       element.innerHTML = (minutes.toString() + " : " + seconds.toString().padStart(2, "0"))
       if ((diff === 0 || diff > (5 * 60)) && !flag) {
         flag = true
+        let delay = 0
+        if (c > 10) {
+          delay = 3000
+        }
         setTimeout(() => {
           leavePage()
-        }, 1000)
+        }, delay)
       }
     }, (1000 / FRAME_RATE))
   }
