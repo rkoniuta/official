@@ -55,3 +55,14 @@ const phoneFormatter = (obj) => {
   const value = formatPhone(obj.value)
   obj.value = value
 }
+
+const leavePage = (page = "./dashboard") => {
+  let devAdd = ""
+  if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
+    devAdd = "?source=dev"
+    if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
+      devAdd = "?source=dev&hidebanner=true"
+    }
+  }
+  window.location.href = (page + devAdd)
+}

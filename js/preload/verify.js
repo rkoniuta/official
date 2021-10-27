@@ -121,14 +121,7 @@ const capture = () => {
         id: (WAKEUP.id || false)
       },
       success: (data) => {
-        let devAdd = ""
-        if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
-          devAdd = "?source=dev"
-          if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
-            devAdd = "?source=dev&hidebanner=true"
-          }
-        }
-        window.location.href = ("./verified" + devAdd)
+        leavePage("./verified")
       },
       error: (data) => {
         const videoElement = document.getElementById("stream").play()
@@ -201,6 +194,9 @@ const setWakeups = (data = []) => {
       WAKEUP = w
     }
   }
+  if (WAKEUP.verified === 1) {
+    leavePage("./verified")
+  }
   if (WAKEUP) {
     const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(5, "minutes").tz(LOCAL_TIME_ZONE)
     let flag = false
@@ -234,15 +230,4 @@ const setWakeups = (data = []) => {
   else {
     leavePage()
   }
-}
-
-const leavePage = () => {
-  let devAdd = ""
-  if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
-    devAdd = "?source=dev"
-    if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
-      devAdd = "?source=dev&hidebanner=true"
-    }
-  }
-  window.location.href = ("./dashboard" + devAdd)
 }
