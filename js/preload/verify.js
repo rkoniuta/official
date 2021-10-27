@@ -193,7 +193,7 @@ const setWakeups = (data = []) => {
   })
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
   for (let w of data) {
-    if (data.day === TODAY) {
+    if (w.day === TODAY) {
       WAKEUP = w
     }
   }
