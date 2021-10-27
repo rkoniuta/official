@@ -194,7 +194,7 @@ const setWakeups = (data = []) => {
       WAKEUP = w
     }
   }
-  if (WAKEUP.verified === 1) {
+  if (WAKEUP.verified === true) {
     leavePage("./verified")
   }
   if (WAKEUP) {

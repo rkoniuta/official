@@ -17,11 +17,13 @@ const AUTH = () => {
         }
       }
       if (WAKEUP) {
-        const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(5, "minutes").tz(LOCAL_TIME_ZONE)
-        const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
-        if (diff > 0 && diff < ((60 * 5) + 2)) {
-          if (!window.location.href.toString().includes("verify")) {
-            leavePage("./verify")
+        if (WAKEUP.verified) {
+          const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(5, "minutes").tz(LOCAL_TIME_ZONE)
+          const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
+          if (diff > 0 && diff < ((60 * 5) + 2)) {
+            if (!window.location.href.toString().includes("verify")) {
+              leavePage("./verify")
+            }
           }
         }
       }
