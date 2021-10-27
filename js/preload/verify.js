@@ -8,6 +8,7 @@ const LOCAL_TIME_ZONE = moment.tz.guess()
 const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
 let CHALLENGE = ""
 let CHALLENGES = []
+let WAKEUP = false
 let STREAM = false
 let TOO_DARK = true
 const VIDEO_CONSTRAINTS = {
@@ -103,7 +104,7 @@ const capture = () => {
     const videoElement = document.getElementById("stream").pause()
     $("#capture-button").addClass("loading")
     $.ajax({
-      url: (API + "/photo"),
+      url: (API + "/verify"),
       type: "PUT",
       xhrFields: {
         withCredentials: true
@@ -113,7 +114,8 @@ const capture = () => {
       },
       data: {
         image: photo,
-        challenge: CHALLENGE
+        challenge: CHALLENGE,
+        id: (WAKEUP.id || false)
       },
       success: (data) => {
         let devAdd = ""
@@ -190,14 +192,13 @@ const setWakeups = (data = []) => {
     return (a.day - b.day)
   })
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
-  let wakeup = false
   for (let w of data) {
     if (data.day === TODAY) {
-      wakeup = w
+      WAKEUP = w
     }
   }
-  if (wakeup) {
-    const time = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
+  if (WAKEUP) {
+    const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
     setInterval(() => {
       const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
       const minutes = Math.floor(diff / 60)
