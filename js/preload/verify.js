@@ -203,7 +203,7 @@ const setWakeups = (data = []) => {
       const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
       const minutes = Math.floor(diff / 60)
       const seconds = (diff % 60)
-      document.getElementById("time-left").innerHTML = (minutes.toString() + " : " + seconds.toString())
+      document.getElementById("time-left").innerHTML = (minutes.toString() + " : " + seconds.toString().padStart(2, "0"))
     }, (1000 / FRAME_RATE))
   }
 }
