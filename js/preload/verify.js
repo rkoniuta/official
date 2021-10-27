@@ -95,7 +95,7 @@ const getBase64Capture = () => {
   canvas.width = CAPTURE_DIMENSION
   canvas.height = CAPTURE_DIMENSION
   canvas.getContext("2d").drawImage(videoElement, ((CAPTURE_DIMENSION - videoElement.videoWidth) / 2), ((CAPTURE_DIMENSION - videoElement.videoHeight) / 2))
-  return canvas.toDataURL().replace("data:image/png;base64,","").trim()
+  return canvas.toDataURL("image/jpeg").split(";base64,")[1]
 }
 
 const capture = () => {
