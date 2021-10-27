@@ -11,7 +11,7 @@ const AUTH = () => {
       let WAKEUP = false
       const LOCAL_TIME_ZONE = moment.tz.guess()
       const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
-      for (let w of data) {
+      for (let w of wakeups) {
         if (w.day === TODAY) {
           WAKEUP = w
         }
