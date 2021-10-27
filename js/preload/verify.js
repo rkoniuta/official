@@ -4,6 +4,8 @@ const DARKNESS_THRESHOLD = 56 //out of 255
 const BACKUP_CHALLENGE = "a shower head"
 const MAX_CHALLENGE_SWITCHES = 3 //max refreshes
 
+const LOCAL_TIME_ZONE = moment.tz.guess()
+const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
 let CHALLENGE = ""
 let CHALLENGES = []
 let STREAM = false
@@ -164,4 +166,43 @@ const fetchChallenge = () => {
       setInstruction(CHALLENGE)
     }
   })
+}
+
+const fetchWakeups = () => {
+  $.ajax({
+    url: (API + "/wakeups"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setWakeups(data.wakeups)
+      WAKEUPS_FETCHED = true
+    }
+  })
+}
+
+const setWakeups = (data = []) => {
+  data = data.sort((a, b) => {
+    return (a.day - b.day)
+  })
+  localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
+  let wakeup = false
+  for (let w of data) {
+    if (data.day === TODAY) {
+      wakeup = w
+    }
+  }
+  if (wakeup) {
+    const time = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
+    setInterval(() => {
+      const diff = Math.max(Math.floor(time.diff(moment()) / 1000), 0)
+      const minutes = Math.floor(diff / 60)
+      const seconds = (diff % 60)
+      document.getElementById("time-left").innerHTML = (minutes.toString() + " : " + seconds.toString())
+    }, (1000 / FRAME_RATE))
+  }
 }

@@ -1,3 +1,5 @@
+fetchWakeups()
+fetchChallenge()
 setInstruction()
 const INIT_VIDEO_INTERVAL = setInterval(() => {
   if (document.getElementById("__modal")) {
@@ -5,5 +7,3 @@ const INIT_VIDEO_INTERVAL = setInterval(() => {
     clearInterval(INIT_VIDEO_INTERVAL)
   }
 }, 5)
-
-fetchChallenge()

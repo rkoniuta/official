@@ -158,6 +158,16 @@ body {
   color: white;
 }
 
+#time-left {
+  color: white;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+}
+
 video {
   pointer-events: none;
 }
