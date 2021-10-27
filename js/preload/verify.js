@@ -149,7 +149,7 @@ const switchChallenge = () => {
 const fetchChallenge = () => {
   $.ajax({
     url: (API + "/challenges"),
-    type: "PUT",
+    type: "GET",
     xhrFields: {
       withCredentials: true
     },
