@@ -41,7 +41,7 @@
   color: white;
 }
 
-.hero > .header > button {
+.hero > .header > a > button {
   background: rgba(255,255,255,0.3);
 }
 

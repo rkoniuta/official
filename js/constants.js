@@ -66,3 +66,9 @@ const leavePage = (page = "./dashboard") => {
   }
   window.location.href = (page + devAdd)
 }
+
+$(window).on("load", () => {
+  if (IS_IOS) {
+    $(".if-ios").removeClass("if-ios")
+  }
+})
