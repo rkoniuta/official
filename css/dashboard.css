@@ -179,6 +179,7 @@
   cursor: pointer;
   opacity: 1;
   transition: opacity linear 0.1s;
+  -webkit-transition: opacity linear 0.1s;
 }
 
 .toolbar > a > img:active {

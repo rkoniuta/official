@@ -44,6 +44,7 @@ body {
   color: black;
   cursor: pointer;
   transition: opacity linear 0.1s;
+  -webkit-transition: opacity linear 0.1s;
 }
 
 .logo:active {
@@ -116,6 +117,7 @@ button {
   box-sizing: border-box;
   cursor: pointer;
   transition: opacity linear 0.1s;
+  -webkit-transition: opacity linear 0.1s;
   cursor: pointer !important;
 }
 
@@ -291,6 +293,7 @@ p.legal > a {
   box-sizing: border-box;
   cursor: pointer;
   transition: opacity linear 0.1s;
+  -webkit-transition: opacity linear 0.1s;
 }
 
 .estimate-info > img:active {
@@ -458,6 +461,7 @@ button.loading {
   opacity: 0.4;
   cursor: pointer;
   transition: opacity linear 0.1s;
+  -webkit-transition: opacity linear 0.1s;
 }
 
 .wakeup > .cancel > img:not(.verified):active {

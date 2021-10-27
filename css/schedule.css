@@ -31,6 +31,7 @@
   padding: 4px 0px;
   cursor: pointer;
   transition: box-shadow linear 0.1s, opacity linear 0.1s;
+  -webkit-transition: box-shadow linear 0.1s, opacity linear 0.1s;
   user-select: none;
 }
 .day-container > .day:first-child {
@@ -64,6 +65,7 @@
   text-transform: capitalize;
   font-size: 13px;
   transition: color ease 0.1s;
+  -webkit-transition: color ease 0.1s;
 }
 
 .day-container > .day > h3 {
@@ -153,6 +155,7 @@ p.subtitle {
   border-radius: 3px;
   border-bottom: 3px solid transparent;
   transition: border-color linear 0.1s;
+  -webkit-transition: border-color linear 0.1s;
 }
 
 #deposit-amount:focus {
@@ -224,6 +227,7 @@ p.subtitle {
   border-radius: 3px;
   border-bottom: 3px solid transparent;
   transition: border-color linear 0.1s;
+  -webkit-transition: border-color linear 0.1s;
 }
 
 .minute-input::placeholder, .hour-input::placeholder {

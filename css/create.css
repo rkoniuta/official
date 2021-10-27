@@ -141,6 +141,7 @@ input {
   -moz-appearance: none;
   appearance: none;
   transition: border-color ease 0.2s;
+  -webkit-transition: border-color ease 0.2s;
 }
 
 input:focus {
@@ -212,6 +213,7 @@ input[type=password]::placeholder {
 
 .screen, .screen > * {
   transition: transform ease 1s, opacity ease 0.75s;
+  -webkit-transition: transform ease 1s, opacity ease 0.75s;
 }
 
 a.back {
