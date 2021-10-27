@@ -218,7 +218,7 @@ const setWakeups = (data = []) => {
         flag = true
         setTimeout(() => {
           leavePage()
-        }, 5000)
+        }, 1000)
       }
     }, (1000 / FRAME_RATE))
   }
