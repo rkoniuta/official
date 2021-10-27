@@ -1,3 +1,7 @@
+if (IS_IOS) {
+  $(".if-ios").removeClass("if-ios")
+}
+
 initDays()
 
 if (parseInt((new URLSearchParams(window.location.href)).get("deposit"))) {
