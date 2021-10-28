@@ -80,3 +80,18 @@ p.small {
   width: 300px;
   text-align: center;
 }
+
+a.link {
+  cursor: pointer;
+  color: rgba(0,0,0,0.4);
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+div.between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
