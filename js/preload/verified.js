@@ -18,7 +18,7 @@ const processWakeups = (wakeups) => {
   for (let wakeup of wakeups) {
     if (wakeup.verified) {
       const ID = wakeup.id
-      leavePage("./dashboard", ["verified", ID])
+      leavePage("./dashboard", [["verified", ID]])
     }
   }
 }
