@@ -7,8 +7,8 @@ const ROUTINES = {
       Password: password,
     })
     USER = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
-        Username: phone,
-        Pool: USER_POOL
+      Username: phone,
+      Pool: USER_POOL
     })
     USER.authenticateUser(AUTH_DETAILS, {
       onSuccess: (result) => {
@@ -96,6 +96,38 @@ const ROUTINES = {
       else {
         callback(null)
       }
+    })
+  },
+
+  //FORGOT PASSWORD
+  forgot: (phone, callback = (() => {})) => {
+    USER = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
+      Username: phone,
+      Pool: USER_POOL
+    })
+    USER.forgotPassword({
+      onSuccess: (result) => {
+        callback(null)
+      },
+      onFailure: (err) => {
+        callback(err)
+      },
+    })
+  },
+
+  //UPDATE PASSWORD
+  update: (phone, code, password, callback = (() => {})) => {
+    USER = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
+      Username: phone,
+      Pool: USER_POOL
+    })
+    USER.confirmPassword(code, password, {
+      onSuccess: (result) => {
+        callback(null)
+      },
+      onFailure: (err) => {
+        callback(err)
+      },
     })
   },
 
