@@ -217,6 +217,7 @@ const setWakeups = (data = []) => {
     const fromNow = m.fromNow()
 
     let parent = document.createElement("div")
+    parent.id = ("wakeup-" + wakeup.id)
     parent.className = "wakeup"
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
@@ -308,6 +309,23 @@ const fetchWakeups = () => {
     },
     success: (data) => {
       setWakeups(data.wakeups)
+      displayVerified()
     }
   })
+}
+
+const displayVerified = () => {
+  const url = new URLSearchParams(window.location.href)
+  if (url.get("verified")) {
+    const wakeupID = decodeURIComponent(url.get("verified"))
+    let devAdd = ""
+    if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
+      devAdd = "?source=dev"
+      if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
+        devAdd = "?source=dev&hidebanner=true"
+      }
+    }
+    window.history.replaceState(null, null, window.location.pathname + devAdd)
+    document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+  }
 }
