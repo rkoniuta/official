@@ -42,7 +42,9 @@ const sendCode = () => {
   const obj = document.getElementById("screen-0-input")
   if (verifyPhone(obj)) {
     const phone = ("+1" + cleanPhone(obj.value))
+    $("#button-0").addClass("loading")
     ROUTINES.forgot(phone, (err) => {
+      $("#button-0").removeClass("loading")
       if (err) {
         obj.setAttribute("invalid", "true")
       }
@@ -110,9 +112,10 @@ const updatePassword = () => {
     const password = document.getElementById("screen-2-input").value
     localStorage.setItem(LOCAL_STORAGE_TAG + "temp-username", phone)
     localStorage.setItem(LOCAL_STORAGE_TAG + "temp-password", password)
+    $("#button-2").addClass("loading")
     ROUTINES.update(phone, code, password, (err) => {
       if (err) {
-        console.log(err)
+        $("#button-2").removeClass("loading")
         codeInput.placeholder = "Incorrect code."
         codeInput.setAttribute("invalid", "true")
         codeInput.value = ""
@@ -123,6 +126,7 @@ const updatePassword = () => {
           localStorage.getItem(LOCAL_STORAGE_TAG + "temp-username"),
           localStorage.getItem(LOCAL_STORAGE_TAG + "temp-password"),
           (err) => {
+            $("#button-2").removeClass("loading")
             localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-username")
             localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-password")
             nextScreen()
