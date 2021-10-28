@@ -56,15 +56,28 @@ const phoneFormatter = (obj) => {
   obj.value = value
 }
 
-const leavePage = (page = "./dashboard") => {
+const leavePage = (page = "./dashboard", params = []) => {
   let devAdd = ""
+  let paramsAdd = ""
+  let qFlag = true
   if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
     devAdd = "?source=dev"
     if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
       devAdd = "?source=dev&hidebanner=true"
     }
   }
-  window.location.href = (page + devAdd)
+  if (devAdd.length) {
+    qFlag = false
+  }
+  for (let param of params) {
+    let c = "&"
+    if (qFlag) {
+      c = "?"
+      qFlag = false
+    }
+    paramsAdd = (paramsAdd + c + encodeURIComponent(param[0]) + "=" + encodeURIComponent(param[1]))
+  }
+  window.location.href = (page + devAdd + paramsAdd)
 }
 
 $(window).on("load", () => {
