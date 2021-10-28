@@ -71,7 +71,11 @@ const ROUTINES = {
     if (USER != null) {
       USER.getSession((err, session) => {
         USER.globalSignOut({
-          onSuccess: (err,data) => {
+          onSuccess: (data) => {
+            localStorage.clear()
+            window.location.href = REDIRECTS.home
+          },
+          onFailure: (err) => {
             localStorage.clear()
             window.location.href = REDIRECTS.home
           }
