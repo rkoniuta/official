@@ -214,6 +214,7 @@ const setWakeups = (data = []) => {
     const hour = m.format("h")
     const minute = m.format("mm")
     const date = m.format("MMMM Do")
+    const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
 
     let parent = document.createElement("div")
@@ -241,7 +242,7 @@ const setWakeups = (data = []) => {
     minuteSpan.innerHTML = minute.padStart(2, "0")
     let am = document.createElement("span")
     am.className = "am"
-    am.innerHTML = "am"
+    am.innerHTML = ampm
     let p = document.createElement("p")
     let cancel = document.createElement("div")
     cancel.className = "cancel"
