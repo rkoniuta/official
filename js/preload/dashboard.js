@@ -316,7 +316,7 @@ const fetchWakeups = () => {
 }
 
 const displayVerified = () => {
-  const url = new URLSearchParams(window.location.href)
+  const url = (new URLSearchParams(window.location.href.substr(window.location.pathname.length + window.location.origin.length)))
   if (url.get("verified")) {
     const wakeupID = decodeURIComponent(url.get("verified"))
     let devAdd = ""
