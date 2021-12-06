@@ -60,12 +60,6 @@ const leavePage = (page = "./dashboard", params = []) => {
   let devAdd = ""
   let paramsAdd = ""
   let qFlag = true
-  if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
-    devAdd = "?source=dev"
-    if (JSON.parse((new URLSearchParams(window.location.href)).get("hidebanner"))) {
-      devAdd = "?source=dev&hidebanner=true"
-    }
-  }
   if (devAdd.length) {
     qFlag = false
   }
