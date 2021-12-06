@@ -16,9 +16,9 @@ const IS_IOS = (
 )
 
 const REDIRECTS = {
-  home: "https://paywake.net",
-  onAuth: "https://paywake.net/dashboard",
-  noAuth: "https://paywake.net/login"
+  home: "./",
+  onAuth: "./dashboard",
+  noAuth: "./login"
 }
 
 if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
