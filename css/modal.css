@@ -103,8 +103,8 @@
 
 @supports not ( -moz-appearance:none ) {
   #__modal-backdrop {
-    backdrop-filter: blur(20px) saturate(150%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+    backdrop-filter: blur(20px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(110%) !important;
     background: -moz-linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 80%) !important;
     background: -webkit-linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 80%) !important;
     background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 80%) !important;
