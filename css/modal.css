@@ -100,3 +100,18 @@
   width: 300px;
   text-align: center;
 }
+
+@supports not ( -moz-appearance:none ) {
+  #__modal-backdrop {
+    backdrop-filter: blur(20px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+    background: -moz-linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 80%) !important;
+    background: -webkit-linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 80%) !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 80%) !important;
+    transition: opacity ease 0.5s;
+    -webkit-transition: opacity ease 0.5s;
+  }
+  #__modal-backdrop.on.visible {
+    opacity: 1 !important;
+  }
+}
