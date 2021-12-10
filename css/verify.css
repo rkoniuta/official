@@ -66,7 +66,7 @@ body {
   justify-content: center;
   align-content: center;
   overflow: hidden;
-  z-index: -3;
+  z-index: -4;
 }
 
 #stream {
@@ -107,7 +107,7 @@ body {
   z-index: -1;
   bottom: calc(50vh - 150px);
   left: calc(50vw - 150px);
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 #photo-too-dark {
@@ -222,3 +222,49 @@ video::-webkit-media-controls-volume-slider {}
 video::-webkit-media-controls-mute-button {}
 video::-webkit-media-controls-timeline {}
 video::-webkit-media-controls-current-time-display {}
+
+.blur-element {
+  display: none;
+  position: fixed;
+  box-sizing: border-box;
+  opacity: 1;
+  z-index: -2;
+}
+
+#blur-top {
+  width: 100vw;
+  left: 0px;
+  height: calc(50vh - 142px);
+  top: 0px;
+}
+
+#blur-left {
+  height: 300px;
+  width: calc(50vw - 142px);
+  left: 0px;
+  bottom: calc(50vh - 142px);
+  z-index: -3;
+}
+
+#blur-right {
+  height: 300px;
+  width: calc(50vw - 142px);
+  right: 0px;
+  bottom: calc(50vh - 142px);
+  z-index: -3;
+}
+
+#blur-bottom {
+  width: 100vw;
+  left: 0px;
+  height: calc(50vh - 142px);
+  bottom: 0px;
+}
+
+@supports not ( -moz-appearance:none ) {
+  .blur-element {
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    display: block !important;
+  }
+}
