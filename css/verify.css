@@ -242,7 +242,7 @@ video::-webkit-media-controls-current-time-display {}
   height: 300px;
   width: calc(50vw - 142px);
   left: 0px;
-  bottom: calc(50vh - 136px);
+  bottom: calc(50vh - 150px);
   z-index: -3;
 }
 
@@ -250,7 +250,7 @@ video::-webkit-media-controls-current-time-display {}
   height: 300px;
   width: calc(50vw - 142px);
   right: 0px;
-  bottom: calc(50vh - 136px);
+  bottom: calc(50vh - 150px);
   z-index: -3;
 }
 
