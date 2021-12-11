@@ -231,40 +231,17 @@ video::-webkit-media-controls-current-time-display {}
   z-index: -2;
 }
 
-#blur-top {
-  width: 100vw;
-  left: 0px;
-  height: calc(50vh - 142px);
-  top: 0px;
-}
-
-#blur-left {
-  height: 300px;
-  width: calc(50vw - 142px);
-  left: 0px;
-  bottom: calc(50vh - 150px);
-  z-index: -3;
-}
-
-#blur-right {
-  height: 300px;
-  width: calc(50vw - 142px);
-  right: 0px;
-  bottom: calc(50vh - 150px);
-  z-index: -3;
-}
-
 #blur-bottom {
   width: 100vw;
   left: 0px;
-  height: calc(50vh - 142px);
-  bottom: 0px;
+  height: 77px;
+  top: 0px;
 }
 
 @supports not ( -moz-appearance:none ) {
   .blur-element {
-    backdrop-filter: blur(5px) !important;
-    -webkit-backdrop-filter: blur(5px) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     display: block !important;
   }
 }
