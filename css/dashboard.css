@@ -162,15 +162,14 @@
 }
 
 .toolbar {
-  width: 100vw;
-  min-width: 476px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   align-content: center;
   box-sizing: border-box;
-  padding: 18px 30px;
+  padding: 18px 0px;
 }
 
 .toolbar > a > img {
