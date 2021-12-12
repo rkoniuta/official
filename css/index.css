@@ -80,7 +80,7 @@ body {
 }
 
 .splash {
-  width: calc(60vw + 75px);
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   padding-bottom: 10vmin;
 }
 
@@ -142,7 +142,7 @@ button:active {
 
 
 .bounds {
-  width: calc(60vw + 75px);
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -187,7 +187,7 @@ button:active {
 }
 
 .middle {
-  width: calc(60vw + 75px);
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -276,7 +276,7 @@ p.legal > a {
 }
 
 .estimate-info {
-  width: calc(60vw + 75px);
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   height: 0px;
   margin-top: -38px;
   margin-bottom: 27px;
@@ -325,7 +325,7 @@ button.loading {
 
 
 .wakeup {
-  width: calc(60vw + 75px);
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
