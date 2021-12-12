@@ -61,7 +61,7 @@ body {
   margin: 0px;
   font-family: 'Urbanist', sans-serif;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: bold;
 }
 
 .content {
@@ -80,7 +80,7 @@ body {
 }
 
 .splash {
-  width: 300px;
+  width: calc(60vw + 75px);
   padding-bottom: 10vmin;
 }
 
@@ -142,7 +142,7 @@ button:active {
 
 
 .bounds {
-  width: 300px;
+  width: calc(60vw + 75px);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -187,7 +187,7 @@ button:active {
 }
 
 .middle {
-  width: 300px;
+  width: calc(60vw + 75px);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -276,7 +276,7 @@ p.legal > a {
 }
 
 .estimate-info {
-  width: 300px;
+  width: calc(60vw + 75px);
   height: 0px;
   margin-top: -38px;
   margin-bottom: 27px;
@@ -325,7 +325,7 @@ button.loading {
 
 
 .wakeup {
-  width: 300px;
+  width: calc(60vw + 75px);
   display: flex;
   flex-direction: row;
   align-items: center;
