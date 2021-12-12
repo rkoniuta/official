@@ -159,6 +159,9 @@
   box-sizing: border-box;
   background: white;
   z-index: 3;
+  border-top-left-radius: 44px;
+  border-top-right-radius: 44px;
+  overflow: hidden;
 }
 
 .toolbar {
