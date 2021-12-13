@@ -241,13 +241,9 @@
 
 #buffer {
   width: min(calc(60vw + 75px), calc(60vh + 150px));
-  height: 80px;
+  height: 24px;
   box-sizing: border-box;
   background: transparent;
-}
-
-#buffer.if-ios {
-  display: none;
 }
 
 .earnings-container {
