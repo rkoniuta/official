@@ -78,9 +78,6 @@ $(window).on("load", () => {
   if (IS_IOS) {
     $(".if-ios").removeClass("if-ios")
   }
-  setTimeout(() => {
-    window.scrollTo(0,1)
-  },1)
 });
 
 (() => {
