@@ -294,9 +294,4 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,1) 400px);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
   }
-  .toolbar-container {
-    backdrop-filter: blur(20px) saturate(110%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(110%) !important;
-    background: rgba(255,255,255,0.7) !important;
-  }
 }
