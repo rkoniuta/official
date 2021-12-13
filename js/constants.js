@@ -97,7 +97,7 @@ $(window).on("load", () => {
   } catch (err) {};
   document.addEventListener("scroll", (e) => {
     const windowInnerHeight = window.innerHeight;
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
       if (!SAFARI_FIX.minInnerHeight || (windowInnerHeight < SAFARI_FIX.minInnerHeight)) {
         SAFARI_FIX.minInnerHeight = windowInnerHeight
       }
