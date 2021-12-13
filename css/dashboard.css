@@ -285,12 +285,12 @@
 
 @supports not ( -moz-appearance:none ) {
   .content {
-    backdrop-filter: blur(20px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(120%) !important;
+    backdrop-filter: blur(20px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(110%) !important;
     background: rgb(255,255,255);
-    background: -moz-linear-gradient(0deg, rgba(255,255,255,1) 50%, rgba(255,255,255,0.5032387955182073) 100%);
-    background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 50%, rgba(255,255,255,0.5032387955182073) 100%);
-    background: linear-gradient(0deg, rgba(255,255,255,1) 50%, rgba(255,255,255,0.5032387955182073) 100%);
+    background: -moz-linear-gradient(0deg, rgba(255,255,255,1) 60%, rgba(255,255,255,0.6) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 60%, rgba(255,255,255,0.6) 100%);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 60%, rgba(255,255,255,0.6) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
   }
 }
