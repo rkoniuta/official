@@ -316,7 +316,7 @@ button.loading {
   width: 100vw;
   height: calc(100vh - 50px);
   position: absolute;
-  background: rgb(255,204,0);
+  background: rgb(255,102,0);
   z-index: -100000;
   top: 0px;
   left: 0px;

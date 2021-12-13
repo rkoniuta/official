@@ -14,7 +14,7 @@
   background: rgb(255,255,255);
   background: -moz-linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
   background: -webkit-linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
-  background: linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
+  background: linear-gradient(0deg, rgba(255,102,0,1) 1%, rgba(255,102,0,0) 80%);
 }
 
 .hero {
