@@ -285,7 +285,7 @@
 }
 
 body.safari-toolbars-hidden > .toolbar-container {
-  padding-bottom: 32px;
+  padding-bottom: 40px;
 }
 
 @supports not ( -moz-appearance:none ) {
