@@ -82,7 +82,7 @@ $(window).on("load", () => {
 
 (() => {
   const SAFARI_FIX = {
-    minInnerHeight: false,
+    minInnerHeight: window.innerHeight,
     maxInnerHeight: false,
     passiveIfSupported: false
   };
@@ -98,13 +98,13 @@ $(window).on("load", () => {
   document.addEventListener("scroll", (e) => {
     const windowInnerHeight = window.innerHeight;
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      if (SAFARI_FIX.minInnerHeight === false || windowInnerHeight < SAFARI_FIX.minInnerHeight) {
+      if (!SAFARI_FIX.minInnerHeight || (windowInnerHeight < SAFARI_FIX.minInnerHeight)) {
         SAFARI_FIX.minInnerHeight = windowInnerHeight
       }
-      if ((SAFARI_FIX.maxInnerHeight === false || windowInnerHeight > SAFARI_FIX.maxInnerHeight === false) && windowInnerHeight > SAFARI_FIX.minInnerHeight) {
+      if ((!SAFARI_FIX.maxInnerHeight || (windowInnerHeight > SAFARI_FIX.maxInnerHeight)) && windowInnerHeight > SAFARI_FIX.minInnerHeight) {
         SAFARI_FIX.maxInnerHeight = windowInnerHeight
       }
-      if (SAFARI_FIX.maxInnerHeight !== false && SAFARI_FIX.maxInnerHeight === windowInnerHeight) {
+      if (SAFARI_FIX.maxInnerHeight && (SAFARI_FIX.maxInnerHeight == windowInnerHeight)) {
         $(document.body).addClass("safari-toolbars-hidden")
       } else {
         $(document.body).removeClass("safari-toolbars-hidden")
