@@ -78,4 +78,37 @@ $(window).on("load", () => {
   if (IS_IOS) {
     $(".if-ios").removeClass("if-ios")
   }
-})
+});
+
+(() => {
+  const SAFARI_FIX = {
+    minInnerHeight: false,
+    maxInnerHeight: false,
+    passiveIfSupported: false
+  };
+  try {
+    window.addEventListener("test", null, Object.defineProperty({}, "passive", {
+      get: () => {
+        SAFARI_FIX.passiveIfSupported = {
+          passive: true
+        }
+      }
+    }))
+  } catch (err) {};
+  document.addEventListener("scroll", (e) => {
+    const windowInnerHeight = window.innerHeight;
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      if (SAFARI_FIX.minInnerHeight === false || windowInnerHeight < SAFARI_FIX.minInnerHeight) {
+        SAFARI_FIX.minInnerHeight = windowInnerHeight
+      }
+      if ((SAFARI_FIX.maxInnerHeight === false || windowInnerHeight > SAFARI_FIX.maxInnerHeight === false) && windowInnerHeight > SAFARI_FIX.minInnerHeight) {
+        SAFARI_FIX.maxInnerHeight = windowInnerHeight
+      }
+      if (SAFARI_FIX.maxInnerHeight !== false && SAFARI_FIX.maxInnerHeight === windowInnerHeight) {
+        $(document.body).addClass("safari-toolbars-hidden")
+      } else {
+        $(document.body).removeClass("safari-toolbars-hidden")
+      }
+    }
+  }, SAFARI_FIX.passiveIfSupported);
+})();

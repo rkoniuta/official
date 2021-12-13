@@ -284,6 +284,10 @@
   background: rgba(0,0,0,1);
 }
 
+body.safari-toolbars-hidden > .toolbar-container {
+  padding-bottom: 24px;
+}
+
 @supports not ( -moz-appearance:none ) {
   .content {
     backdrop-filter: blur(20px) saturate(110%) !important;
