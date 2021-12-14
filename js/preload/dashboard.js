@@ -49,8 +49,15 @@ const sliderInit = (obj) => {
 }
 
 const estimateAlert = () => {
+  let historic = MONTH_RETURN
+  if (RETURN_TOGGLE) {
+    historic = TODAY_RETURN
+  }
+  else if (CHARTING) {
+    historic = CHART_RETURN
+  }
   const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
-  const returns =  (Math.floor(deposit * ((ESTIMATED_RETURN / 100) + 1) * 100) / 100)
+  const returns =  (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
   const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0")))
   let add = "the last 30 days of Paywake user data."
   if (RETURN_TOGGLE === 1) {
@@ -420,7 +427,7 @@ const genEarningsChart = (data) => {
         labels: labels,
         datasets: [{
           pointRadius: 0,
-          backgroundColor: (context) => { return genGradient(context, 0, 1) },
+          backgroundColor: (context) => { return genGradient(context, 0, 0.7) },
           borderWidth: 8,
           borderColor: (context) => { return genGradient(context, 1) },
           fill: true,
