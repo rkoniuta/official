@@ -73,6 +73,8 @@ const set1DayReturns = () => {
   }
   slider(document.getElementById("estimate-slider"))
   $("#earnings-chart").addClass("hidden")
+  $("#chart-top-bounds").addClass("hidden")
+  $("#chart-bottom-bounds").addClass("hidden")
 }
 
 const set30DayReturns = () => {
@@ -82,6 +84,8 @@ const set30DayReturns = () => {
   document.getElementById("1d-30d-text").innerHTML = "In the last 30 days,"
   slider(document.getElementById("estimate-slider"))
   $("#earnings-chart").removeClass("hidden")
+  $("#chart-top-bounds").removeClass("hidden")
+  $("#chart-bottom-bounds").removeClass("hidden")
 }
 
 const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
@@ -376,11 +380,20 @@ const genEarningsChart = (data) => {
     }
     return getGradient(ctx, chartArea, opacity1);
   }
-  const labels = []
-  for (let i = 0; i < 30; i++) {
+  const labels = [moment().subtract(30,"day").format("MM/DD")]
+  for (let i = 0; i < 31; i++) {
     labels.push(moment().subtract(i,"day").format("MM/DD"))
   }
+  labels.push(moment().format("MM/DD"))
   labels.reverse()
+  const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4)
+  $("#chart-last-day").text(moment().subtract(30,"day").format("MM/DD"))
+  $("#chart-top-percent").text(maxValue.toString() + "%")
+  const chartData = (data.earnings || []).sort((a,b) => {
+    return a.day - b.day
+  }).map((e) => (e.earnings * 100))
+  chartData.unshift(chartData[0])
+  chartData.push(chartData[chartData.length - 1])
   if (!MADE_CHART) {
     CHART = new Chart(document.getElementById("__earnings-chart"), {
       type: "line",
@@ -394,7 +407,7 @@ const genEarningsChart = (data) => {
           fill: true,
           tension: 0.34,
           curvature: 1,
-          data: (data.earnings || []).map((e) => (e.earnings * 100)),
+          data: chartData,
         }]
       },
       options: {
@@ -428,7 +441,7 @@ const genEarningsChart = (data) => {
               color: "rgba(0,0,0,0)"
             },
             min: 0,
-            max: Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4,
+            max: maxValue,
           },
         },
         plugins: {
@@ -469,7 +482,7 @@ const genEarningsChart = (data) => {
     MADE_CHART = true
   }
   else {
-    CHART.data.datasets[0].data = (data.earnings || []).map((e) => (e.earnings * 100))
+    CHART.data.datasets[0].data = chartData
     CHART.update()
   }
 }
