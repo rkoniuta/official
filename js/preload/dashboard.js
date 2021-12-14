@@ -387,15 +387,17 @@ const genEarningsChart = (data) => {
     return getGradient(ctx, chartArea, opacity1);
   }
   let iStart = 1;
-  if (data.earnings.length === 29) {
+  if (data.earnings.length === 30) {
     iStart = 2
   }
   const labelFormat = "MM / DD"
   const labels = []
-  if (data.earnings.length === 29) {
+  if (data.earnings.length === 30) {
+    labels.push("Yesterday")
     labels.push("Yesterday")
   }
   else {
+    labels.push("Today")
     labels.push("Today")
   }
   for (let i = iStart; i < 31; i++) {
@@ -492,8 +494,8 @@ const genEarningsChart = (data) => {
                 CHART_RETURN = context.raw
                 CHARTING = true
                 let bigTitle = ("On " + moment(context.label).format("MMMM Do") + ",")
-                if (context.raw === chartData[chartData.length - 1]) {
-                  if (data.earnings.length === 29) {
+                if (context.label === labels[labels.length - 1]) {
+                  if (data.earnings.length === 30) {
                     bigTitle = "Yesterday,"
                   }
                   else {
