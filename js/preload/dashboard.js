@@ -335,6 +335,8 @@ const displayVerified = () => {
   }
 }
 
+let MADE_CHART = false
+let CHART = null
 const genEarningsChart = (data) => {
   const getBlackGradient = (ctx, chartArea, opacity1 = 0, opacity2 = 1) => {
     const chartWidth = (chartArea.right - chartArea.left)
@@ -379,88 +381,95 @@ const genEarningsChart = (data) => {
     labels.push(moment().subtract(i,"day").format("MM/DD"))
   }
   labels.reverse()
-  const chart = new Chart(document.getElementById("__earnings-chart"), {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [{
-        pointRadius: 0,
-        backgroundColor: (context) => { return genGradient(context, 0, 1) },
-        borderWidth: 10,
-        borderColor: (context) => { return genGradient(context, 1) },
-        fill: true,
-        tension: 0.34,
-        curvature: 1,
-        data: (data.earnings || []).map((e) => (e.earnings * 100)),
-      }]
-    },
-    options: {
-      elements: {
-        line: {
-          borderJoinStyle: "round"
-        }
+  if (!MADE_CHART) {
+    CHART = new Chart(document.getElementById("__earnings-chart"), {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [{
+          pointRadius: 0,
+          backgroundColor: (context) => { return genGradient(context, 0, 1) },
+          borderWidth: 10,
+          borderColor: (context) => { return genGradient(context, 1) },
+          fill: true,
+          tension: 0.34,
+          curvature: 1,
+          data: (data.earnings || []).map((e) => (e.earnings * 100)),
+        }]
       },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      maintainAspectRatio: false,
-      responsive: true,
-      animation: {
-        duration: 0
-      },
-      layout: {
-        padding: 0
-      },
-      scales: {
-        x: {
-          display: false,
-          grid: {
-            color: "rgba(0,0,0,0)"
+      options: {
+        elements: {
+          line: {
+            borderJoinStyle: "round"
           }
         },
-        y: {
-          display: false,
-          grid: {
-            color: "rgba(0,0,0,0)"
-          },
-          min: 0,
-          max: Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4,
+        hover: {
+          mode: 'nearest',
+          intersect: true
         },
-      },
-      plugins: {
-        legend: {
-          display: false
+        maintainAspectRatio: false,
+        responsive: true,
+        animation: {
+          duration: 0
         },
-        tooltip: {
-          intersect: false,
-          position: "nearest",
-          titleFont: {
-            family: "'Urbanist', san-serif",
-            weight: "400",
-            size: 14,
-            lineHeight: 0.8,
-          },
-          bodyFont: {
-            family: "'Urbanist', san-serif",
-            weight: "bold",
-            size: 14,
-            lineHeight: 0.8,
-          },
-          padding: 8,
-          caretSize: 8,
-          displayColors: false,
-          cornerRadius: 10,
-          titleAlign: "center",
-          bodyAlign: "center",
-          backgroundColor: "rgba(0,0,0,0.6)",
-          callbacks: {
-            label: (context) => {
-              return (Math.round(context.raw * 100) / 100).toString().padEnd(4, "0") + "%"
+        layout: {
+          padding: 0
+        },
+        scales: {
+          x: {
+            display: false,
+            grid: {
+              color: "rgba(0,0,0,0)"
             }
-          }
+          },
+          y: {
+            display: false,
+            grid: {
+              color: "rgba(0,0,0,0)"
+            },
+            min: 0,
+            max: Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4,
+          },
         },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            intersect: false,
+            position: "nearest",
+            titleFont: {
+              family: "'Urbanist', san-serif",
+              weight: "400",
+              size: 14,
+              lineHeight: 0.8,
+            },
+            bodyFont: {
+              family: "'Urbanist', san-serif",
+              weight: "bold",
+              size: 14,
+              lineHeight: 0.8,
+            },
+            padding: 8,
+            caretSize: 8,
+            displayColors: false,
+            cornerRadius: 10,
+            titleAlign: "center",
+            bodyAlign: "center",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            callbacks: {
+              label: (context) => {
+                return (Math.round(context.raw * 100) / 100).toString().padEnd(4, "0") + "%"
+              }
+            }
+          },
+        }
       }
-    }
-  })
+    })
+    MADE_CHART = true
+  }
+  else {
+    CHART.data.datasets[0].data = (data.earnings || []).map((e) => (e.earnings * 100))
+    CHART.update()
+  }
 }
