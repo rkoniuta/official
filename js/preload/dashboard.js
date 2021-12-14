@@ -72,6 +72,7 @@ const set1DayReturns = () => {
     document.getElementById("1d-30d-text").innerHTML = "Today,"
   }
   slider(document.getElementById("estimate-slider"))
+  $("#earnings-chart").addClass("hidden")
 }
 
 const set30DayReturns = () => {
@@ -80,6 +81,7 @@ const set30DayReturns = () => {
   $("#1d-button").removeClass("active")
   document.getElementById("1d-30d-text").innerHTML = "In the last 30 days,"
   slider(document.getElementById("estimate-slider"))
+  $("#earnings-chart").removeClass("hidden")
 }
 
 const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
@@ -92,6 +94,8 @@ const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
   else {
     YESTERDAY_FLAG = 0
   }
+  $("#earnings-chart").addClass("hidden")
+  genEarningsChart(data)
   if (RETURN_TOGGLE === 1) {
     set1DayReturns()
   }
@@ -329,4 +333,134 @@ const displayVerified = () => {
     window.history.replaceState(null, null, window.location.pathname + devAdd)
     document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
   }
+}
+
+const genEarningsChart = (data) => {
+  const getBlackGradient = (ctx, chartArea, opacity1 = 0, opacity2 = 1) => {
+    const chartWidth = (chartArea.right - chartArea.left)
+    const chartHeight = (chartArea.bottom - chartArea.top)
+    let gradient = false;
+    if (!gradient || width !== chartWidth || height !== chartHeight) {
+      width = chartWidth;
+      height = chartHeight;
+      gradient = ctx.createLinearGradient(width/2, 0, width/2, height)
+      gradient.addColorStop(0, ("rgba(255,255,255," + opacity2.toString() + ")"))
+      gradient.addColorStop(1, ("rgba(255,255,255," + opacity1.toString() + ")"))
+    }
+    return gradient
+  }
+  const getGradient = (ctx, chartArea, opacity = 1) => {
+    const chartWidth = (chartArea.right - chartArea.left)
+    const chartHeight = (chartArea.bottom - chartArea.top)
+    let gradient = false;
+    if (!gradient || width !== chartWidth || height !== chartHeight) {
+      width = chartWidth;
+      height = chartHeight;
+      gradient = ctx.createLinearGradient(0, 0, width, height)
+      gradient.addColorStop(0, ("rgba(255,204,0," + opacity.toString() + ")"))
+      gradient.addColorStop(0.5, ("rgba(255,0,0," + opacity.toString() + ")"))
+      gradient.addColorStop(1, ("rgba(102,0,255," + opacity.toString() + ")"))
+    }
+    return gradient
+  }
+  const genGradient = (context, opacity1, opacity2) => {
+    const chart = context.chart;
+    const {ctx, chartArea} = chart;
+    if (!chartArea) {
+      return;
+    }
+    if (opacity2 || opacity2 === 0) {
+      return getBlackGradient(ctx, chartArea, opacity1, opacity2);
+    }
+    return getGradient(ctx, chartArea, opacity1);
+  }
+  const labels = []
+  for (let i = 0; i < 30; i++) {
+    labels.push(moment().subtract(i,"day").format("MM/DD"))
+  }
+  labels.reverse()
+  const chart = new Chart(document.getElementById("__earnings-chart"), {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [{
+        pointRadius: 0,
+        backgroundColor: (context) => { return genGradient(context, 0, 1) },
+        borderWidth: 10,
+        borderColor: (context) => { return genGradient(context, 1) },
+        fill: true,
+        tension: 0.34,
+        curvature: 1,
+        data: (data.earnings || []).map((e) => (e.earnings * 100)),
+      }]
+    },
+    options: {
+      elements: {
+        line: {
+          borderJoinStyle: "round"
+        }
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      maintainAspectRatio: false,
+      responsive: true,
+      animation: {
+        duration: 0
+      },
+      layout: {
+        padding: 0
+      },
+      scales: {
+        x: {
+          display: false,
+          grid: {
+            color: "rgba(0,0,0,0)"
+          }
+        },
+        y: {
+          display: false,
+          grid: {
+            color: "rgba(0,0,0,0)"
+          },
+          min: 0,
+          max: Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4,
+        },
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          intersect: false,
+          position: "nearest",
+          titleFont: {
+            family: "'Urbanist', san-serif",
+            weight: "400",
+            size: 14,
+            lineHeight: 0.8,
+          },
+          bodyFont: {
+            family: "'Urbanist', san-serif",
+            weight: "bold",
+            size: 14,
+            lineHeight: 0.8,
+          },
+          padding: 8,
+          caretSize: 8,
+          displayColors: false,
+          cornerRadius: 10,
+          titleAlign: "center",
+          bodyAlign: "center",
+          backgroundColor: "rgba(0,0,0,0.6)",
+          callbacks: {
+            label: (context) => {
+              return (Math.round(context.raw * 100) / 100).toString().padEnd(4, "0") + "%"
+            }
+          }
+        },
+      }
+    }
+  })
 }
