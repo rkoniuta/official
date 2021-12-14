@@ -296,15 +296,15 @@ body.safari-toolbars-hidden > .toolbar-container {
   z-index: -3;
   opacity: 1;
   padding: 0px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 #earnings-chart > div {
   height: calc(30vw + 0px);
   max-height: 176px;
-  width: min(calc(60vw + 75px + 24px), calc(60vh + 150px + 24px));
+  width: min(calc(60vw + 75px + 24vw + 24px), calc(60vh + 150px + 24vw + 24px));
   box-sizing: border-box;
-  margin: 0px -12px;
+  margin: 0px calc(-12vw - 12px);
 }
 
 #earnings-chart.hidden {
@@ -347,5 +347,18 @@ body.safari-toolbars-hidden > .toolbar-container {
     background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,1) 400px);
     background: linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,1) 400px);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+  }
+}
+
+@media only screen and (min-width : 561px) {
+  #earnings-chart > div {
+    height: calc(30vw + 0px);
+    max-height: 176px;
+    width: min(calc(60vw + 75px + 24px), calc(60vh + 150px + 24px));
+    box-sizing: border-box;
+    margin: 0px -12px;
+  }
+  #earnings-chart {
+    overflow: hidden;
   }
 }

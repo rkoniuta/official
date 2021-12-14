@@ -427,7 +427,7 @@ const genEarningsChart = (data) => {
         labels: labels,
         datasets: [{
           pointRadius: 0,
-          backgroundColor: (context) => { return genGradient(context, 0, 0.7) },
+          backgroundColor: (context) => { return genGradient(context, 0, 0.8) },
           borderWidth: 8,
           borderColor: (context) => { return genGradient(context, 1) },
           fill: true,
