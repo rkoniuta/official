@@ -380,12 +380,21 @@ const genEarningsChart = (data) => {
     }
     return getGradient(ctx, chartArea, opacity1);
   }
-  const labels = [moment().subtract(30,"day").format("MM/DD")]
-  for (let i = 0; i < 31; i++) {
+  let iStart = 1;
+  if (data.earnings.length === 29) {
+    iStart = 2
+  }
+  const labels = []
+  if (data.earnings.length === 29) {
+    labels.push(moment().subtract(1,"day").format("MM/DD"))
+  }
+  else {
+    labels.push(moment().format("MM/DD"))
+  }
+  for (let i = iStart; i < 31; i++) {
     labels.push(moment().subtract(i,"day").format("MM/DD"))
   }
-  labels.push(moment().format("MM/DD"))
-  labels.reverse()
+  labels.push(moment().subtract(30,"day").format("MM/DD"))
   const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4)
   $("#chart-last-day").text(moment().subtract(30,"day").format("MM/DD"))
   $("#chart-top-percent").text(maxValue.toString() + "%")
