@@ -441,9 +441,7 @@ const genEarningsChart = (data) => {
         },
         maintainAspectRatio: false,
         responsive: true,
-        animation: {
-          duration: 0
-        },
+        animation: false,
         layout: {
           padding: 0
         },
@@ -485,10 +483,17 @@ const genEarningsChart = (data) => {
             },
             xAlign: "center",
             yAlign: "center",
-            padding: 6,
-            caretSize: 8,
+            padding: {
+              left: 10,
+              right: 10,
+              bottom: 10,
+              top: 10,
+            },
+            borderWidth: 10,
+            borderColor: "rgba(0,0,0,0.3)",
+            caretSize: 0,
             displayColors: false,
-            cornerRadius: 8,
+            cornerRadius: 10,
             titleAlign: "center",
             bodyAlign: "center",
             backgroundColor: (context) => { return genGradient(context, 1) },
@@ -507,7 +512,11 @@ const genEarningsChart = (data) => {
                 }
                 document.getElementById("1d-30d-text").innerHTML = bigTitle
                 slider(document.getElementById("estimate-slider"))
-                return (Math.round(context.raw * 10) / 10).toString() + "%"
+                //return (Math.round(context.raw * 10) / 10).toString() + "%"
+                return ""
+              },
+              title: (context) => {
+                return ""
               }
             }
           },
