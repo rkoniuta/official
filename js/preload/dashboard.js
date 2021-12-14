@@ -493,6 +493,7 @@ const genEarningsChart = (data) => {
               label: (context) => {
                 CHART_RETURN = context.raw
                 CHARTING = true
+                alert(context.label)
                 let bigTitle = ("On " + moment(context.label).format("MMMM Do") + ",")
                 if (context.label === labels[labels.length - 1]) {
                   if (data.earnings.length === 30) {
