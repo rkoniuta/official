@@ -470,25 +470,28 @@ const genEarningsChart = (data) => {
           tooltip: {
             intersect: false,
             position: "nearest",
+            titleColor: "rgba(255,255,255,0.6)",
             titleFont: {
               family: "'Urbanist', san-serif",
-              weight: "400",
-              size: 14,
-              lineHeight: 0.8,
+              weight: "bold",
+              size: 12,
+              lineHeight: 1,
             },
             bodyFont: {
               family: "'Urbanist', san-serif",
-              weight: "bold",
-              size: 14,
-              lineHeight: 0.8,
+              weight: "400",
+              size: 17,
+              lineHeight: 0.7,
             },
-            padding: 8,
+            xAlign: "center",
+            yAlign: "center",
+            padding: 6,
             caretSize: 8,
             displayColors: false,
-            cornerRadius: 10,
+            cornerRadius: 8,
             titleAlign: "center",
             bodyAlign: "center",
-            backgroundColor: "rgba(0,0,0,1)",
+            backgroundColor: (context) => { return genGradient(context, 1) },
             callbacks: {
               label: (context) => {
                 CHART_RETURN = context.raw
