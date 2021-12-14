@@ -484,19 +484,19 @@ const genEarningsChart = (data) => {
             xAlign: "center",
             yAlign: "center",
             padding: {
-              left: 10,
-              right: 10,
-              bottom: 10,
-              top: 10,
+              left: 8,
+              right: 8,
+              bottom: 8,
+              top: 8,
             },
-            borderWidth: 10,
-            borderColor: "rgba(0,0,0,0.3)",
+            borderWidth: 6,
+            borderColor: (context) => { return genGradient(context, 1) },
             caretSize: 0,
             displayColors: false,
-            cornerRadius: 10,
+            cornerRadius: 8,
             titleAlign: "center",
             bodyAlign: "center",
-            backgroundColor: (context) => { return genGradient(context, 1) },
+            backgroundColor: "rgba(255,255,255,1)",
             callbacks: {
               label: (context) => {
                 CHART_RETURN = context.raw
