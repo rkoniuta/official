@@ -481,7 +481,7 @@ const genEarningsChart = (data) => {
               family: "'Urbanist', san-serif",
               weight: "400",
               size: 17,
-              lineHeight: 0.7,
+              lineHeight: 0.75,
             },
             xAlign: "center",
             yAlign: "center",
