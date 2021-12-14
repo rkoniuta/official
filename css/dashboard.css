@@ -348,6 +348,19 @@ body.safari-toolbars-hidden > .toolbar-container {
   opacity: 0;
 }
 
+#chart-backdrop {
+  width: 100vw;
+  position: absolute;
+  top: calc(254px + 30vw);
+  height: 0px;
+  z-index: 1;
+  background: white;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: height ease 0.3s, opacity ease 0.3s;
+  -webkit-transition: height ease 0.3s, opacity ease 0.3s;
+}
+
 @supports not ( -moz-appearance:none ) {
   .content {
     backdrop-filter: blur(20px) saturate(110%) !important;
@@ -374,16 +387,8 @@ body.safari-toolbars-hidden > .toolbar-container {
 }
 
 @media only screen and (max-width : 560px) {
-  @supports not ( -moz-appearance:none ) {
-    .content {
-      background: rgb(255,255,255);
-      background: -moz-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) 176px, rgba(255,255,255,1) 180px);
-      background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) 176px, rgba(255,255,255,1) 180px);
-      background: linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) 176px, rgba(255,255,255,1) 180px);
-      background: -moz-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) calc(108px + 20vw), rgba(255,255,255,1) calc(110px + 20vw));
-      background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) calc(108px + 20vw), rgba(255,255,255,1) calc(110px + 20vw));
-      background: linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) calc(108px + 20vw), rgba(255,255,255,1) calc(110px + 20vw));
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
-    }
+  #chart-backdrop.active {
+    height: 400px;
+    opacity: 1;
   }
 }

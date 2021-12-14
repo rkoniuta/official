@@ -87,6 +87,7 @@ const set1DayReturns = () => {
   $("#earnings-chart").addClass("hidden")
   $("#chart-top-bounds").addClass("hidden")
   $("#chart-bottom-bounds").addClass("hidden")
+  $("#chart-backdrop").removeClass("active")
 }
 
 const set30DayReturns = () => {
@@ -99,6 +100,7 @@ const set30DayReturns = () => {
   $("#earnings-chart").removeClass("hidden")
   $("#chart-top-bounds").removeClass("hidden")
   $("#chart-bottom-bounds").removeClass("hidden")
+  $("#chart-backdrop").addClass("active")
 }
 
 const setEarnings = (data = DEFAULT_EARNINGS_DATA) => {
