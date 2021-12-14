@@ -491,6 +491,7 @@ const genEarningsChart = (data) => {
     MADE_CHART = true
   }
   else {
+    CHART.data.labels = labels
     CHART.data.datasets[0].data = chartData
     CHART.update()
   }
