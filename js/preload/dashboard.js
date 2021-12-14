@@ -460,7 +460,7 @@ const genEarningsChart = (data) => {
           }
         },
         hover: {
-          mode: 'nearest',
+          mode: "average",
           intersect: true
         },
         maintainAspectRatio: false,
