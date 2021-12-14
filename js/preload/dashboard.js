@@ -389,7 +389,7 @@ const genEarningsChart = (data) => {
         datasets: [{
           pointRadius: 0,
           backgroundColor: (context) => { return genGradient(context, 0, 1) },
-          borderWidth: 10,
+          borderWidth: 9,
           borderColor: (context) => { return genGradient(context, 1) },
           fill: true,
           tension: 0.34,
