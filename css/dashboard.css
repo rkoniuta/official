@@ -314,6 +314,7 @@ body.safari-toolbars-hidden > .toolbar-container {
   width: min(calc(60vw + 75px + 24vw + 24px), calc(60vh + 150px + 24vw + 24px));
   box-sizing: border-box;
   overflow: visible;
+  margin: 0px -12px;
 }
 
 #earnings-chart.hidden {
