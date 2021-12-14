@@ -1,8 +1,10 @@
 const LOCAL_TIME_ZONE = moment.tz.guess()
 let MONTH_RETURN = 10
+let CHART_RETURN = 10
 let TODAY_RETURN = 10
 let RETURN_TOGGLE = 0
 let YESTERDAY_FLAG = 0
+let CHARTING = false
 const DEFAULT_EARNINGS_DATA = {
   today: 0.1,
   lastMonth: 0.1,
@@ -13,6 +15,9 @@ const slider = (obj) => {
   let historic = MONTH_RETURN
   if (RETURN_TOGGLE) {
     historic = TODAY_RETURN
+  }
+  else if (CHARTING) {
+    historic = CHART_RETURN
   }
   const deposit = Math.round(obj.value)
   const returns = (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
@@ -79,6 +84,7 @@ const set1DayReturns = () => {
 
 const set30DayReturns = () => {
   RETURN_TOGGLE = 0
+  CHARTING = false
   $("#30d-button").addClass("active")
   $("#1d-button").removeClass("active")
   document.getElementById("1d-30d-text").innerHTML = "In the last 30 days,"
@@ -384,20 +390,21 @@ const genEarningsChart = (data) => {
   if (data.earnings.length === 29) {
     iStart = 2
   }
+  const labelFormat = "MM / DD"
   const labels = []
   if (data.earnings.length === 29) {
-    labels.push(moment().subtract(1,"day").format("MM/DD"))
+    labels.push("Yesterday")
   }
   else {
-    labels.push(moment().format("MM/DD"))
+    labels.push("Today")
   }
   for (let i = iStart; i < 31; i++) {
-    labels.push(moment().subtract(i,"day").format("MM/DD"))
+    labels.push(moment().subtract(i,"day").format(labelFormat))
   }
-  labels.push(moment().subtract(30,"day").format("MM/DD"))
+  labels.push(moment().subtract(30,"day").format(labelFormat))
   labels.reverse()
   const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4)
-  $("#chart-last-day").text(moment().subtract(30,"day").format("MM/DD"))
+  $("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
   $("#chart-top-percent").text(maxValue.toString() + "%")
   const chartData = (data.earnings || []).sort((a,b) => {
     return a.day - b.day
@@ -482,7 +489,20 @@ const genEarningsChart = (data) => {
             backgroundColor: "rgba(0,0,0,1)",
             callbacks: {
               label: (context) => {
-                return (Math.round(context.raw * 100) / 100).toString().padEnd(4, "0") + "%"
+                CHART_RETURN = context.raw
+                CHARTING = true
+                let bigTitle = ("On " + moment(context.label).format("MMMM Do") + ",")
+                if (context.raw === chartData[chartData.length - 1]) {
+                  if (data.earnings.length === 29) {
+                    bigTitle = "Yesterday,"
+                  }
+                  else {
+                    bigTitle = "Today,"
+                  }
+                }
+                document.getElementById("1d-30d-text").innerHTML = bigTitle
+                slider(document.getElementById("estimate-slider"))
+                return (Math.round(context.raw * 10) / 10).toString() + "%"
               }
             }
           },
