@@ -346,7 +346,7 @@ const genEarningsChart = (data) => {
       width = chartWidth;
       height = chartHeight;
       gradient = ctx.createLinearGradient(width/2, 0, width/2, height)
-      gradient.addColorStop(0, ("rgba(255,255,255," + opacity2.toString() + ")"))
+      gradient.addColorStop(0.6, ("rgba(255,255,255," + opacity2.toString() + ")"))
       gradient.addColorStop(1, ("rgba(255,255,255," + opacity1.toString() + ")"))
     }
     return gradient

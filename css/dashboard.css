@@ -298,12 +298,11 @@ body.safari-toolbars-hidden > .toolbar-container {
   opacity: 1;
   padding: 0px;
   overflow: hidden;
-  border-radius: 10px;
 }
 
 #earnings-chart > div {
-  height: calc(30vw + 12px);
-  max-height: 188px;
+  height: calc(30vw + 0px);
+  max-height: 176px;
   width: min(calc(60vw + 75px + 24px), calc(60vh + 150px + 24px));
   box-sizing: border-box;
   margin: 0px -12px;
