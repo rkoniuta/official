@@ -351,7 +351,7 @@ body.safari-toolbars-hidden > .toolbar-container {
 #chart-backdrop {
   width: 100vw;
   position: absolute;
-  top: calc(254px + 30vw);
+  top: calc(256px + 30vw);
   height: 0px;
   z-index: 1;
   background: white;
