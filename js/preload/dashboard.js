@@ -456,7 +456,7 @@ const genEarningsChart = (data) => {
             cornerRadius: 10,
             titleAlign: "center",
             bodyAlign: "center",
-            backgroundColor: "rgba(0,0,0,0.6)",
+            backgroundColor: "rgba(0,0,0,1)",
             callbacks: {
               label: (context) => {
                 return (Math.round(context.raw * 100) / 100).toString().padEnd(4, "0") + "%"
