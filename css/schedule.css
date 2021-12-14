@@ -94,7 +94,7 @@
 }
 
 .day-container > .day.disabled {
-  background: #dfe3e7;
+  background: rgba(0,0,0,0.1);
   cursor: default;
 }
 
