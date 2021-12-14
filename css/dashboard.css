@@ -372,3 +372,18 @@ body.safari-toolbars-hidden > .toolbar-container {
     margin-left: 0px;
   }
 }
+
+@media only screen and (max-width : 560px) {
+  @supports not ( -moz-appearance:none ) {
+    .content {
+      background: rgb(255,255,255);
+      background: -moz-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) 176px, rgba(255,255,255,1) 180px);
+      background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) 176px, rgba(255,255,255,1) 180px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) 176px, rgba(255,255,255,1) 180px);
+      background: -moz-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) calc(108px + 20vw), rgba(255,255,255,1) calc(110px + 20vw));
+      background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) calc(108px + 20vw), rgba(255,255,255,1) calc(110px + 20vw));
+      background: linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0.8) calc(108px + 20vw), rgba(255,255,255,1) calc(110px + 20vw));
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+    }
+  }
+}

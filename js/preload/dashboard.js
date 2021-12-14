@@ -420,6 +420,10 @@ const genEarningsChart = (data) => {
   }).map((e) => (e.earnings * 100))
   chartData.unshift(chartData[0])
   chartData.push(chartData[chartData.length - 1])
+  let backg = (context) => { return genGradient(context, 0, 0.66) };
+  if (window.innerWidth < 561) {
+    backg = "white"
+  }
   if (!MADE_CHART) {
     CHART = new Chart(document.getElementById("__earnings-chart"), {
       type: "line",
@@ -427,7 +431,7 @@ const genEarningsChart = (data) => {
         labels: labels,
         datasets: [{
           pointRadius: 0,
-          backgroundColor: (context) => { return genGradient(context, 0, 0.66) },
+          backgroundColor: backg,
           borderWidth: 8,
           borderColor: (context) => { return genGradient(context, 1) },
           fill: true,
@@ -437,6 +441,17 @@ const genEarningsChart = (data) => {
         }]
       },
       options: {
+        onResize: () => {
+          if (CHART) {
+            if (window.innerWidth < 561) {
+              CHART.data.datasets[0].backgroundColor = "white"
+            }
+            else {
+              CHART.data.datasets[0].backgroundColor = (context) => { return genGradient(context, 0, 0.66) }
+            }
+            CHART.update()
+          }
+        },
         elements: {
           line: {
             borderJoinStyle: "round"
