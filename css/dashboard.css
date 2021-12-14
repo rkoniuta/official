@@ -321,7 +321,7 @@ body.safari-toolbars-hidden > .toolbar-container {
 }
 
 #chart-top-bounds {
-  margin-bottom: -24px;
+  margin-bottom: -18px;
 }
 
 #chart-bottom-bounds {
@@ -331,7 +331,7 @@ body.safari-toolbars-hidden > .toolbar-container {
 }
 
 #chart-bottom-bounds.hidden {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 #chart-top-bounds.hidden, #chart-bottom-bounds.hidden {
