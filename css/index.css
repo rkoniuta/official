@@ -310,6 +310,11 @@ button.loading {
   color: transparent;
 }
 
+button.full-width {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  max-width: 300px;
+}
+
 .backplate {
   width: 100vw;
   height: calc(100vh - 50px);
