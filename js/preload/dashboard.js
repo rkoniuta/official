@@ -465,7 +465,7 @@ const genEarningsChart = (data) => {
         },
         maintainAspectRatio: false,
         responsive: true,
-        animation: false,
+        animation: true,
         layout: {
           padding: 0
         },
