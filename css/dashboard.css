@@ -302,9 +302,18 @@ body.safari-toolbars-hidden > .toolbar-container {
 #earnings-chart > div {
   height: calc(30vw + 0px);
   max-height: 176px;
+  width: 100vw;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-left: min(calc(-20vw + 37.5px), calc(30vh + 75px - 50vw));
+}
+
+#earnings-chart > div > div {
+  height: calc(30vw + 0px);
+  max-height: 176px;
   width: min(calc(60vw + 75px + 24vw + 24px), calc(60vh + 150px + 24vw + 24px));
   box-sizing: border-box;
-  margin: 0px calc(-12vw - 12px);
+  overflow: visible;
 }
 
 #earnings-chart.hidden {
@@ -351,14 +360,14 @@ body.safari-toolbars-hidden > .toolbar-container {
 }
 
 @media only screen and (min-width : 561px) {
-  #earnings-chart > div {
-    height: calc(30vw + 0px);
-    max-height: 176px;
+  #earnings-chart > div > div {
     width: min(calc(60vw + 75px + 24px), calc(60vh + 150px + 24px));
-    box-sizing: border-box;
     margin: 0px -12px;
   }
   #earnings-chart {
     overflow: hidden;
+  }
+  #earnings-chart > div {
+    margin-left: 0px;
   }
 }
