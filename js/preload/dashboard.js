@@ -426,6 +426,28 @@ const genEarningsChart = (data) => {
   if (window.innerWidth < 561) {
     backg = "white"
   }
+  const cbs = {
+    label: (context) => {
+      CHART_RETURN = context.raw
+      CHARTING = true
+      let bigTitle = ("On " + moment(context.label.trim().toLowerCase(), "MM / DD").format("MMMM Do") + ",")
+      if (context.label === labels[labels.length - 1]) {
+        if (data.earnings.length === 30) {
+          bigTitle = "Yesterday,"
+        }
+        else {
+          bigTitle = "Today,"
+        }
+      }
+      document.getElementById("1d-30d-text").innerHTML = bigTitle
+      slider(document.getElementById("estimate-slider"))
+      //return (Math.round(context.raw * 10) / 10).toString() + "%"
+      return ""
+    },
+    title: (context) => {
+      return ""
+    }
+  }
   if (!MADE_CHART) {
     CHART = new Chart(document.getElementById("__earnings-chart"), {
       type: "line",
@@ -521,28 +543,7 @@ const genEarningsChart = (data) => {
             titleAlign: "center",
             bodyAlign: "center",
             backgroundColor: "rgba(255,255,255,1)",
-            callbacks: {
-              label: (context) => {
-                CHART_RETURN = context.raw
-                CHARTING = true
-                let bigTitle = ("On " + moment(context.label.trim().toLowerCase(), "MM / DD").format("MMMM Do") + ",")
-                if (context.label === labels[labels.length - 1]) {
-                  if (data.earnings.length === 30) {
-                    bigTitle = "Yesterday,"
-                  }
-                  else {
-                    bigTitle = "Today,"
-                  }
-                }
-                document.getElementById("1d-30d-text").innerHTML = bigTitle
-                slider(document.getElementById("estimate-slider"))
-                //return (Math.round(context.raw * 10) / 10).toString() + "%"
-                return ""
-              },
-              title: (context) => {
-                return ""
-              }
-            }
+            callbacks: cbs,
           },
         }
       }
@@ -552,6 +553,7 @@ const genEarningsChart = (data) => {
   else {
     CHART.data.labels = labels
     CHART.data.datasets[0].data = chartData
+    CHART.options.plugins.tooltip.callbacks = cbs
     CHART.update()
   }
 }
