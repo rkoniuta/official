@@ -57,14 +57,16 @@ const FEEDBACK = {
     goback.onclick = () => {
       FEEDBACK.loading()
       MODAL.hide()
-      //TODO: Server stuff
-      FEEDBACK.thanks()
+      FEEDBACK.put((factor * (-1)), "", () => {
+        FEEDBACK.thanks()
+      })
     }
     confirm.onclick = () => {
       FEEDBACK.loading()
       MODAL.hide()
-      //TODO: Server stuff
-      FEEDBACK.thanks()
+      FEEDBACK.put((factor * (-1)), input.value, () => {
+        FEEDBACK.thanks()
+      })
     }
     MODAL.display([
       h3,
@@ -74,8 +76,9 @@ const FEEDBACK = {
   },
   positive: (factor = 1) => {
     FEEDBACK.loading()
-    //TODO: Server stuff
-    FEEDBACK.thanks()
+    FEEDBACK.put(factor, "", () => {
+      FEEDBACK.thanks()
+    })
   },
   loading: () => {
     $(FEEDBACK.container).addClass("loading")
@@ -95,4 +98,23 @@ const FEEDBACK = {
       },1)
     }
   },
+  put: (factor, input, callback) => {
+    $.ajax({
+      url: (API + "/feedback"),
+      type: "PUT",
+      data: { factor, input },
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", ID_TOKEN)
+      },
+      success: (data) => {
+        callback()
+      },
+      error: (data) => {
+        callback()
+      }
+    })
+  }
 }
