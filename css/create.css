@@ -180,6 +180,11 @@ input[type=password]::placeholder {
   margin-top: 16px;
   border-radius: 12px;
   background: rgba(255,255,255,0.2);
+  padding: 0px;
+}
+
+.input-container > input {
+  margin: 0px !important;
 }
 
 .screen.unloaded {
