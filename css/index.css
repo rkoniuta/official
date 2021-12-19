@@ -358,9 +358,9 @@ button.full-width {
   border-radius: 0px;
   box-sizing: border-box;
   background: rgb(255,255,255);
-  background: -moz-linear-gradient(17deg, rgba(255,255,255,0) 11%, rgba(255,255,255,1) 50%);
-  background: -webkit-linear-gradient(17deg, rgba(255,255,255,0) 11%, rgba(255,255,255,1) 50%);
-  background: linear-gradient(17deg, rgba(255,255,255,0) 11%, rgba(255,255,255,1) 50%);
+  background: -moz-linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
+  background: -webkit-linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
+  background: linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   display: flex;
   flex-direction: row;
