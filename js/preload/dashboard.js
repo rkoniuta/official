@@ -414,7 +414,7 @@ const genEarningsChart = (data) => {
   }
   labels.push(moment().subtract(30,"day").format(labelFormat))
   labels.reverse()
-  const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 4)
+  const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 3)
   $("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
   $("#chart-top-percent").text(maxValue.toString() + "%")
   const chartData = (data.earnings || []).sort((a,b) => {

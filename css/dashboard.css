@@ -239,13 +239,6 @@
   cursor: pointer;
 }
 
-#buffer {
-  width: min(calc(60vw + 75px), calc(60vh + 150px));
-  height: 24px;
-  box-sizing: border-box;
-  background: transparent;
-}
-
 .earnings-container {
   display: flex;
   align-items: center;
