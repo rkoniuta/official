@@ -52,14 +52,14 @@
 }
 
 #__modal {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   box-sizing: border-box;
 }
 
 #__modal > h3 {
   font-family: 'Urbanist', sans-serif;
   font-size: 24px;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   font-weight: 700;
   text-align: left;
   margin-top: 0px;
@@ -77,7 +77,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   box-sizing: border-box;
 }
 
@@ -87,7 +87,7 @@
   align-items: center;
   box-sizing: border-box;
   justify-content: center;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
 }
 
 #__modal > div.center > img {
@@ -97,7 +97,7 @@
 }
 
 #__modal > h3.center {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   text-align: center;
 }
 
