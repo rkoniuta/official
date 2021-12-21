@@ -4,8 +4,8 @@
 
     <!--TAGS-->
     <meta charset="utf-8">
-    <meta name="title" content="Paywake - Withdraw">
-    <meta name="description" content="Got paid to wake up? Withdraw money from your Paywake balance and claim your cash.">
+    <meta name="title" content="Paywake - Transfer">
+    <meta name="description" content="Already been paid to wake up? Transfer money from your Paywake balance to your bank or venmo account and claim your cash.">
     <meta name="keywords" content="paywake, get paid to wake up, pay, wake, wake up, wake up on time, get paid to wake up on time, alarm, sleep, snooze, wakeup, paywake.net, get paid to wakeup, paid to wake up, get paid, paid">
     <meta name="robots" content="index, follow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="css/range.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/withdraw.css">
+    <link rel="stylesheet" href="css/transfer.css">
     <link rel="stylesheet" href="css/modal.css">
 
 
@@ -71,14 +71,14 @@
     <script src="js/constants.js"></script>
     <script src="js/preload/balance.js"></script>
     <script src="js/preload/modal.js"></script>
-    <script src="js/preload/withdraw.js"></script>
+    <script src="js/preload/transfer.js"></script>
     <script src="js/auth/logged-in-only.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/auth/routines.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-transparent-192.png" media="(max-width: 192px)">
 
     <!--TITLE-->
-    <title>Paywake - Withdraw</title>
+    <title>Paywake - Transfer</title>
 
     <!--GOOGLE ANALYTICS-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFT65MQ7W0"></script>
@@ -117,9 +117,21 @@
     </div>
     <div id="grab-handle"></div>
     <div class="content">
-      <h3>Withdraw Funds</h3>
-      <!--FIXME: Add Content-->
-      <div id="buffer" class="if-ios"></div>
+      <h3>Transfer Funds</h3>
+      <div class="transfer-container">
+        <p class="subtitle">Select Amount</p>
+        <h1>
+          <span class="dollar-sign">$</span>
+          <input inputmode="numeric" pattern="[0-9]*" type="text" id="transfer-amount" value="5" maxlength="2" onblur="transferInput(this)" onkeydown="adjustTransferInput(this)" onkeyup="adjustTransferInput(this)" onpaste="adjustTransferInput(this)">
+        </h1>
+      </div>
+      <input id="transfer-slider" class="slider" type="range" value="1" min="1" max="2" onchange="slider(this, true)" oninput="slider(this, true)">
+      <div class="range bounds">
+        <small>$0.01 USD</small>
+        <small id="max-transfer">$0.01</small>
+      </div>
+      <br>
+      <p class="subtitle">Select Destination</p>
     </div>
     <div class="toolbar-container">
       <div class="toolbar">
@@ -137,6 +149,6 @@
 
     <!--POST-LOAD-->
     <script src="js/balance.js"></script>
-    <script src="js/withdraw.js"></script>
+    <script src="js/transfer.js"></script>
   </body>
 </html>

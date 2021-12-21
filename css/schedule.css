@@ -111,6 +111,7 @@ p.subtitle {
   margin: 0px;
   text-align: left;
   width: min(calc(60vw + 75px), calc(60vh + 150px));
+  margin-top: 8px;
 }
 
 .deposit-container {
@@ -138,6 +139,10 @@ p.subtitle {
   white-space: nowrap;
 }
 
+.deposit-container > p.subtitle {
+  margin-top: 0px;
+}
+
 #deposit-amount {
   font-family: 'Urbanist';
   font-size: 70px;
@@ -161,7 +166,7 @@ p.subtitle {
 }
 
 #deposit-amount:focus {
-  border-color: #dfe3e7;
+  border-color: rgba(0,0,0,0.2);
 }
 
 #deposit-notice {
