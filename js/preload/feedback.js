@@ -50,16 +50,12 @@ const FEEDBACK = {
     goback.innerHTML = "Dismiss"
     goback.className = "transparent"
     let confirm = document.createElement("button")
-    confirm.innerHTML = "Submit"
+    confirm.innerHTML = "Submit Feedback"
     confirm.id = "__modal-dismiss"
     group.appendChild(goback)
     group.appendChild(confirm)
     goback.onclick = () => {
-      FEEDBACK.loading()
       MODAL.hide()
-      FEEDBACK.put((factor * (-1)), "", () => {
-        FEEDBACK.thanks()
-      })
     }
     confirm.onclick = () => {
       FEEDBACK.loading()
