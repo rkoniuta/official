@@ -114,3 +114,7 @@
   font-size: 20px;
   font-weight: normal;
 }
+
+#__FEEDBACK-sorry-input[invalid=true] {
+  border-color: red;
+}

@@ -44,6 +44,16 @@ const FEEDBACK = {
     input.placeholder = "How can we improve?"
     input.id = "__FEEDBACK-sorry-input"
     input.maxLength = 500
+    const verifyInput = () => {
+      if (input.value.length) {
+        input.removeAttribute("invalid")
+      }
+      else {
+        input.setAttribute("invalid", "true")
+      }
+    }
+    input.onblur = verifyInput
+    input.onkeyup = verifyInput
     let group = document.createElement("div")
     group.className = "button-group"
     let goback = document.createElement("button")
@@ -58,11 +68,16 @@ const FEEDBACK = {
       MODAL.hide()
     }
     confirm.onclick = () => {
-      FEEDBACK.loading()
-      MODAL.hide()
-      FEEDBACK.put((factor * (-1)), input.value, () => {
-        FEEDBACK.thanks()
-      })
+      if (input.value.length) {
+        FEEDBACK.loading()
+        MODAL.hide()
+        FEEDBACK.put((factor * (-1)), input.value, () => {
+          FEEDBACK.thanks()
+        })
+      }
+      else {
+        input.setAttribute("invalid", "true")
+      }
     }
     MODAL.display([
       h3,
