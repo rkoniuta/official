@@ -41,6 +41,10 @@ p.subtitle {
   white-space: nowrap;
 }
 
+.transfer-container > p.subtitle {
+  margin-top: 0px;
+}
+
 #transfer-amount {
   font-family: 'Urbanist';
   font-size: 70px;
