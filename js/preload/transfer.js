@@ -28,7 +28,7 @@ const adjustTransferInput = (obj) => {
     }
   }
   const numbers = (obj.value.toString().length - 1)
-  obj.style.width = ((((numbers - numberOfOnes) * 36) + ((numberOfOnes + 1) * 16) + (8)).toString() + "px")
+  obj.style.width = (Math.max((((numbers - numberOfOnes) * 36) + ((numberOfOnes + 1) * 16) + (8)), 112).toString() + "px")
 }
 
 const balanceToString = (balance = BALANCE) => {
