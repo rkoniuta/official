@@ -415,7 +415,8 @@ const genEarningsChart = (data) => {
   labels.push(moment().subtract(30,"day").format(labelFormat))
   labels.reverse()
   const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 3)
-  $("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
+  //$("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
+  $("#chart-last-day").text("")
   $("#chart-top-percent").text(maxValue.toString() + "%")
   const chartData = (data.earnings || []).sort((a,b) => {
     return a.day - b.day
@@ -430,7 +431,7 @@ const genEarningsChart = (data) => {
     label: (context) => {
       CHART_RETURN = context.raw
       CHARTING = true
-      let bigTitle = ("On " + moment(context.label.trim().toLowerCase(), "MM / DD").format("MMMM Do") + ",")
+      let bigTitle = ("On <span class='chart-dark'>" + moment(context.label.trim().toLowerCase(), "MM / DD").format("MMMM Do") + ",</span>")
       if (context.label === labels[labels.length - 1]) {
         if (data.earnings.length === 30) {
           bigTitle = "Yesterday,"

@@ -354,6 +354,10 @@ body.safari-toolbars-hidden > .toolbar-container {
   -webkit-transition: height ease 0.3s, opacity ease 0.3s;
 }
 
+span.chart-dark {
+  color: black !important;
+}
+
 @supports not ( -moz-appearance:none ) {
   .content {
     backdrop-filter: blur(20px) saturate(110%) !important;
