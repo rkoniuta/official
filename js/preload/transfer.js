@@ -1,4 +1,12 @@
 const BALANCE = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "balance") || "0")
+let DESTINATION = 0
+
+const selectDestination = (obj) => {
+  DESTINATION = (parseInt(obj.id.split("-")[1]) || 0)
+  $(".destination-container > .option").removeClass("selected")
+  $("#destination-" + DESTINATION.toString()).addClass("selected")
+  localStorage.setItem(LOCAL_STORAGE_TAG + "destination", DESTINATION)
+}
 
 const slider = (obj, userInputted = false) => {
   let transfer = Math.round(obj.value)
