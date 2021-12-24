@@ -127,7 +127,7 @@ const __EMOJIS = {};
   setEmojiDate("MAR", 17, "☘️")
   setEmojiDate("JUL",  4, "🇺🇸")
   setEmojiDate("OCT", 31, "🎃")
-  setEmojiDate("DEC", 25, "🎄")
+  setEmojiDate("DEC", 23, "🎄")
 
 })();
 (() => {
@@ -141,7 +141,7 @@ const __EMOJIS = {};
   }
   if (emoji !== undefined && emoji.length) {
     $(window).on("load", () => {
-      document.getElementsByClassName("logo")[0].childNodes[3].innerText = (document.getElementsByClassName("logo")[0].childNodes[3].innerText + (" " + emoji))
+      document.getElementsByClassName("logo")[0].childNodes[3].innerHTML = (document.getElementsByClassName("logo")[0].childNodes[3].innerHTML + (" " + emoji))
     })
   }
 })();
