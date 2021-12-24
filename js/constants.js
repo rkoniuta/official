@@ -139,7 +139,7 @@ const __EMOJIS = {};
   } catch (e) {
     emoji = ""
   }
-  if (emoji.length && emoji !== undefined) {
+  if (emoji !== undefined && emoji.length) {
     $(window).on("load", () => {
       document.getElementsByClassName("logo")[0].childNodes[3].innerText = (document.getElementsByClassName("logo")[0].childNodes[3].innerText + (" " + emoji))
     })
