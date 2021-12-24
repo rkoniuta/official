@@ -112,3 +112,36 @@ $(window).on("load", () => {
     }
   }, SAFARI_FIX.passiveIfSupported);
 })();
+
+const __EMOJIS = {};
+(() => {
+  const setEmojiDate = (month, day, emoji) => {
+    if (!__EMOJIS[month]) {
+      __EMOJIS[month] = {}
+    }
+    __EMOJIS[month][day.toString()] = emoji
+  }
+
+  //EMOJI HOLIDAYS
+  setEmojiDate("FEB", 14, "💕")
+  setEmojiDate("MAR", 17, "☘️")
+  setEmojiDate("JUL",  4, "🇺🇸")
+  setEmojiDate("OCT", 31, "🎃")
+  setEmojiDate("DEC", 25, "🎄")
+
+})();
+(() => {
+  let day = moment().format("DD").toString().trim()
+  let month = moment().format("MMM").toUpperCase().trim()
+  let emoji = ""
+  try {
+    emoji = __EMOJIS[month][day]
+  } catch (e) {
+    emoji = ""
+  }
+  if (emoji.length && emoji !== undefined) {
+    $(window).on("load", () => {
+      document.getElementsByClassName("logo")[0].childNodes[3].innerText = (document.getElementsByClassName("logo")[0].childNodes[3].innerText + (" " + emoji))
+    })
+  }
+})();

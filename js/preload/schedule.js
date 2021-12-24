@@ -189,24 +189,13 @@ const initDays = () => {
       ofWeek = "Tmrw"
     }
     let ofWeekAdd = ""
-    if (month === "DEC" && day === "25") {
-      ofWeekAdd = "🎄"
+    try {
+      ofWeekAdd = __EMOJIS[month][day]
+    } catch (e) {
+      ofWeekAdd = ""
     }
-    else if (month === "OCT" && day === "31") {
-      ofWeekAdd = "🎃"
-    }
-    else if (month === "FEB" && day === "14") {
-      ofWeekAdd = "💕"
-    }
-    else if (month === "JUL" && day === "4") {
-      ofWeekAdd = "🇺🇸"
-    }
-    else if (month === "MAR" && day === "17") {
-      ofWeekAdd = "☘️"
-    }
-    //FIXME: change if our launch date changes
-    else if (month === "JAN" && day === "26") {
-      ofWeekAdd = "🎂"
+    if (ofWeekAdd === undefined) {
+      ofWeekAdd = ""
     }
     ofWeek = (ofWeekAdd + ofWeek)
     let div = document.createElement("div")
