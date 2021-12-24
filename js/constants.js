@@ -127,7 +127,7 @@ const __EMOJIS = {};
   setEmojiDate("MAR", 17, "☘️")
   setEmojiDate("JUL",  4, "🇺🇸")
   setEmojiDate("OCT", 31, "🎃")
-  setEmojiDate("DEC", 23, "🎄")
+  setEmojiDate("DEC", 25, "🎄")
 
 })();
 (() => {
