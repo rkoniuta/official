@@ -38,7 +38,7 @@ const setWakeupMinute = (wakeup, obj) => {
 }
 
 const addWakeup = (index) => {
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().subtract(2, "hours").tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
   const m = moment().add(index + 1, "days").subtract(2, "hours")
   const ofWeek = m.format("ddd").toLowerCase().trim()
   const day = (TODAY + index + 1)
@@ -188,6 +188,27 @@ const initDays = () => {
     if (i === 0) {
       ofWeek = "Tmrw"
     }
+    let ofWeekAdd = ""
+    if (month === "DEC" && day === "25") {
+      ofWeekAdd = "🎄"
+    }
+    else if (month === "OCT" && day === "31") {
+      ofWeekAdd = "🎃"
+    }
+    else if (month === "FEB" && day === "14") {
+      ofWeekAdd = "💕"
+    }
+    else if (month === "JUL" && day === "4") {
+      ofWeekAdd = "🇺🇸"
+    }
+    else if (month === "MAR" && day === "17") {
+      ofWeekAdd = "☘️"
+    }
+    //FIXME: change if our launch date changes
+    else if (month === "JAN" && day === "26") {
+      ofWeekAdd = "🎂"
+    }
+    ofWeek = (ofWeekAdd + ofWeek)
     let div = document.createElement("div")
     div.className = "day"
     div.onclick = () => {
