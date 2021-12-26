@@ -357,204 +357,206 @@ const displayVerified = () => {
 let MADE_CHART = false
 let CHART = null
 const genEarningsChart = (data) => {
-  const getBlackGradient = (ctx, chartArea, opacity1 = 0, opacity2 = 1) => {
-    const chartWidth = (chartArea.right - chartArea.left)
-    const chartHeight = (chartArea.bottom - chartArea.top)
-    let gradient = false;
-    if (!gradient || width !== chartWidth || height !== chartHeight) {
-      width = chartWidth;
-      height = chartHeight;
-      gradient = ctx.createLinearGradient(width/2, 0, width/2, height)
-      gradient.addColorStop(0.6, ("rgba(255,255,255," + opacity2.toString() + ")"))
-      gradient.addColorStop(1, ("rgba(255,255,255," + opacity1.toString() + ")"))
-    }
-    return gradient
-  }
-  const getGradient = (ctx, chartArea, opacity = 1) => {
-    const chartWidth = (chartArea.right - chartArea.left)
-    const chartHeight = (chartArea.bottom - chartArea.top)
-    let gradient = false;
-    if (!gradient || width !== chartWidth || height !== chartHeight) {
-      width = chartWidth;
-      height = chartHeight;
-      gradient = ctx.createLinearGradient(0, 0, width, height)
-      gradient.addColorStop(0, ("rgba(255,204,0," + opacity.toString() + ")"))
-      gradient.addColorStop(0.5, ("rgba(255,0,0," + opacity.toString() + ")"))
-      gradient.addColorStop(1, ("rgba(102,0,255," + opacity.toString() + ")"))
-    }
-    return gradient
-  }
-  const genGradient = (context, opacity1, opacity2) => {
-    const chart = context.chart;
-    const {ctx, chartArea} = chart;
-    if (!chartArea) {
-      return;
-    }
-    if (opacity2 || opacity2 === 0) {
-      return getBlackGradient(ctx, chartArea, opacity1, opacity2);
-    }
-    return getGradient(ctx, chartArea, opacity1);
-  }
-  let iStart = 1;
-  if (data.earnings.length === 30) {
-    iStart = 2
-  }
-  const labelFormat = "MM / DD"
-  const labels = []
-  if (data.earnings.length === 30) {
-    labels.push("Yesterday")
-    labels.push("Yesterday")
-  }
-  else {
-    labels.push("Today")
-    labels.push("Today")
-  }
-  for (let i = iStart; i < 31; i++) {
-    labels.push(moment().subtract(i,"day").format(labelFormat))
-  }
-  labels.push(moment().subtract(30,"day").format(labelFormat))
-  labels.reverse()
-  const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 3)
-  //$("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
-  $("#chart-last-day").text("")
-  $("#chart-top-percent").text(maxValue.toString() + "%")
-  const chartData = (data.earnings || []).sort((a,b) => {
-    return a.day - b.day
-  }).map((e) => (e.earnings * 100))
-  chartData.unshift(chartData[0])
-  chartData.push(chartData[chartData.length - 1])
-  let backg = (context) => { return genGradient(context, 0, 0.66) };
-  if (window.innerWidth < 561) {
-    backg = "white"
-  }
-  const cbs = {
-    label: (context) => {
-      CHART_RETURN = context.raw
-      CHARTING = true
-      let bigTitle = ("On <span class='chart-dark'>" + moment(context.label.trim().toLowerCase(), "MM / DD").format("MMMM Do") + ",</span>")
-      if (context.label === labels[labels.length - 1]) {
-        if (data.earnings.length === 30) {
-          bigTitle = "Yesterday,"
-        }
-        else {
-          bigTitle = "Today,"
-        }
+  if (data.earnings.length) {
+    const getBlackGradient = (ctx, chartArea, opacity1 = 0, opacity2 = 1) => {
+      const chartWidth = (chartArea.right - chartArea.left)
+      const chartHeight = (chartArea.bottom - chartArea.top)
+      let gradient = false;
+      if (!gradient || width !== chartWidth || height !== chartHeight) {
+        width = chartWidth;
+        height = chartHeight;
+        gradient = ctx.createLinearGradient(width/2, 0, width/2, height)
+        gradient.addColorStop(0.6, ("rgba(255,255,255," + opacity2.toString() + ")"))
+        gradient.addColorStop(1, ("rgba(255,255,255," + opacity1.toString() + ")"))
       }
-      document.getElementById("1d-30d-text").innerHTML = bigTitle
-      slider(document.getElementById("estimate-slider"))
-      //return (Math.round(context.raw * 10) / 10).toString() + "%"
-      return ""
-    },
-    title: (context) => {
-      return ""
+      return gradient
     }
-  }
-  if (!MADE_CHART) {
-    CHART = new Chart(document.getElementById("__earnings-chart"), {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [{
-          pointRadius: 0,
-          backgroundColor: backg,
-          borderWidth: 8,
-          borderColor: (context) => { return genGradient(context, 1) },
-          fill: true,
-          tension: 0.34,
-          curvature: 1,
-          data: chartData,
-        }]
+    const getGradient = (ctx, chartArea, opacity = 1) => {
+      const chartWidth = (chartArea.right - chartArea.left)
+      const chartHeight = (chartArea.bottom - chartArea.top)
+      let gradient = false;
+      if (!gradient || width !== chartWidth || height !== chartHeight) {
+        width = chartWidth;
+        height = chartHeight;
+        gradient = ctx.createLinearGradient(0, 0, width, height)
+        gradient.addColorStop(0, ("rgba(255,204,0," + opacity.toString() + ")"))
+        gradient.addColorStop(0.5, ("rgba(255,0,0," + opacity.toString() + ")"))
+        gradient.addColorStop(1, ("rgba(102,0,255," + opacity.toString() + ")"))
+      }
+      return gradient
+    }
+    const genGradient = (context, opacity1, opacity2) => {
+      const chart = context.chart;
+      const {ctx, chartArea} = chart;
+      if (!chartArea) {
+        return;
+      }
+      if (opacity2 || opacity2 === 0) {
+        return getBlackGradient(ctx, chartArea, opacity1, opacity2);
+      }
+      return getGradient(ctx, chartArea, opacity1);
+    }
+    let iStart = 1;
+    if (data.earnings.length === 30) {
+      iStart = 2
+    }
+    const labelFormat = "MM / DD"
+    const labels = []
+    if (data.earnings.length === 30) {
+      labels.push("Yesterday")
+      labels.push("Yesterday")
+    }
+    else {
+      labels.push("Today")
+      labels.push("Today")
+    }
+    for (let i = iStart; i < 31; i++) {
+      labels.push(moment().subtract(i,"day").format(labelFormat))
+    }
+    labels.push(moment().subtract(30,"day").format(labelFormat))
+    labels.reverse()
+    const maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 3)
+    //$("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
+    $("#chart-last-day").text("")
+    $("#chart-top-percent").text(maxValue.toString() + "%")
+    const chartData = (data.earnings || []).sort((a,b) => {
+      return a.day - b.day
+    }).map((e) => (e.earnings * 100))
+    chartData.unshift(chartData[0])
+    chartData.push(chartData[chartData.length - 1])
+    let backg = (context) => { return genGradient(context, 0, 0.66) };
+    if (window.innerWidth < 561) {
+      backg = "white"
+    }
+    const cbs = {
+      label: (context) => {
+        CHART_RETURN = context.raw
+        CHARTING = true
+        let bigTitle = ("On <span class='chart-dark'>" + moment(context.label.trim().toLowerCase(), "MM / DD").format("MMMM Do") + ",</span>")
+        if (context.label === labels[labels.length - 1]) {
+          if (data.earnings.length === 30) {
+            bigTitle = "Yesterday,"
+          }
+          else {
+            bigTitle = "Today,"
+          }
+        }
+        document.getElementById("1d-30d-text").innerHTML = bigTitle
+        slider(document.getElementById("estimate-slider"))
+        //return (Math.round(context.raw * 10) / 10).toString() + "%"
+        return ""
       },
-      options: {
-        onResize: () => {
-          if (CHART) {
-            if (window.innerWidth < 561) {
-              CHART.data.datasets[0].backgroundColor = "white"
-            }
-            else {
-              CHART.data.datasets[0].backgroundColor = (context) => { return genGradient(context, 0, 0.66) }
-            }
-            CHART.update()
-          }
-        },
-        elements: {
-          line: {
-            borderJoinStyle: "round"
-          }
-        },
-        hover: {
-          mode: "average",
-          intersect: true
-        },
-        maintainAspectRatio: false,
-        responsive: true,
-        animation: true,
-        layout: {
-          padding: 0
-        },
-        scales: {
-          x: {
-            display: false,
-            grid: {
-              color: "rgba(0,0,0,0)"
-            }
-          },
-          y: {
-            display: false,
-            grid: {
-              color: "rgba(0,0,0,0)"
-            },
-            min: 0,
-            max: maxValue,
-          },
-        },
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            intersect: false,
-            position: "nearest",
-            titleColor: "rgba(255,255,255,0.6)",
-            titleFont: {
-              family: "'Urbanist', san-serif",
-              weight: "bold",
-              size: 12,
-              lineHeight: 1,
-            },
-            bodyFont: {
-              family: "'Urbanist', san-serif",
-              weight: "400",
-              size: 17,
-              lineHeight: 0.75,
-            },
-            xAlign: "center",
-            yAlign: "center",
-            padding: {
-              left: 8,
-              right: 8,
-              bottom: 8,
-              top: 8,
-            },
-            borderWidth: 6,
-            borderColor: (context) => { return genGradient(context, 1) },
-            caretSize: 0,
-            displayColors: false,
-            cornerRadius: 8,
-            titleAlign: "center",
-            bodyAlign: "center",
-            backgroundColor: "rgba(255,255,255,1)",
-            callbacks: cbs,
-          },
-        }
+      title: (context) => {
+        return ""
       }
-    })
-    MADE_CHART = true
-  }
-  else {
-    CHART.data.labels = labels
-    CHART.data.datasets[0].data = chartData
-    CHART.options.plugins.tooltip.callbacks = cbs
-    CHART.update()
+    }
+    if (!MADE_CHART) {
+      CHART = new Chart(document.getElementById("__earnings-chart"), {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [{
+            pointRadius: 0,
+            backgroundColor: backg,
+            borderWidth: 8,
+            borderColor: (context) => { return genGradient(context, 1) },
+            fill: true,
+            tension: 0.34,
+            curvature: 1,
+            data: chartData,
+          }]
+        },
+        options: {
+          onResize: () => {
+            if (CHART) {
+              if (window.innerWidth < 561) {
+                CHART.data.datasets[0].backgroundColor = "white"
+              }
+              else {
+                CHART.data.datasets[0].backgroundColor = (context) => { return genGradient(context, 0, 0.66) }
+              }
+              CHART.update()
+            }
+          },
+          elements: {
+            line: {
+              borderJoinStyle: "round"
+            }
+          },
+          hover: {
+            mode: "average",
+            intersect: true
+          },
+          maintainAspectRatio: false,
+          responsive: true,
+          animation: true,
+          layout: {
+            padding: 0
+          },
+          scales: {
+            x: {
+              display: false,
+              grid: {
+                color: "rgba(0,0,0,0)"
+              }
+            },
+            y: {
+              display: false,
+              grid: {
+                color: "rgba(0,0,0,0)"
+              },
+              min: 0,
+              max: maxValue,
+            },
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              intersect: false,
+              position: "nearest",
+              titleColor: "rgba(255,255,255,0.6)",
+              titleFont: {
+                family: "'Urbanist', san-serif",
+                weight: "bold",
+                size: 12,
+                lineHeight: 1,
+              },
+              bodyFont: {
+                family: "'Urbanist', san-serif",
+                weight: "400",
+                size: 17,
+                lineHeight: 0.75,
+              },
+              xAlign: "center",
+              yAlign: "center",
+              padding: {
+                left: 8,
+                right: 8,
+                bottom: 8,
+                top: 8,
+              },
+              borderWidth: 6,
+              borderColor: (context) => { return genGradient(context, 1) },
+              caretSize: 0,
+              displayColors: false,
+              cornerRadius: 8,
+              titleAlign: "center",
+              bodyAlign: "center",
+              backgroundColor: "rgba(255,255,255,1)",
+              callbacks: cbs,
+            },
+          }
+        }
+      })
+      MADE_CHART = true
+    }
+    else {
+      CHART.data.labels = labels
+      CHART.data.datasets[0].data = chartData
+      CHART.options.plugins.tooltip.callbacks = cbs
+      CHART.update()
+    }
   }
 }
