@@ -7,7 +7,8 @@ const FEEDBACK = {
     line.id = "__FEEDBACK-line"
     container.appendChild(line)
     const h3 = document.createElement("h3")
-    h3.innerHTML = "How are you liking Paywake?"
+    h3.id = "__COPYSHEET-feedback-prompt"
+    h3.innerHTML = (__COPYSHEET.get("feedback-prompt") || "How are you liking Paywake?")
     container.appendChild(h3)
     const buttons = document.createElement("div")
     buttons.id = "__FEEDBACK-buttons"
