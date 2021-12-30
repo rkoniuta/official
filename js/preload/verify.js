@@ -20,7 +20,7 @@ const VIDEO_CONSTRAINTS = {
 
 const malformedCamera = () => {
   MODAL.hide()
-  MODAL.displayHTML("<p>We weren't able to access your device's camera. Please reattempt verification on a <b>different device</b>.")
+  MODAL.displayHTML("<p>" + (__COPYSHEET.get("verify-malformed-camera") || "We weren't able to access your device's camera. Please reattempt verification on a <b>different device</b>.") + "</p>")
   setInstruction()
   setInterval(() => {
     if (!MODAL.visible) {
@@ -36,7 +36,7 @@ const initVideo = async () => {
     malformedCamera()
   }
   else {
-    MODAL.displayHTML("<p>To verify you're awake, please <b>allow access to your camera</b>.</p>")
+    MODAL.displayHTML("<p>" + (__COPYSHEET.get("verify-allow-camera-access") || "To verify you're awake, please <b>allow access to your camera</b>.") + "</p>")
     try {
       STREAM = await navigator.mediaDevices.getUserMedia(VIDEO_CONSTRAINTS)
     }
