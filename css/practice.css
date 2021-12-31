@@ -2,19 +2,11 @@
   background: rgba(255,255,255,0.3);
 }
 
-.header {
-  top: 32px;
-}
-
-#blur-bottom {
-  min-height: 109px;
-}
-
 #ticker {
   position: fixed;
-  top: 0px;
+  bottom: 0px;
   left: 0px;
-  height: 33px;
+  height: 32px;
   width: 100vw;
   overflow: hidden;
   display: flex;
