@@ -118,8 +118,7 @@ const capture = () => {
         challenge: CHALLENGE,
       },
       success: (data) => {
-        //FIXME: change
-        alert("Success!")
+        successful()
       },
       error: (data) => {
         const videoElement = document.getElementById("stream").play()
@@ -175,4 +174,25 @@ const genPracticeMode = () => {
     res = (res + "<span>Practice Mode</span>")
   }
   document.getElementById("practice-mode").innerHTML = (res.trim())
+}
+
+const successful = () => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/verified.png"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  title.innerHTML = "Verification Successful"
+  let text = document.createElement("p")
+  text.innerHTML = ("You successfully verified this practice wakeup! Remember, each morning you'll have <b>3 minutes</b> to complete this verification.")
+  elements.push(center)
+  elements.push(title)
+  elements.push(text)
+  MODAL.display(elements)
+  const videoElement = document.getElementById("stream").play()
+  $("#capture-button").removeClass("loading")
+  refreshChallenge()
 }
