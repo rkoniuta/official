@@ -1,3 +1,43 @@
 .header > a > button {
   background: rgba(255,255,255,0.3);
 }
+
+.header {
+  top: 32px;
+}
+
+#blur-bottom {
+  min-height: 109px;
+}
+
+#ticker {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  z-index: 1000;
+  background: black;
+  opacity: 0.4;
+}
+
+#ticker > p {
+  color: white;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: ticker 16s infinite linear;
+  font-size: 14px;
+}
+
+#ticker > p > span {
+  margin: 0px 32px;
+}
+
+@keyframes ticker {
+  100% {
+    transform: translateX(-50%);
+  }
+}

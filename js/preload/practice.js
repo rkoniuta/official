@@ -168,3 +168,11 @@ const refreshChallenge = () => {
   CHALLENGE = (CHALLENGES[(CHALLENGES.indexOf(CHALLENGE) + 1) % CHALLENGES.length] || BACKUP_CHALLENGE)
   setInstruction(CHALLENGE)
 }
+
+const genPracticeMode = () => {
+  let res = ""
+  for (let i = 0; i < 16; i++) {
+    res = (res + "<span>Practice Mode</span>")
+  }
+  document.getElementById("practice-mode").innerHTML = (res.trim())
+}
