@@ -2,6 +2,14 @@
   background: rgba(255,255,255,0.3);
 }
 
+#capture-button {
+  bottom: 58px;
+}
+
+#refresh-button {
+  bottom: 76px;
+}
+
 #ticker {
   position: fixed;
   bottom: 0px;
