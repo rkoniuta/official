@@ -1,6 +1,5 @@
 const FRAME_RATE = 14 //1/2 ~30FPS
 const CAPTURE_DIMENSION = 300
-const DARKNESS_THRESHOLD = 56 //out of 255
 const BACKUP_CHALLENGE = "a "
 const MAX_CHALLENGE_SWITCHES = 3 //max refreshes
 
