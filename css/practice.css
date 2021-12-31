@@ -22,7 +22,7 @@
   justify-content: flex-start;
   flex-direction: row;
   z-index: 999;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.1);
   box-sizing: border-box;
 }
 
@@ -41,5 +41,12 @@
 @keyframes ticker {
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@supports not (-moz-appearance:none) {
+  #ticker {
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
   }
 }
