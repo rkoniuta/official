@@ -138,7 +138,7 @@ body {
 
 #instructions {
   display: inline-block;
-  width: 300px;
+  width: 196px;
   height: 24px;
   font-size: 18px;
   line-height: 24px;
@@ -150,8 +150,8 @@ body {
   position: fixed;
   overflow: visible;
   z-index: 1;
-  left: calc(50vw - 150px);
-  bottom: calc(50vh - 196px);
+  left: calc(50vw - 98px);
+  bottom: 212px;
   text-shadow: 0px 0px 30px rgba(0,0,0,1);
   text-align: center;
   color: white;
