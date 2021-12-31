@@ -105,7 +105,7 @@ const capture = () => {
     const videoElement = document.getElementById("stream").pause()
     $("#capture-button").addClass("loading")
     $.ajax({
-      url: (API + "/verify"),
+      url: (API + "/practice"),
       type: "PUT",
       xhrFields: {
         withCredentials: true
