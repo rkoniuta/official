@@ -187,7 +187,7 @@ const successful = () => {
   title.className = "center"
   title.innerHTML = "Verification Successful"
   let text = document.createElement("p")
-  text.innerHTML = ("You successfully verified this practice wakeup! Remember, each morning you'll have <b>3 minutes</b> to complete this verification.")
+  text.innerHTML = (__COPYSHEET.get("practice-success") || "You successfully verified this practice wakeup! Remember, each morning you'll have <b>3 minutes</b> to complete this verification.")
   elements.push(center)
   elements.push(title)
   elements.push(text)
