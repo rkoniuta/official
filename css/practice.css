@@ -11,10 +11,10 @@
 }
 
 #ticker {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
-  height: 32px;
+  height: 33px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
