@@ -26,7 +26,7 @@
 
 #ticker > p {
   color: white;
-  font-weight: bold;
+  font-weight: 300;
   white-space: nowrap;
   animation: ticker 16s infinite linear;
   font-size: 14px;
