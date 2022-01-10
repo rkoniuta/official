@@ -138,3 +138,50 @@ p.subtitle {
   height: 18px;
   margin-bottom: 10px;
 }
+
+input:not([type=range]) {
+  border: none;
+  outline: none;
+  border-bottom: 3px solid #dfe3e7;
+  padding: 16px;
+  padding-left: 0px;
+  background: transparent;
+  box-sizing: border-box;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  color: black;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  border-radius: 3px;
+  margin-top: 0px;
+}
+
+input:not([type=range])::placeholder {
+  color: #dfe3e7;
+  letter-spacing: 0px;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+input[type=password] {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: bold;
+  letter-spacing: 8px;
+}
+
+input[name=phone] {
+  padding-left: 48px;
+  box-sizing: border-box;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  background: url('../assets/images/us-flag.png') no-repeat left;
+  background-size: 30px;
+  background-position: left;
+  background-repeat: no-repeat;
+  image-orientation: none;
+}
+
+input[invalid=true] {
+  border-color: red;
+}

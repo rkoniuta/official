@@ -6,6 +6,13 @@ const selectDestination = (obj) => {
   $(".destination-container > .option").removeClass("selected")
   $("#destination-" + DESTINATION.toString()).addClass("selected")
   localStorage.setItem(LOCAL_STORAGE_TAG + "destination", DESTINATION)
+  if (DESTINATION === 1) {
+    $("#details-title")[0].innerHTML = "Venmo Account Phone"
+  }
+  else {
+    $("#details-title")[0].innerHTML = "Bank Account Details"
+  }
+  updateTransferButton()
 }
 
 const slider = (obj, userInputted = false) => {
@@ -16,7 +23,7 @@ const slider = (obj, userInputted = false) => {
 
 const transferInput = (obj) => {
   const element = document.getElementById("transfer-slider")
-  element.value = Math.min(Math.max((Math.round(parseFloat(obj.value) * 100) || 1), 1), BALANCE)
+  element.value = Math.min(Math.max((Math.round(parseFloat(obj.value) * 100) || 0), 0), BALANCE)
   slider(element, true)
 }
 
@@ -28,7 +35,26 @@ const adjustTransferInput = (obj) => {
     }
   }
   const numbers = (obj.value.toString().length - 1)
-  obj.style.width = (Math.max((((numbers - numberOfOnes) * 36) + ((numberOfOnes + 1) * 16) + (8)), 112).toString() + "px")
+  obj.style.width = (Math.max((((numbers - numberOfOnes) * 36) + ((numberOfOnes + 1) * 16) + (16)), 112).toString() + "px")
+  updateTransferButton()
+}
+
+const updateTransferButton = () => {
+  let amount = document.getElementById("transfer-slider").value
+  const button = $("#transfer-button")[0]
+  if (DESTINATION === 1) {
+    amount -= 25;
+  }
+  if (amount < 0) {
+    amount = 0
+  }
+  button.innerHTML = ("Transfer $" + balanceToString(amount))
+  if (amount < 1) {
+    button.setAttribute("disabled", true)
+  }
+  else {
+    button.removeAttribute("disabled")
+  }
 }
 
 const balanceToString = (balance = BALANCE) => {
