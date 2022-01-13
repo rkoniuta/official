@@ -9,8 +9,8 @@ $("input").on("keyup", (e) => {
 
 SCREEN = (-1)
 
-if (localStorage.getItem(LOCAL_STORAGE_TAG + "screen")) {
-  setScreen(parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "screen")))
+if (localStorage.getItem(LOCAL_STORAGE_TAG + "tutorial-screen")) {
+  setScreen(parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "tutorial-screen")))
 }
 else {
   setScreen(0)

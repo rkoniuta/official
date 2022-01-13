@@ -10,7 +10,7 @@ const setScreen = (n) => {
   for (let i = SCREEN + 1; i < SCREENS; i++) {
     $("#screen-" + i.toString()).addClass("unloaded bottom")
   }
-  localStorage.setItem(LOCAL_STORAGE_TAG + "screen", SCREEN.toString())
+  localStorage.setItem(LOCAL_STORAGE_TAG + "tutorial-screen", SCREEN.toString())
   if (SCREEN === 0) {
     $("#skip")[0].innerHTML = ("Skip")
   }
