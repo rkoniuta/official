@@ -126,3 +126,8 @@ const fetchEarnings = () => {
     }
   })
 }
+
+const setWakeupDate = () => {
+  const m = moment().add(2, "days").hour(9)
+  $("#wakeup-date")[0].innerHTML = (m.format("MMMM Do") + " — " + m.fromNow())
+}

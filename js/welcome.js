@@ -1,4 +1,5 @@
 localStorage.setItem(LOCAL_STORAGE_TAG + "tutorial-mode", "true")
+setWakeupDate()
 
 $("input").on("keyup", (e) => {
   let n = parseInt(e.target.id.replace(/\D/g,''))
