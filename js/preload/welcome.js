@@ -32,9 +32,14 @@ const setScreen = (n) => {
   })
 }
 
+const exitTutorial = () => {
+  leavePage("schedule")
+  localStorage.setItem(LOCAL_STORAGE_TAG + "tutorial-mode", "false")
+}
+
 const nextScreen = () => {
   if (SCREEN === (SCREENS - 1)) {
-    leavePage("schedule")
+    exitTutorial()
   }
   if (SCREEN < (SCREENS - 1)) {
     setScreen(SCREEN + 1)
@@ -49,7 +54,7 @@ const previousScreen = () => {
 
 const skipClick = () => {
   if (SCREEN === 0) {
-    leavePage("schedule")
+    exitTutorial()
   }
   else {
     previousScreen()
