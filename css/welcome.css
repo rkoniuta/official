@@ -1,0 +1,85 @@
+#skip {
+  color: rgba(0,0,0,0.4);
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1001;
+  line-height: 36px;
+}
+
+#continue {
+  margin-bottom: 30px;
+  z-index: 1001;
+}
+
+.header {
+  z-index: 1001;
+  height: 77px;
+}
+
+.estimate-info {
+  margin-bottom: 36px;
+}
+
+input[type=range] {
+  padding-left: 0px;
+  padding-right: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
+.bounds {
+  align-items: flex-end;
+}
+
+.screen.unloaded.bottom {
+  transform: translateY(50vh);
+}
+
+.screen.unloaded.bottom > h3 {
+  transform: translateY(20vh);
+}
+
+.screen.unloaded.bottom > h1 {
+  transform: translateY(10vh);
+}
+
+.screen.unloaded.top {
+  transform: translateY(-50vh);
+}
+
+.screen.unloaded.top > h3 {
+  transform: translateY(-10vh);
+}
+
+.screen.unloaded.top > h1 {
+  transform: translateY(-20vh);
+}
+
+.screen {
+  height: calc(90vh - 77px);
+  max-height: calc(100vh - 176px);
+  top: 77px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 30px 0px;
+}
+
+@media only screen and (max-height: 720px) and (max-width: 720px) {
+  .screen.big {
+    justify-content: flex-start;
+  }
+}
+
+a.gradient {
+  font-weight: 600;
+  border-bottom: 3px solid #dfe3e7;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  cursor: pointer;
+}

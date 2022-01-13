@@ -56,10 +56,10 @@ body {
 .screen {
   position: fixed;
   top: 0px;
-  left: calc(50vw - 150px);
+  left: max(calc(20vw - 37.5px), calc(50vw - (30vh + 75px)));
   height: 93vh;
   box-sizing: border-box;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,7 +73,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   margin: 0px;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   text-align: left;
   margin-bottom: 16px;
 }
@@ -85,7 +85,7 @@ body {
   font-family: 'Urbanist', sans-serif;
   font-weight: 700;
   margin: 0px;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   text-align: left;
   margin-bottom: 16px;
 }
@@ -97,7 +97,7 @@ div.right {
   justify-content: flex-end;
   align-content: center;
   box-sizing: border-box;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
 }
 
 div.spread {
@@ -107,7 +107,7 @@ div.spread {
   justify-content: space-between;
   align-content: center;
   box-sizing: border-box;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
 }
 
 button.small {
@@ -125,7 +125,7 @@ button.small.gradient {
 
 input {
   margin-top: 16px;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   box-sizing: border-box;
   background: rgba(255,255,255,0.2);
   color: black;
@@ -156,7 +156,7 @@ input[name=phone] {
   margin-top: 0px;
   padding-left: 60px;
   box-sizing: border-box;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   background: url('../assets/images/us-flag.png') no-repeat left;
   background-size: 30px;
   background-position: 15px;
@@ -235,7 +235,7 @@ a.back {
   color: rgba(0,0,0,0.4);
   font-family: 'Urbanist', sans-serif;
   font-weight: 600;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   text-align: center;
 }
 

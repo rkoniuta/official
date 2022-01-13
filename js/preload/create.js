@@ -180,5 +180,5 @@ const verifyCode = (obj) => {
 
 const toDashboard = () => {
   localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-name", name)
-  window.location.href = REDIRECTS.onAuth
+  leavePage("tutorial")
 }
