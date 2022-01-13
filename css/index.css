@@ -339,35 +339,37 @@ button.full-width {
 
 .wakeup > .deposit-container {
   background: rgb(102,0,255);
-  background: -moz-linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background: -webkit-linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background: linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
   margin-right: 18px;
   border-radius: 13px;
   border: 1px solid white;
   box-sizing: border-box;
   width: 72px;
-  height: 72px;
+  height: 66px;
+  box-shadow: inset 0 0 8px rgb(0 0 0 / 30%);
 }
 
 .wakeup > .deposit-container > .deposit {
-  width: 80px;
-  height: 80px;
-  margin: -4px;
+  width: 72px;
+  height: 66px;
+  padding-bottom: 5px;
+  margin: 0px;
   border-radius: 0px;
   box-sizing: border-box;
   background: rgb(255,255,255);
   background: -moz-linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
   background: -webkit-linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
-  background: linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
+  background: transparent;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   align-content: center;
-  color:  black;
+  color: black;
 }
 
 .wakeup > .deposit-container > .deposit > h1 {
@@ -376,6 +378,7 @@ button.full-width {
   line-height: 32px;
   margin: 0px;
   font-weight: 600;
+  color: white;
   letter-spacing: 1px;
 }
 
@@ -383,7 +386,7 @@ button.full-width {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 16px;
-  color: rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.6);
   margin-right: 0px;
   vertical-align: text-top;
   line-height: 32px;
@@ -399,6 +402,7 @@ button.full-width {
   align-items: flex-start;
   justify-content: space-between;
   align-content: center;
+  margin-top: -6px;
 }
 
 .wakeup > .info > * {
