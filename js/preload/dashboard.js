@@ -204,8 +204,33 @@ const verifiedClick = (node) => {
   let title = document.createElement("h3")
   title.className = "center"
   title.innerHTML = "Verification Successful"
+  title.style.marginBottom = "24px"
   let text = document.createElement("p")
   text.innerHTML = ("You successfully verified this wakeup and will be paid at <b>" + time + "</b> (12 pm PST) today.")
+  let b = node.querySelector("b")
+  b.onclick = () => {}
+  b.style.cursor = "default"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
+}
+
+const missedClick = (node, wakeup) => {
+  const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/failed.png"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  title.innerHTML = "Verification Missed"
+  title.style.marginBottom = "24px"
+  let text = document.createElement("p")
+  text.innerHTML = ("You missed the photo verification window for this wakeup (<b>" + m.format("h:mm a") + "</b> to <b>" + m.add(3, "minutes").format("h:mm a") + "</b>) and were charged $" + Math.floor(wakeup.deposit / 100).toString() + ".00 USD.")
   let b = node.querySelector("b")
   b.onclick = () => {}
   b.style.cursor = "default"
@@ -239,6 +264,7 @@ const setWakeups = (data = []) => {
     const date = m.format("MMMM Do")
     const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
+    const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
@@ -275,6 +301,11 @@ const setWakeups = (data = []) => {
       button.src = "assets/images/verified.png"
       button.className = "verified"
     }
+    else if (missed) {
+      p.innerHTML = (date + " &#8212; <b class='missed'>Missed</b>")
+      button.src = "assets/images/failed.png"
+      button.className = "missed"
+    }
     else {
       p.innerHTML = (date + " &#8212; " + fromNow)
       button.src = "assets/images/cancel.png"
@@ -297,16 +328,24 @@ const setWakeups = (data = []) => {
     parent.appendChild(cancel)
     container.appendChild(parent)
 
-    if (!wakeup.verified) {
-      button.onclick = () => {
-        cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
-      }
-    }
-    else {
+    if (wakeup.verified) {
       button.onclick = () => {
         verifiedClick(node)
       }
       p.querySelector("b").onclick = button.onclick
+      depositBox.onclick = button.onclick
+    }
+    else if (missed) {
+      button.onclick = () => {
+        missedClick(node, wakeup)
+      }
+      p.querySelector("b").onclick = button.onclick
+      depositBox.onclick = button.onclick
+    }
+    else {
+      button.onclick = () => {
+        cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
+      }
     }
   }
 }

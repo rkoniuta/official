@@ -429,6 +429,10 @@ button.full-width {
   cursor: pointer;
 }
 
+.wakeup > .info > p > b.missed {
+  color: black;
+}
+
 .wakeup > .info > h3 {
   font-size: 40px;
   font-weight: 600;
@@ -480,6 +484,11 @@ button.full-width {
 }
 
 .wakeup > .cancel > img.verified {
+  opacity: 1;
+  cursor: default;
+}
+
+.wakeup > .cancel > img.missed {
   opacity: 1;
   cursor: default;
 }
