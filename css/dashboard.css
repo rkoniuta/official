@@ -176,6 +176,10 @@
   padding: 18px 0px;
 }
 
+.toolbar > a {
+  opacity: 1;
+}
+
 .toolbar > a > img {
   width: 32px;
   height: 32px;
@@ -190,7 +194,7 @@
 }
 
 .toolbar > a.disabled {
-  opacity: 0.4;
+  opacity: 1;
 }
 
 #schedule-button {
