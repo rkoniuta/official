@@ -156,8 +156,8 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
     $("*").addClass("__twox-mode")
     if (__TWOX_MODE_PAGE === "dashboard") {
       $(".toolbar")[0].childNodes[1].querySelector("img").src = "assets/images/home-2xmode.png"
-      //$("#__twox-mode-target-0")[0].innerHTML = (GREEN_2X_ELEMENT + " Earnings Data")
-      $("#__twox-mode-target-1")[0].innerHTML = ("users with " + GREEN_2X_ELEMENT + " who deposited")
+      $("#__twox-mode-target-0")[0].innerHTML = ("Earnings Data " + GREEN_2X_ELEMENT)
+      $("#__twox-mode-target-1")[0].innerHTML = ("users with 2x who deposited")
       $("#schedule-button")[0].innerHTML = ("Schedule a " + GREEN_2X_ELEMENT + " Wakeup")
     }
     else if (__TWOX_MODE_PAGE === "schedule") {
