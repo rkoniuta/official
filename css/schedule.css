@@ -249,3 +249,11 @@ p.subtitle {
 .minute-input:focus, .hour-input:focus {
   border-color: #dfe3e7;
 }
+
+.day-container > .day.selected.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}

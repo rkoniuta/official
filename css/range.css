@@ -108,3 +108,18 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #000000;
 }
+
+input[type=range].__twox-mode::-webkit-slider-runnable-track {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(270deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background: -webkit-linear-gradient(270deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background: linear-gradient(270deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#c7ff00",GradientType=1);
+}
+
+input[type=range].__twox-mode.limited::-webkit-slider-runnable-track {
+  background: rgba(0,0,0,0.4);
+  background: -moz-linear-gradient(270deg, rgba(0,0,0,0.4) 50%, rgba(0,255,0,1) 75%, rgba(199,255,0,1) 100%);
+  background: -webkit-linear-gradient(270deg, rgba(0,0,0,0.4) 50%, rgba(0,255,0,1) 75%, rgba(199,255,0,1) 100%);
+  background: linear-gradient(270deg, rgba(0,0,0,0.4) 50%, rgba(0,255,0,1) 75%, rgba(199,255,0,1) 100%);
+}

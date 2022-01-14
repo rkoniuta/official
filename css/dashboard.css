@@ -393,3 +393,24 @@ span.chart-dark {
     opacity: 1;
   }
 }
+
+body.__twox-mode > .hero-container {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(193deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background: -webkit-linear-gradient(193deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background: linear-gradient(193deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%) !important;
+}
+
+body.__twox-mode > .backplate {
+  background: rgba(0,255,0,1);
+}
+
+body.__twox-mode > .hero-container > .hero > .hero-padding {
+  background: linear-gradient(0deg, rgba(0,255,0,1) 1%, rgba(0,255,0,0) 80%);
+}
+
+.wakeup-container > p > a.__twox-mode {
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+}

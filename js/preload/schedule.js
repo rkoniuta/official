@@ -92,7 +92,12 @@ const toggleDay = (obj) => {
     $("#deposit-notice").addClass("visible")
     $("#deposit-slider")[0].value = Math.min($("#deposit-slider")[0].value, 10)
     slider($("#deposit-slider")[0])
-    $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
+    if (IS_2X) {
+      $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup"
+    }
+    else {
+      $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
+    }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Time"
   }
   else {
@@ -100,7 +105,12 @@ const toggleDay = (obj) => {
     $("#deposit-notice").removeClass("visible")
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
+    if (IS_2X) {
+      $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeups"
+    }
+    else {
     $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
+    }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Times"
   }
   if (NUM_SELECTED_DAYS < 1) {
@@ -244,6 +254,9 @@ const genWakeups = () => {
     parent.className = "wakeup"
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
+    if (IS_2X) {
+      depositContainer.className = "deposit-container __twox-mode"
+    }
     let depositBox = document.createElement("div")
     depositBox.className = "deposit"
     let h1 = document.createElement("h1")

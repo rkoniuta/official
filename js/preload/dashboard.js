@@ -20,7 +20,10 @@ const slider = (obj) => {
     historic = CHART_RETURN
   }
   const deposit = Math.round(obj.value)
-  const returns = (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
+  let returns = (((Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)) - 0.01)
+  if (IS_2X) {
+    returns = (((Math.floor(deposit * (((historic / 100) * 2) + 1) * 100) / 100)) - 0.01);
+  }
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
   document.getElementById("return-amount").innerHTML = (Math.floor(returns) || 0).toString()
   document.getElementById("return-amount-cents").innerHTML = ("." + (Math.round((returns - Math.floor(returns)) * 100) || 0).toString().padStart(2, "0"))
@@ -271,6 +274,9 @@ const setWakeups = (data = []) => {
     parent.className = "wakeup"
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
+    if (IS_2X) {
+      depositContainer.className = "deposit-container __twox-mode"
+    }
     let depositBox = document.createElement("div")
     depositBox.className = "deposit"
     let h1 = document.createElement("h1")
@@ -418,9 +424,16 @@ const genEarningsChart = (data) => {
         width = chartWidth;
         height = chartHeight;
         gradient = ctx.createLinearGradient(0, 0, width, height)
-        gradient.addColorStop(0, ("rgba(255,204,0," + opacity.toString() + ")"))
-        gradient.addColorStop(0.5, ("rgba(255,0,0," + opacity.toString() + ")"))
-        gradient.addColorStop(1, ("rgba(102,0,255," + opacity.toString() + ")"))
+        if (IS_2X) {
+          gradient.addColorStop(0, ("rgba(199,255,0," + opacity.toString() + ")"))
+          gradient.addColorStop(0.5, ("rgba(0,255,0," + opacity.toString() + ")"))
+          gradient.addColorStop(1, ("rgba(0,179,255," + opacity.toString() + ")"))
+        }
+        else {
+          gradient.addColorStop(0, ("rgba(255,204,0," + opacity.toString() + ")"))
+          gradient.addColorStop(0.5, ("rgba(255,0,0," + opacity.toString() + ")"))
+          gradient.addColorStop(1, ("rgba(102,0,255," + opacity.toString() + ")"))
+        }
       }
       return gradient
     }
