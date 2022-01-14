@@ -188,7 +188,7 @@ input[invalid=true] {
   border-color: red;
 }
 
-.destination-container > .option.selected {
+.destination-container > .option.selected.__twox-mode {
   background: rgb(0,179,255);
   background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
