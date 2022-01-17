@@ -93,7 +93,12 @@ const toggleDay = (obj) => {
     $("#deposit-slider")[0].value = Math.min($("#deposit-slider")[0].value, 10)
     slider($("#deposit-slider")[0])
     if (IS_2X) {
-      $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup"
+      if (NUM_SELECTED_DAYS < 1) {
+        $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup (0)"
+      }
+      else {
+        $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup (1)"
+      }
     }
     else {
       $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
@@ -106,7 +111,7 @@ const toggleDay = (obj) => {
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
     if (IS_2X) {
-      $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeups"
+      $("#schedule-button")[0].innerHTML = ("Schedule <span class='twoX'>2X</span> Wakeups ( " + NUM_SELECTED_DAYS.toString() + ")")
     }
     else {
     $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
