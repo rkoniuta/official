@@ -468,12 +468,12 @@ const genEarningsChart = (data) => {
     labels.push(moment().subtract(30,"day").format(labelFormat))
     labels.reverse()
     let maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 3)
-    if (IS_2X) {
-      maxValue = Math.round((Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) * 2) + 3)
-    }
     //$("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
     $("#chart-last-day").text("")
     $("#chart-top-percent").text(maxValue.toString() + "%")
+    if (IS_2X) {
+      $("#chart-top-percent").text((((maxValue - 3) * 2) + 3).toString() + "%")
+    }
     const chartData = (data.earnings || []).sort((a,b) => {
       return a.day - b.day
     }).map((e) => (e.earnings * 100))
