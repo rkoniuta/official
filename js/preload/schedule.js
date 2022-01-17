@@ -111,7 +111,7 @@ const toggleDay = (obj) => {
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
     if (IS_2X) {
-      $("#schedule-button")[0].innerHTML = ("Schedule <span class='twoX'>2X</span> Wakeups ( " + NUM_SELECTED_DAYS.toString() + ")")
+      $("#schedule-button")[0].innerHTML = ("Schedule <span class='twoX'>2X</span> Wakeups (" + NUM_SELECTED_DAYS.toString() + ")")
     }
     else {
     $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
