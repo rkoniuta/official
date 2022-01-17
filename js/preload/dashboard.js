@@ -472,7 +472,7 @@ const genEarningsChart = (data) => {
     $("#chart-last-day").text("")
     $("#chart-top-percent").text(maxValue.toString() + "%")
     if (IS_2X) {
-      $("#chart-top-percent").text((((maxValue - 3) * 2) + 3).toString() + "%")
+      $("#chart-top-percent").text((((maxValue - 3) * 2) + 2).toString() + "%")
     }
     const chartData = (data.earnings || []).sort((a,b) => {
       return a.day - b.day
