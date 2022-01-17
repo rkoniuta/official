@@ -17,6 +17,9 @@ const setScreen = (n) => {
   else {
     $("#skip")[0].innerHTML = ("Go Back")
   }
+  if (SCREEN === 2) {
+    sliderInit(document.getElementById("estimate-slider"))
+  }
   if (SCREEN === 4) {
     $("#continue")[0].innerHTML = ("Finish Tutorial")
     $("#continue").addClass("gradient")
