@@ -20,6 +20,31 @@ const fetchHistory = () => {
   })
 }
 
+const addAward = (src, _title, _text) => {
+  const award = document.createElement("img")
+  award.src = src
+  award.id = "award-icon"
+  award.onclick = () => {
+    let elements = []
+    let center = document.createElement("div")
+    center.className = "center"
+    let img = document.createElement("img")
+    img.src = src
+    center.appendChild(img)
+    let title = document.createElement("h3")
+    title.className = "center"
+    title.innerHTML = _title
+    title.style.marginBottom = "24px"
+    let text = document.createElement("p")
+    text.innerHTML = _text
+    elements.push(center)
+    elements.push(title)
+    elements.push(text)
+    MODAL.display(elements)
+  }
+  $("#user-number")[0].appendChild(award)
+}
+
 const setHistory = (data) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data))
   HISTORY = data
@@ -27,29 +52,14 @@ const setHistory = (data) => {
     if (item.data.event === "BIRTH") {
       $("#user-number")[0].innerHTML = item.data.data.userNumber.toString()
       $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
-      if (item.data.data.userNumber < (EARLY_USER_THRESHOLD + 1)) {
-        const award = document.createElement("img")
-        award.src = "./assets/images/award.png"
-        award.id = "award-icon"
-        award.onclick = () => {
-          let elements = []
-          let center = document.createElement("div")
-          center.className = "center"
-          let img = document.createElement("img")
-          img.src = "assets/images/award.png"
-          center.appendChild(img)
-          let title = document.createElement("h3")
-          title.className = "center"
-          title.innerHTML = "Paywake Founding User"
-          title.style.marginBottom = "24px"
-          let text = document.createElement("p")
-          text.innerHTML = ("You were one of the first 10,000 users to join Paywake.")
-          elements.push(center)
-          elements.push(title)
-          elements.push(text)
-          MODAL.display(elements)
-        }
-        $("#user-number")[0].appendChild(award)
+      if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
+        addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 100 users</b> to join Paywake. From all of us on the development team, thanks for helping make Paywake what it is today.")
+      }
+      if (item.data.data.userNumber < (PIONEER_USER_THRESHOLD + 1)) {
+        addAward("assets/images/award-3.png", "Paywake Pioneer User", "You were one of the <b>first 1,000 users</b> to join Paywake. Congratulations!")
+      }
+      if (item.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
+        addAward("assets/images/award.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake.")
       }
     }
   }
