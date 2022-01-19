@@ -59,7 +59,12 @@ const setHistory = (data) => {
       totalScheduled++
     }
   }
-  $("#wakeup-count")[0].innerHTML = totalScheduled.toString()
+  if (totalScheduled === 1) {
+    $("#wakeup-count")[0].innerHTML = ("1 wakeup")
+  }
+  else {
+    $("#wakeup-count")[0].innerHTML = (totalScheduled.toString() + " wakeups")
+  }
   let totalEarned = 0
   for (let item of HISTORY) {
     if (item.data.event === "PAID") {
