@@ -119,12 +119,21 @@
     </div>
     <div id="grab-handle"></div>
     <div class="content">
-      <h3>Account Settings</h3>
-      <!--FIXME: Remove-->
+      <h3>Your Account</h3>
+      <p class="subtitle">Account Statistics</p>
+      <p class="stat">User <b>#<span id="user-number">--</span></b></p>
+      <p class="stat"><b><span id="wakeup-count">--</span></b> wakeups scheduled</p>
+      <p class="stat"><b>$<span id="account-earned">--</span></b> earned in total</p>
+      <p class="stat">Account created on <b><span id="account-birthday">--</span></b></p>
       <br>
-      <div class="middle">
+      <p class="subtitle">Your Name</p>
+      <input type="text" placeholder="Type here..." id="account-name" maxlength="64">
+      <br>
+      <div class="middle" id="logout">
         <button onclick="logout()" class="full-width">Log Out</button>
       </div>
+      <h3>Wakeup History</h3>
+      <p>(Coming soon)</p>
       <br>
     </div>
     <div class="toolbar-container">
