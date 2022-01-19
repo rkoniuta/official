@@ -70,5 +70,17 @@ const setHistory = (data) => {
 }
 
 const setName = () => {
-  $("#account-name")[0].value = (USER.signInUserSession.idToken.payload.name)
+  if (!localStorage.getItem(LOCAL_STORAGE_TAG + "name")) {
+    localStorage.setItem(LOCAL_STORAGE_TAG + "name", USER.signInUserSession.idToken.payload.name)
+  }
+  $("#account-name")[0].value = localStorage.getItem(LOCAL_STORAGE_TAG + "name").trim()
+}
+
+const updateName = (obj) => {
+  const name = obj.value.substring(0,65)
+  if (name.length) {
+    if (name !== localStorage.getItem(LOCAL_STORAGE_TAG + "name")) {
+      ROUTINES.name(name)
+    }
+  }
 }
