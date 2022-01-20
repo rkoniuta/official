@@ -2,7 +2,32 @@ const LOCAL_TIME_ZONE = moment.tz.guess()
 let HISTORY = []
 
 const logout = () => {
-  ROUTINES.logout()
+  let elements = []
+  let title = document.createElement("h3")
+  title.innerHTML = "Confirm Log Out"
+  elements.push(title)
+  let text = document.createElement("p")
+  text.innerHTML = ("Are you sure you want to log out of Paywake on this device?")
+  elements.push(text)
+  let group = document.createElement("div")
+  group.className = "button-group"
+  let goback = document.createElement("button")
+  goback.innerHTML = "Go Back"
+  goback.className = "transparent"
+  let confirm = document.createElement("button")
+  confirm.innerHTML = "Confirm"
+  confirm.id = "__modal-dismiss"
+  group.appendChild(goback)
+  group.appendChild(confirm)
+  elements.push(group)
+  goback.onclick = () => {
+    MODAL.hide()
+  }
+  confirm.onclick = () => {
+    confirm.className = "loading"
+    ROUTINES.logout()
+  }
+  MODAL.display(elements)
 }
 
 const fetchHistory = () => {
