@@ -162,6 +162,10 @@ p.subtitle {
   cursor: default;
 }
 
+#wakeup-container {
+  margin-bottom: 20px;
+}
+
 h3 {
   margin-bottom: 16px;
 }

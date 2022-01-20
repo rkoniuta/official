@@ -112,7 +112,6 @@ const genWakeups = () => {
   container.innerHTML = ""
   const wakeups = []
   const wakeupIDs = []
-  const cancels = []
   const verifies = []
   const payments = []
   HISTORY.sort((a,b) => {
@@ -126,9 +125,6 @@ const genWakeups = () => {
         wakeupIDs.push(item.data.data.id)
       }
     }
-    else if (item.data.event === "CANCEL") {
-      cancels.push(item.data.data)
-    }
     else if (item.data.event === "VERIFY") {
       verifies.push(item.data.data.id)
     }
@@ -139,12 +135,6 @@ const genWakeups = () => {
   for (let id of verifies) {
     try {
       wakeups[wakeupIDs.indexOf(id)].verified = true
-    } catch (e) {}
-  }
-  for (let cancel of cancels) {
-    try {
-      wakeups[wakeupIDs.indexOf(cancel.id)].canceled = true
-      wakeups[wakeupIDs.indexOf(cancel.id)].cancelFee = cancel.fee
     } catch (e) {}
   }
   for (let payment of payments) {
@@ -167,6 +157,21 @@ const genWakeups = () => {
     return (b.day - a.day)
   })
   for (const wakeup of wakeups) {
+    wakeup.events.sort((a,b) => {
+      return (moment(b.time).diff(moment(a.time)))
+    })
+    for (let ev of wakeup.events) {
+      if (ev.data.event === "SCHEDULE") {
+        wakeup.canceled = false;
+        break;
+      }
+      if (ev.data.event === "CANCEL") {
+        wakeup.canceled = true;
+        wakeup.cancelFee = ev.data.data.fee;
+        break;
+      }
+    }
+
     const deposit = (wakeup.deposit / 100).toString()
     const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
     const hour = m.format("h")
@@ -277,10 +282,6 @@ const genWakeups = () => {
     eventsContainer.className = "events-container"
     let divider = document.createElement("div")
     divider.className = "wakeup-divider"
-
-    wakeup.events.sort((a,b) => {
-      return (moment(b.time).diff(moment(a.time)))
-    })
     for (let ev of wakeup.events) {
       let p = document.createElement("p")
       p.className = "wakeup-event"
@@ -311,6 +312,9 @@ const genWakeups = () => {
     let p = document.createElement("p")
     p.innerHTML = "Nothing to see here. <a class='gradient' href='./schedule'>Schedule yours</a>"
     container.appendChild(p)
+  }
+  else {
+    $("#wakeup-container")[0].childNodes[$("#wakeup-container")[0].childNodes.length - 1].remove()
   }
 }
 
