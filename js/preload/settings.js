@@ -52,14 +52,14 @@ const setHistory = (data) => {
     if (item.data.event === "BIRTH") {
       $("#user-number")[0].innerHTML = item.data.data.userNumber.toString()
       $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
-      if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 100 users</b> to join Paywake. From all of us on the development team, thanks for helping make Paywake what it is today.")
+      if (moment(item.time).isBefore("2022-02-16")) {
+        addAward("assets/images/award-5.png", "Launch Day User", "You participated in Paywake's launch day.")
       }
-      if (item.data.data.userNumber < (PIONEER_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award-3.png", "Paywake Pioneer User", "You were one of the <b>first 1,000 users</b> to join Paywake. Congratulations!")
+      if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
+        addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the development team, thanks for helping make Paywake what it is today.")
       }
       if (item.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake.")
+        addAward("assets/images/award-3.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake. Congratulations!")
       }
     }
   }
