@@ -52,7 +52,7 @@ const setHistory = (data) => {
   $("#awards")[0].innerHTML = ("")
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
-      $("#user-number")[0].innerHTML = item.data.data.userNumber.toString()
+      $("#user-number")[0].innerHTML = numberWithCommas(parseInt(item.data.data.userNumber))
       $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
       let hasAwards = false
       if (moment(item.time).isBefore("2022-02-16")) {
@@ -78,14 +78,14 @@ const setHistory = (data) => {
       totalScheduled++
     }
   }
-  $("#wakeup-count")[0].innerHTML = totalScheduled.toString()
+  $("#wakeup-count")[0].innerHTML = numberWithCommas(totalScheduled)
   let totalEarned = 0
   for (let item of HISTORY) {
     if (item.data.event === "PAID") {
       totalEarned += parseInt(item.data.data.amount)
     }
   }
-  $("#account-earned")[0].innerHTML = Math.floor(totalEarned / 100).toString()
+  $("#account-earned")[0].innerHTML = numberWithCommas(Math.floor(totalEarned / 100))
   $("#account-earned-cents")[0].innerHTML = ("." + (totalEarned - (Math.floor(totalEarned / 100) * 100)).toString().padStart(2, "0"))
   $("#account-id")[0].innerHTML = (USER.username.toString().trim())
   genWakeups()
@@ -473,4 +473,8 @@ const cancelWakeup = (wakeup, node) => {
     })
   }
   MODAL.display(elements)
+}
+
+const numberWithCommas = (n) => {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
