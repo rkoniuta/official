@@ -56,7 +56,7 @@ const setHistory = (data) => {
       $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
       let hasAwards = false
       if (moment(item.time).isBefore("2022-02-16")) {
-        addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there from day 1!")
+        addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there since day 1!")
         hasAwards = true
       }
       if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
