@@ -150,11 +150,19 @@ p.subtitle {
 }
 
 #award-icon {
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   margin: 0px 8px;
   transform: translateY(0px);
   cursor: pointer;
+}
+
+#award-icon:first-child {
+  margin-left: 0px;
+}
+
+#award-icon:last-child {
+  margin-right: 0px;
 }
 
 #account-id {
