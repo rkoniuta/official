@@ -43,7 +43,7 @@ const addAward = (src, _title, _text) => {
     elements.push(text)
     MODAL.display(elements)
   }
-  $("#user-number")[0].appendChild(award)
+  $("#awards")[0].appendChild(award)
 }
 
 const setHistory = (data) => {
@@ -53,14 +53,21 @@ const setHistory = (data) => {
     if (item.data.event === "BIRTH") {
       $("#user-number")[0].innerHTML = item.data.data.userNumber.toString()
       $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
+      let hasAwards = false
       if (moment(item.time).isBefore("2022-02-16")) {
         addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there from day 1!")
+        hasAwards = true
       }
       if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
         addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the team, thanks for helping make Paywake what it is today.")
+        hasAwards = true
       }
       if (item.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
         addAward("assets/images/award-3.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake. Congratulations!")
+        hasAwards = true
+      }
+      if (!hasAwards) {
+        $("#awards-stat")[0].remove()
       }
     }
   }
@@ -70,19 +77,16 @@ const setHistory = (data) => {
       totalScheduled++
     }
   }
-  if (totalScheduled === 1) {
-    $("#wakeup-count")[0].innerHTML = ("1 wakeup")
-  }
-  else {
-    $("#wakeup-count")[0].innerHTML = (totalScheduled.toString() + " wakeups")
-  }
+  $("#wakeup-count")[0].innerHTML = totalScheduled.toString()
   let totalEarned = 0
   for (let item of HISTORY) {
     if (item.data.event === "PAID") {
       totalEarned += parseInt(item.data.data.amount)
     }
   }
-  $("#account-earned")[0].innerHTML = (Math.floor(totalEarned / 100).toString() + "." + (totalEarned - (Math.floor(totalEarned / 100) * 100)).toString().padStart(2, "0"))
+  $("#account-earned")[0].innerHTML = Math.floor(totalEarned / 100).toString()
+  $("#account-earned-cents")[0].innerHTML = ("." + (totalEarned - (Math.floor(totalEarned / 100) * 100)).toString().padStart(2, "0"))
+  $("#account-id")[0].innerHTML = (USER.username.toString().trim())
   genWakeups()
 }
 

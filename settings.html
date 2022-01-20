@@ -120,12 +120,30 @@
     <div id="grab-handle"></div>
     <div class="content">
       <h3>Your Account</h3>
-      <p class="subtitle">Account Statistics</p>
-      <p class="stat">User <b>#<span id="user-number">--</span></b></p>
-      <p class="stat"><b><span id="wakeup-count">-- wakeups</span></b> scheduled</p>
-      <p class="stat"><b>$<span id="account-earned">--</span></b> earned in total</p>
-      <p class="stat">Account created on <b><span id="account-birthday">--</span></b></p>
-      <br>
+      <div class="stats-container">
+        <div class="stat">
+          <h1><span id="wakeup-count">--</span></h1>
+          <p class="subtitle">Wakeups Scheduled</p>
+        </div>
+        <div class="stat">
+          <h1>
+            <span class="dollar-sign">$</span>
+            <span id="account-earned">--</span>
+            <span id="account-earned-cents" class="small">--</span>
+          </h1>
+          <p class="subtitle">Earned in Total</p>
+        </div>
+      </div>
+      <div class="stats-container">
+        <div class="stat">
+          <h1><span class="small">#</span><span id="user-number">--</span></h1>
+          <p class="subtitle">User Number</p>
+        </div>
+        <div class="stat" id="awards-stat">
+          <div id="awards"></div>
+          <p class="subtitle">Awards</p>
+        </div>
+      </div>
       <p class="subtitle">Your Name</p>
       <input type="text" placeholder="Type here..." id="account-name" maxlength="64" onchange="updateName(this)" onpaste="updateName(this)" oninput="updateName(this)" onblur="updateName(this)">
       <br>
@@ -134,6 +152,9 @@
       </div>
       <h3>Wakeup History</h3>
       <div class="wakeup-container" id="wakeup-container"></div>
+      <br>
+      <p class="stat">Account created on <b><span id="account-birthday">--</span></b></p>
+      <p class="stat">Account ID: <span id="account-id">--</span></p>
       <br>
     </div>
     <div class="toolbar-container">

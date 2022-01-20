@@ -3,6 +3,10 @@
   margin: 0px;
 }
 
+p.stat {
+  text-align: center;
+}
+
 .between {
   width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
@@ -12,10 +16,80 @@
   box-sizing: border-box;
 }
 
-.stat {
+.stats-container {
   width: min(calc(60vw + 75px), calc(60vh + 150px));
-  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 16px;
+}
+
+.stats-container > .stat {
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 0px 8px;
+  border-radius: 11px;
+  padding: 16px;
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 112px;
+}
+
+.stats-container > .stat:first-child {
+  margin-left: 0px;
+}
+
+.stats-container > .stat:last-child {
+  margin-right: 0px;
+}
+
+.stats-container > .stat > h1 {
   margin: 0px;
+  font-family: 'Urbanist';
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 300;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.stats-container > .stat > h1 > span.small {
+  font-family: 'Urbanist', sans-serif;
+  color: black;
+  font-weight: 300;
+  font-size: 20px;
+  vertical-align: super;
+  margin-left: -8px;
+}
+
+.stats-container > .stat > h1 > span.dollar-sign {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-weight: 300;
+  font-size: 20px;
+  vertical-align: super;
+  margin-right: -8px;
+}
+
+.stats-container > .stat > p {
+  margin: 0px;
+}
+
+#awards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 12px;
 }
 
 a.gradient {
@@ -39,16 +113,25 @@ p.subtitle {
   font-size: 14px;
   margin: 0px;
   text-align: left;
-  width: min(calc(60vw + 75px), calc(60vh + 150px));
   margin-top: 8px;
 }
 
 #award-icon {
   width: 20px;
   height: 20px;
-  margin-left: 6px;
-  transform: translateY(3px);
+  margin: 0px 8px;
+  transform: translateY(0px);
   cursor: pointer;
+}
+
+#account-id {
+  font-size: 9px;
+  font-family: monospace;
+  padding: 4px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  background: rgba(0,0,0,0.06);
+  cursor: default;
 }
 
 h3 {
