@@ -401,3 +401,67 @@ const selectAccountID = () => {
   selection.addRange(range)
   document.execCommand("copy")
 }
+
+
+const cancelWakeup = (wakeup, node) => {
+  const balance = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "balance"))
+  let elements = []
+  let title = document.createElement("h3")
+  title.innerHTML = "Confirm Cancellation"
+  elements.push(title)
+  elements.push(node)
+  let text = document.createElement("p")
+  let fee = Math.min(Math.max(Math.floor(wakeup.deposit * 0.015), 15), balance)
+  let dollars = Math.floor(fee / 100)
+  let cents = Math.floor(fee % 100)
+  if (fee > 0) {
+    text.innerHTML = ("Are you sure you want to cancel this wakeup? A cancellation fee of $" + dollars.toString() + "." + cents.toString().padStart(2, "0") + " will be deducted from your Paywake balance.")
+  }
+  else {
+    text.innerHTML = "Are you sure you want to cancel this wakeup?"
+  }
+  elements.push(text)
+  let group = document.createElement("div")
+  group.className = "button-group"
+  let goback = document.createElement("button")
+  goback.innerHTML = "Go Back"
+  goback.className = "transparent"
+  let confirm = document.createElement("button")
+  confirm.innerHTML = "Confirm"
+  confirm.id = "__modal-dismiss"
+  group.appendChild(goback)
+  group.appendChild(confirm)
+  elements.push(group)
+  goback.onclick = () => {
+    MODAL.hide()
+  }
+  confirm.onclick = () => {
+    confirm.className = "loading"
+    $.ajax({
+      url: (API + "/cancel"),
+      type: "PUT",
+      data: {
+        id: wakeup.id
+      },
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", ID_TOKEN)
+      },
+      success: (data) => {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1)
+      },
+      error: (data) => {
+        confirm.className = ""
+        MODAL.hide()
+        setTimeout(() => {
+          MODAL.displayHTML("<p>Error - cancellation failed</p>")
+        }, 1000)
+      }
+    })
+  }
+  MODAL.display(elements)
+}
