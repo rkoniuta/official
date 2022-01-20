@@ -1,8 +1,8 @@
 .hero-container {
   background: rgb(102,0,255);
-  background: -moz-linear-gradient(166deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background: -webkit-linear-gradient(166deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background: linear-gradient(166deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: -moz-linear-gradient(193deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: -webkit-linear-gradient(193deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: linear-gradient(193deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
   position: fixed;
   z-index: 1;
@@ -14,7 +14,7 @@
   background: rgb(255,255,255);
   background: -moz-linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
   background: -webkit-linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
-  background: linear-gradient(0deg, rgba(255,204,0,1) 1%, rgba(255,204,0,0) 80%);
+  background: linear-gradient(0deg, rgba(255,102,0,1) 1%, rgba(255,102,0,0) 80%);
 }
 
 .hero {
@@ -50,7 +50,7 @@
   width: 100vw;
   background: white;
   border-radius: 44px;
-  box-shadow: 0px 0px 44px rgba(0,0,0,0.06);
+  box-shadow: 0px 0px 44px rgba(255, 255, 255, 0.3);
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -63,7 +63,7 @@
 }
 
 .balance-container {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   height: 144px;
   box-sizing: border-box;
   display: flex;
@@ -122,7 +122,7 @@
 .content > h3 {
   font-family: 'Urbanist', sans-serif;
   font-size: 24px;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   font-weight: 700;
   text-align: left;
 }
@@ -135,7 +135,7 @@
 }
 
 .content > input[type=range] {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
 }
 
 .dollar-subtitle.bounds.bottom {
@@ -159,18 +159,25 @@
   box-sizing: border-box;
   background: white;
   z-index: 3;
+  border-top-left-radius: 44px;
+  border-top-right-radius: 44px;
+  overflow: hidden;
+  box-shadow: 0px 0px 8px rgba(255,255,255,0.3);
 }
 
 .toolbar {
-  width: 100vw;
-  min-width: 476px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   align-content: center;
   box-sizing: border-box;
-  padding: 18px 30px;
+  padding: 18px 0px;
+}
+
+.toolbar > a {
+  opacity: 1;
 }
 
 .toolbar > a > img {
@@ -187,7 +194,7 @@
 }
 
 .toolbar > a.disabled {
-  opacity: 0.4;
+  opacity: 1;
 }
 
 #schedule-button {
@@ -208,7 +215,7 @@
 }
 
 .wakeup-container {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,7 +225,7 @@
 
 .wakeup-container > p {
   font-family: 'Open Sans', sans-serif;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   margin: 0px;
 }
 
@@ -236,17 +243,6 @@
   cursor: pointer;
 }
 
-#buffer {
-  width: 300px;
-  height: 80px;
-  box-sizing: border-box;
-  background: transparent;
-}
-
-#buffer.if-ios {
-  display: none;
-}
-
 .earnings-container {
   display: flex;
   align-items: center;
@@ -255,7 +251,7 @@
   flex-direction: row;
   box-sizing: border-box;
   flex-direction: row;
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
 }
 
 .earnings-container > h3 {
@@ -279,4 +275,142 @@
 
 .earnings-container > p > span.button.active {
   background: rgba(0,0,0,1);
+}
+
+body.safari-toolbars-hidden > .toolbar-container {
+  padding-bottom: 0px;
+}
+
+#earnings-chart {
+  height: 30vw;
+  max-height: 176px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  box-sizing: border-box;
+  padding: 0px;
+  transition: height ease 0.3s, opacity ease 0.3s;
+  -webkit-transition: height ease 0.3s, opacity ease 0.3s;
+  margin: 0px;
+  z-index: -3;
+  opacity: 1;
+  padding: 0px;
+  overflow: visible;
+}
+
+#earnings-chart > div {
+  height: calc(30vw + 0px);
+  max-height: 176px;
+  width: 100vw;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-left: min(calc(-20vw + 37.5px), calc(30vh + 75px - 50vw));
+}
+
+#earnings-chart > div > div {
+  height: calc(30vw + 0px);
+  max-height: 176px;
+  width: min(calc(60vw + 75px + 24vw + 24px), calc(60vh + 150px + 24vw + 24px));
+  box-sizing: border-box;
+  overflow: visible;
+  margin: 0px -12px;
+}
+
+#earnings-chart.hidden {
+  opacity: 0;
+  height: 0px;
+}
+
+
+#chart-top-bounds, #chart-bottom-bounds {
+  z-index: -2;
+  opacity: 1;
+  transition: opacity ease 0.3s, margin-bottom ease 0.3s;
+  -webkit-transition: opacity ease 0.3s, margin-bottom ease 0.3s;
+}
+
+#chart-top-bounds {
+  margin-bottom: -18px;
+}
+
+#chart-bottom-bounds {
+  margin-top: -24px;
+  margin-bottom: 32px;
+  margin-right: -2px;
+}
+
+#chart-bottom-bounds.hidden {
+  margin-bottom: 18px;
+}
+
+#chart-top-bounds.hidden, #chart-bottom-bounds.hidden {
+  opacity: 0;
+}
+
+#chart-backdrop {
+  width: 100vw;
+  position: absolute;
+  top: calc(256px + 30vw);
+  height: 0px;
+  z-index: 1;
+  background: white;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: height ease 0.3s, opacity ease 0.3s;
+  -webkit-transition: height ease 0.3s, opacity ease 0.3s;
+}
+
+span.chart-dark {
+  color: black !important;
+}
+
+@supports not ( -moz-appearance:none ) {
+  .content {
+    backdrop-filter: blur(20px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(110%) !important;
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,1) 400px);
+    background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,1) 400px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.64) 0%, rgba(255,255,255,1) 400px);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+  }
+}
+
+@media only screen and (min-width : 561px) {
+  #earnings-chart > div > div {
+    width: min(calc(60vw + 75px + 24px), calc(60vh + 150px + 24px));
+    margin: 0px -12px;
+  }
+  #earnings-chart {
+    overflow: hidden;
+  }
+  #earnings-chart > div {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width : 560px) {
+  #chart-backdrop.active {
+    height: 400px;
+    opacity: 1;
+  }
+}
+
+body.__twox-mode > .hero-container {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(193deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background: -webkit-linear-gradient(193deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background: linear-gradient(193deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%) !important;
+}
+
+body.__twox-mode > .backplate {
+  background: rgba(0,255,0,1);
+}
+
+body.__twox-mode > .hero-container > .hero > .hero-padding {
+  background: linear-gradient(0deg, rgba(0,255,0,1) 1%, rgba(0,255,0,0) 80%);
+}
+
+.wakeup-container > p > a.__twox-mode {
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
 }

@@ -135,4 +135,23 @@ const ROUTINES = {
     })
   },
 
+  //SET NAME
+  name: (name, callback = (() => {})) => {
+    name.toString().trim()
+    if (name.length) {
+      USER.updateAttributes([new AmazonCognitoIdentity.CognitoUserAttribute({
+        Name: "name",
+        Value: name,
+      })], (err, result) => {
+        if (err) {
+          callback(err)
+        }
+        else {
+          localStorage.setItem(LOCAL_STORAGE_TAG + "name", name)
+          callback(null)
+        }
+      })
+    }
+  },
+
 }

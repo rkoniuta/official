@@ -15,6 +15,9 @@
     <meta name="author" content="Paywake">
     <meta name="application-name" content="Paywake">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Paywake">
 
     <!--ICON / THEME-->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="./assets/favicon/apple-touch-icon-57x57.png">
@@ -56,8 +59,13 @@
     <script src="js/aws/cognito.min.js"></script>
     <script src="js/aws/identity.min.js"></script>
 
+    <!--MOMENTJS-->
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
+
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
+    <script src="js/preload/copysheet.js"></script>
     <script src="js/preload/login.js"></script>
     <script src="js/auth/logged-out-only.js"></script>
     <script src="js/auth/auth.js"></script>
@@ -102,7 +110,7 @@
       </div>
       <div class="footer-container">
         <div class="footer">
-          <p>&copy; 2021 Paywake Corporation</p>
+          <p>&copy; 2022 Paywake Corporation</p>
           <div class="wrapper">
             <a href="mailto:hello@paywake.net">Contact Us</a>
             <a href="mailto:press@paywake.net">Press</a>

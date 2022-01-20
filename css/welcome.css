@@ -1,0 +1,106 @@
+#skip {
+  color: rgba(0,0,0,0.4);
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1001;
+  line-height: 36px;
+}
+
+.header {
+  z-index: 1001;
+  height: 77px;
+}
+
+.estimate-info {
+  margin-bottom: 36px;
+}
+
+input[type=range] {
+  padding-left: 0px;
+  padding-right: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
+.bounds {
+  align-items: flex-end;
+}
+
+.screen.unloaded.bottom {
+  transform: translateY(50vh);
+}
+
+.screen.unloaded.bottom > h3 {
+  transform: translateY(20vh);
+}
+
+.screen.unloaded.bottom > h1 {
+  transform: translateY(10vh);
+}
+
+.screen.unloaded.top {
+  transform: translateY(-50vh);
+}
+
+.screen.unloaded.top > h3 {
+  transform: translateY(-10vh);
+}
+
+.screen.unloaded.top > h1 {
+  transform: translateY(-20vh);
+}
+
+.screen {
+  height: calc(90vh - 77px);
+  max-height: calc(100vh - 176px);
+  top: 77px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 30px 0px;
+}
+
+.continue-footer {
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  box-sizing: border-box;
+  width: 100vw;
+  position: fixed;
+  z-index: 1002;
+  background: transparent;
+  background: -moz-linear-gradient(0deg, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(0deg, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 100%);
+}
+
+@media only screen and (max-height: 720px) and (max-width: 720px) {
+  .screen.big {
+    justify-content: flex-start;
+  }
+}
+
+a.gradient {
+  font-weight: 600;
+  border-bottom: 3px solid #dfe3e7;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  cursor: pointer;
+}
+
+#__modal-backdrop {
+  z-index: 1003;
+}
+
+#__modal-container {
+  z-index: 1004;
+}

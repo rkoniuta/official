@@ -1,0 +1,52 @@
+.header > a > button {
+  background: rgba(255,255,255,0.3);
+}
+
+#capture-button {
+  bottom: 58px;
+}
+
+#refresh-button {
+  bottom: 76px;
+}
+
+#ticker {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 32px;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  z-index: 999;
+  background: rgba(0,0,0,0);
+  box-sizing: border-box;
+}
+
+#ticker > p {
+  color: white;
+  font-weight: 300;
+  white-space: nowrap;
+  animation: ticker 16s infinite linear;
+  font-size: 14px;
+}
+
+#ticker > p > span {
+  margin: 0px 24px;
+}
+
+@keyframes ticker {
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@supports not (-moz-appearance:none) {
+  #ticker {
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+}

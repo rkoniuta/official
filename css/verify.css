@@ -66,7 +66,7 @@ body {
   justify-content: center;
   align-content: center;
   overflow: hidden;
-  z-index: -3;
+  z-index: -4;
 }
 
 #stream {
@@ -107,7 +107,7 @@ body {
   z-index: -1;
   bottom: calc(50vh - 150px);
   left: calc(50vw - 150px);
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 #photo-too-dark {
@@ -138,7 +138,7 @@ body {
 
 #instructions {
   display: inline-block;
-  width: 300px;
+  width: 196px;
   height: 24px;
   font-size: 18px;
   line-height: 24px;
@@ -150,8 +150,8 @@ body {
   position: fixed;
   overflow: visible;
   z-index: 1;
-  left: calc(50vw - 150px);
-  bottom: calc(50vh - 196px);
+  left: calc(50vw - 98px);
+  bottom: 212px;
   text-shadow: 0px 0px 30px rgba(0,0,0,1);
   text-align: center;
   color: white;
@@ -222,3 +222,26 @@ video::-webkit-media-controls-volume-slider {}
 video::-webkit-media-controls-mute-button {}
 video::-webkit-media-controls-timeline {}
 video::-webkit-media-controls-current-time-display {}
+
+.blur-element {
+  display: none;
+  position: fixed;
+  box-sizing: border-box;
+  opacity: 1;
+  z-index: -2;
+}
+
+#blur-bottom {
+  width: 100vw;
+  left: 0px;
+  height: 77px;
+  top: 0px;
+}
+
+@supports not ( -moz-appearance:none ) {
+  .blur-element {
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    display: block !important;
+  }
+}

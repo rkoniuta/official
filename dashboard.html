@@ -15,6 +15,9 @@
     <meta name="author" content="Paywake">
     <meta name="application-name" content="Paywake">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Paywake">
 
     <!--ICON / THEME-->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="./assets/favicon/apple-touch-icon-57x57.png">
@@ -45,6 +48,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/feedback.css">
 
     <!--JQUERY-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -62,11 +66,16 @@
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 
+    <!--CHARTJS-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
+    <script src="js/preload/copysheet.js"></script>
     <script src="js/preload/balance.js"></script>
     <script src="js/preload/dashboard.js"></script>
     <script src="js/preload/modal.js"></script>
+    <script src="js/preload/feedback.js"></script>
     <script src="js/auth/logged-in-only.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/auth/routines.js"></script>
@@ -95,8 +104,8 @@
             <img id="sun" src="assets/images/sun-transparent-192.png">
             <h1>Paywake</h1>
           </a>
-          <a href="./withdraw">
-            <button>Withdraw</button>
+          <a href="./transfer">
+            <button>Transfer</button>
           </a>
         </div>
         <div class="balance-container">
@@ -113,17 +122,32 @@
     <div id="grab-handle"></div>
     <div class="content">
       <div class="earnings-container">
-        <h3>Earnings Data</h3>
+        <h3 id="__twox-mode-target-0">Earnings Data</h3>
         <p>
           <span id="1d-button" class="button active" onclick="set1DayReturns()">1d</span>
           <span id="30d-button" class="button" onclick="set30DayReturns()">30d</span>
         </p>
       </div>
+      <div class="bounds hidden" id="chart-top-bounds">
+        <small id="chart-last-day">-/-</small>
+        <small id="chart-top-percent">-%</small>
+      </div>
+      <div id="earnings-chart" class="hidden">
+        <div>
+          <div>
+            <canvas id="__earnings-chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="bounds hidden" id="chart-bottom-bounds">
+        <small></small>
+        <small>0%</small>
+      </div>
       <div class="dollar-subtitle bounds">
         <small>
           <span id="1d-30d-text">Today,</span>
           <br>
-          <span>users who deposited</span>
+          <span id="__twox-mode-target-1">users who deposited</span>
         </small>
         <small>were paid</small>
       </div>
@@ -151,17 +175,16 @@
         <small>$99</small>
       </div>
       <br>
-      <button id="schedule-button" onclick="scheduleClick()">Schedule a Wakeup</button>
+      <button id="schedule-button" class="full-width" onclick="scheduleClick()">Schedule a Wakeup</button>
       <h3>Upcoming Wakeups <span class="light" id="wakeup-count">(3)</span></h3>
       <div class="wakeup-container" id="wakeup-container">
         <p id="no-wakeups">Nothing to see here. <a href="./schedule">Schedule yours</a></p>
       </div>
-      <div id="buffer" class="if-ios"></div>
     </div>
     <div class="toolbar-container">
       <div class="toolbar">
         <a class="disabled">
-          <img src="assets/images/home.png">
+          <img src="assets/images/home-active.png">
         </a>
         <a id="schedule-link" href="./schedule">
           <img src="assets/images/schedule.png">
@@ -171,6 +194,7 @@
         </a>
       </div>
     </div>
+    <div id="chart-backdrop"></div>
 
     <!--POST-LOAD-->
     <script src="js/balance.js"></script>

@@ -1,6 +1,5 @@
 const FRAME_RATE = 14 //1/2 ~30FPS
 const CAPTURE_DIMENSION = 300
-const DARKNESS_THRESHOLD = 56 //out of 255
 const BACKUP_CHALLENGE = "a "
 const MAX_CHALLENGE_SWITCHES = 3 //max refreshes
 
@@ -20,7 +19,7 @@ const VIDEO_CONSTRAINTS = {
 
 const malformedCamera = () => {
   MODAL.hide()
-  MODAL.displayHTML("<p>We weren't able to access your device's camera. Please reattempt verification on a <b>different device</b>.")
+  MODAL.displayHTML("<p>" + (__COPYSHEET.get("verify-malformed-camera") || "We weren't able to access your device's camera. Please reattempt verification on a <b>different device</b>.") + "</p>")
   setInstruction()
   setInterval(() => {
     if (!MODAL.visible) {
@@ -36,7 +35,7 @@ const initVideo = async () => {
     malformedCamera()
   }
   else {
-    MODAL.displayHTML("<p>To verify you're awake, please <b>allow access to your camera</b>.</p>")
+    MODAL.displayHTML("<p>" + (__COPYSHEET.get("verify-allow-camera-access") || "To verify you're awake, please <b>allow access to your camera</b>.") + "</p>")
     try {
       STREAM = await navigator.mediaDevices.getUserMedia(VIDEO_CONSTRAINTS)
     }
@@ -61,7 +60,7 @@ const setInstruction = (item = "") => {
   const element = document.getElementById("instructions")
   const bigElement = document.getElementById("instructions-big")
   if (item.length) {
-    element.innerHTML = ("To verify you're out of bed,<br>take a photo of " + item.split(" ")[0]  + " <b>" + item.substring(item.split(" ")[0].length).trim() + "</b>")
+    element.innerHTML = ("To verify you're out of bed, take a photo of " + item.split(" ")[0]  + "<br><b>" + item.substring(item.split(" ")[0].length).trim() + "</b>")
     bigElement.innerHTML = item.substring(item.split(" ")[0].length).trim().toLowerCase()
   }
   else {

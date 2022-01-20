@@ -15,6 +15,9 @@
     <meta name="author" content="Paywake">
     <meta name="application-name" content="Paywake">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Paywake">
 
     <!--ICON / THEME-->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://paywake.net/assets/favicon/apple-touch-icon-57x57.png">
@@ -51,8 +54,13 @@
     <link rel="stylesheet" href="https://onload.paywake.net/package/dev.css">
     <script src="https://onload.paywake.net/package/dev.js"></script>
 
+    <!--MOMENTJS-->
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
+
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
+    <script src="js/preload/copysheet.js"></script>
     <script src="js/preload/index.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-192.png" media="(max-width: 192px)">
 
@@ -81,7 +89,7 @@
     <div class="content">
       <div class="splash">
         <h1>Get paid<br>to wake up.</h1>
-        <h3>Literally. We’ll pay you to wake up on time and charge you if you don't. It’s that simple. Schedule your wake-up below.</h3>
+        <h3 id="__COPYSHEET-hero-subtitle">We’ll pay you to wake up on time and charge you if you don't. It's that simple. Schedule your wake up below.</h3>
         <br><br><br>
         <div class="dollar-subtitle bounds">
           <small>You pay</small>
@@ -112,12 +120,12 @@
         </div>
         <br><br>
         <div class="middle">
-          <a href="./create"><button>Schedule Wake-Up</button></a>
+          <a href="./create"><button class="full-width">Schedule a Wakeup</button></a>
         </div>
       </div>
       <div class="footer-container">
         <div class="footer">
-          <p>&copy; 2021 Paywake Corporation</p>
+          <p>&copy; 2022 Paywake Corporation</p>
           <div class="wrapper">
             <a href="mailto:hello@paywake.net">Contact Us</a>
             <a href="mailto:press@paywake.net">Press</a>

@@ -1,0 +1,22 @@
+.content {
+  justify-content: flex-end;
+}
+
+#four-0-four {
+  width: 80vmin;
+  height: 80vmin;
+  position: absolute;
+  right: 0px;
+  top: calc(77px + 8vh);
+  z-index: 0;
+}
+
+.content {
+  z-index: -1;
+}
+
+@media (max-height: 720px) and (max-width: 400px) {
+  #four-0-four {
+    top: calc(77px + 2vh);
+  }
+}

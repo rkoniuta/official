@@ -7,8 +7,6 @@ body {
   padding: 0px;
   color: black;
   width: 100vw;
-  height: 100vh;
-  position: relative;
   background: white;
   background-color: white;
   font-family: 'Open Sans', sans-serif;
@@ -31,7 +29,7 @@ body {
   justify-content: space-between;
   padding: 18px 30px;
   min-height: 77px;
-  z-index: 10000;
+  z-index: 999;
 }
 
 .logo {
@@ -54,14 +52,14 @@ body {
 .logo > #sun {
   width: 36px;
   height: 36px;
-  margin-right: 15px;
+  margin-right: 12px;
 }
 
 .logo > h1 {
   margin: 0px;
   font-family: 'Urbanist', sans-serif;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: bold;
 }
 
 .content {
@@ -80,7 +78,7 @@ body {
 }
 
 .splash {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   padding-bottom: 10vmin;
 }
 
@@ -112,7 +110,7 @@ button {
   line-height: 15px;
   font-weight: 700;
   font-family: 'Urbanist', sans-serif;
-  padding: 13px 24px;
+  padding: 13px 32px;
   margin: 0px;
   box-sizing: border-box;
   cursor: pointer;
@@ -127,6 +125,9 @@ button.gradient {
   background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
+  -moz-box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
+  -webkit-box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
 }
 
 button.transparent {
@@ -142,7 +143,7 @@ button:active {
 
 
 .bounds {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -187,7 +188,7 @@ button:active {
 }
 
 .middle {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -276,7 +277,7 @@ p.legal > a {
 }
 
 .estimate-info {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   height: 0px;
   margin-top: -38px;
   margin-bottom: 27px;
@@ -312,11 +313,16 @@ button.loading {
   color: transparent;
 }
 
+button.full-width {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  max-width: 300px;
+}
+
 .backplate {
   width: 100vw;
   height: calc(100vh - 50px);
   position: absolute;
-  background: rgb(255,204,0);
+  background: rgb(255,102,0);
   z-index: -100000;
   top: 0px;
   left: 0px;
@@ -325,7 +331,7 @@ button.loading {
 
 
 .wakeup {
-  width: 300px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -336,35 +342,39 @@ button.loading {
 
 .wakeup > .deposit-container {
   background: rgb(102,0,255);
-  background: -moz-linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background: -webkit-linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
-  background: linear-gradient(280deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
   margin-right: 18px;
   border-radius: 13px;
   border: 1px solid white;
   box-sizing: border-box;
   width: 72px;
-  height: 72px;
+  height: 66px;
+  -moz-box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
+  -webkit-box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
 }
 
 .wakeup > .deposit-container > .deposit {
-  width: 80px;
-  height: 80px;
-  margin: -4px;
+  width: 72px;
+  height: 66px;
+  padding-bottom: 5px;
+  margin: 0px;
   border-radius: 0px;
   box-sizing: border-box;
   background: rgb(255,255,255);
-  background: -moz-linear-gradient(17deg, rgba(255,255,255,0) 8%, rgba(255,255,255,1) 50%);
-  background: -webkit-linear-gradient(17deg, rgba(255,255,255,0) 8%, rgba(255,255,255,1) 50%);
-  background: linear-gradient(17deg, rgba(255,255,255,0) 8%, rgba(255,255,255,1) 50%);
+  background: -moz-linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
+  background: -webkit-linear-gradient(17deg, rgba(255,255,255,0) 10%, rgba(255,255,255,1) 50%);
+  background: transparent;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   align-content: center;
-  color:  black;
+  color: black;
 }
 
 .wakeup > .deposit-container > .deposit > h1 {
@@ -373,6 +383,7 @@ button.loading {
   line-height: 32px;
   margin: 0px;
   font-weight: 600;
+  color: white;
   letter-spacing: 1px;
 }
 
@@ -380,7 +391,7 @@ button.loading {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 16px;
-  color: rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.6);
   margin-right: 0px;
   vertical-align: text-top;
   line-height: 32px;
@@ -396,6 +407,7 @@ button.loading {
   align-items: flex-start;
   justify-content: space-between;
   align-content: center;
+  margin-top: -6px;
 }
 
 .wakeup > .info > * {
@@ -415,6 +427,15 @@ button.loading {
   background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   cursor: pointer;
+}
+
+.wakeup > .info > p > b.missed {
+  color: black;
+}
+
+.wakeup > .info > p > b.canceled {
+  color: rgba(0,0,0,0.4);
+  background-image: none;
 }
 
 .wakeup > .info > h3 {
@@ -472,8 +493,59 @@ button.loading {
   cursor: default;
 }
 
+.wakeup > .cancel > img.missed {
+  opacity: 1;
+  cursor: default;
+}
+
 button:disabled {
   opacity: 0.4;
   pointer-events: none;
   cursor: default;
+}
+
+.wakeup > .info > p > b.__twox-mode {
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+}
+
+.wakeup > .deposit-container.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
+button.gradient.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
+.footer-container.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
+a.gradient.__twox-mode {
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+}
+
+.twoX {
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 0px 18px rgba(0,0,0,0.1);
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
 }
