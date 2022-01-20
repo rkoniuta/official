@@ -109,6 +109,7 @@ const updateName = (obj) => {
 
 const genWakeups = () => {
   const container = document.getElementById("wakeup-container")
+  container.innerHTML = ""
   const wakeups = []
   const wakeupIDs = []
   const cancels = []
@@ -116,6 +117,7 @@ const genWakeups = () => {
   const payments = []
   for (let item of HISTORY) {
     if (item.data.event === "SCHEDULE") {
+      item.data.data.events = []
       wakeups.push(item.data.data)
       wakeupIDs.push(item.data.data.id)
     }
@@ -144,6 +146,17 @@ const genWakeups = () => {
     try {
       wakeups[wakeupIDs.indexOf(payment.id)].paid = payment.amount
     } catch (e) {}
+  }
+  for (let item of HISTORY) {
+    if (item.data.event === "SCHEDULE" || item.data.event === "CANCEL" || item.data.event === "VERIFY" || item.data.event === "PAID" || item.data.event === "CHARGED") {
+      try {
+        const id = item.data.data.id
+        if (!wakeups[wakeupIDs.indexOf(id)].events) {
+          wakeups[wakeupIDs.indexOf(id)].events = []
+        }
+        wakeups[wakeupIDs.indexOf(id)].events.push(item)
+      } catch (e) {}
+    }
   }
   wakeups.sort((a,b) => {
     return (b.day - a.day)
@@ -254,6 +267,45 @@ const genWakeups = () => {
         cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
       }
     }
+
+    let eventsContainer = document.createElement("div")
+    eventsContainer.className = "events-container"
+    let divider = document.createElement("div")
+    divider.className = "wakeup-divider"
+
+    wakeup.events.sort((a,b) => {
+      return (moment(b.time).diff(moment(a.time)))
+    })
+    for (let ev of wakeup.events) {
+      let p = document.createElement("p")
+      p.className = "wakeup-event"
+      let pText = ("<b>" + moment(ev.time).format("MM/DD/YYYY") + " @ " + moment(ev.time).format("h:mma") + "</b> &mdash; ")
+      if (ev.data.event === "SCHEDULE") {
+        pText += "Scheduled"
+      }
+      else if (ev.data.event === "CANCEL") {
+        pText += ("Canceled, balance -$" + balanceToString(ev.data.data.fee))
+      }
+      else if (ev.data.event === "VERIFY") {
+        pText += "Verified"
+      }
+      else if (ev.data.event === "PAID") {
+        pText += ("Paid, balance +$" + balanceToString(ev.data.data.amount))
+      }
+      else if (ev.data.event === "CHARGED") {
+        pText += ("Missed, card charged $" + balanceToString(ev.data.data.amount))
+      }
+      p.innerHTML = pText
+      eventsContainer.appendChild(p)
+    }
+
+    container.appendChild(eventsContainer)
+    container.appendChild(divider)
+  }
+  if (!wakeups.length) {
+    let p = document.createElement("p")
+    p.innerHTML = "Nothing to see here. <a class='gradient' href='./schedule'>Schedule yours</a>"
+    container.appendChild(p)
   }
 }
 
@@ -333,6 +385,10 @@ const canceledClick = (node, wakeup) => {
   elements.push(node)
   elements.push(text)
   MODAL.display(elements)
+}
+
+const balanceToString = (balance = BALANCE) => {
+  return Math.floor(balance / 100).toString() + "." + (balance % 100).toString().padStart(2, "0")
 }
 
 const selectAccountID = () => {

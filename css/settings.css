@@ -84,6 +84,34 @@ p.stat {
   margin: 0px;
 }
 
+.events-container {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+.events-container > p {
+  margin: 2px 0px;
+  color: rgba(0,0,0,0.4);
+  font-size: 12px;
+}
+
+.wakeup {
+  margin-bottom: 12px;
+}
+
+.wakeup-divider {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  background: #dfe3e7;
+  height: 3px;
+  border-radius: 1.5px;
+  margin: 20px 0px;
+}
+
 #awards {
   display: flex;
   align-items: center;
