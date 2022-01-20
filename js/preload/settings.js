@@ -53,7 +53,7 @@ const setHistory = (data) => {
       $("#user-number")[0].innerHTML = item.data.data.userNumber.toString()
       $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
       if (moment(item.time).isBefore("2022-02-16")) {
-        addAward("assets/images/award-5.png", "Launch Day User", "You participated in Paywake's launch day. Thanks for being there from day 1!")
+        addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there from day 1!")
       }
       if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
         addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the team, thanks for helping make Paywake what it is today.")
