@@ -49,6 +49,7 @@ const addAward = (src, _title, _text) => {
 const setHistory = (data) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data))
   HISTORY = data
+  $("#awards")[0].innerHTML = ("")
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
       $("#user-number")[0].innerHTML = item.data.data.userNumber.toString()
