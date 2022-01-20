@@ -63,9 +63,17 @@ const addAward = (src, _title, _text) => {
     title.style.marginBottom = "24px"
     let text = document.createElement("p")
     text.innerHTML = _text
+    let rewards = document.createElement("p")
+    rewards.style.opacity = "1"
+    let a = document.createElement("a")
+    a.innerHTML = "Rewards coming soon."
+    a.className = "gradient"
+    rewards.id = "rewards-soon"
+    rewards.appendChild(a)
     elements.push(center)
     elements.push(title)
     elements.push(text)
+    elements.push(rewards)
     MODAL.display(elements)
   }
   $("#awards")[0].appendChild(award)

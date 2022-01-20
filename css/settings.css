@@ -211,3 +211,10 @@ input::placeholder {
 #logout {
   margin-bottom: 16px;
 }
+
+#rewards-soon {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  margin-bottom: 16px;
+  text-align: center;
+  opacity: 1;
+}
