@@ -17,6 +17,6 @@
 
 @media (max-height: 720px) and (max-width: 400px) {
   #four-0-four {
-    top: 80px;
+    top: calc(77px + 2vh);
   }
 }
