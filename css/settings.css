@@ -68,6 +68,11 @@ p.stat {
   font-weight: 300;
   font-size: 20px;
   vertical-align: super;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#account-earned-cents {
   margin-left: -8px;
 }
 
