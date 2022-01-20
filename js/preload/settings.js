@@ -115,11 +115,16 @@ const genWakeups = () => {
   const cancels = []
   const verifies = []
   const payments = []
+  HISTORY.sort((a,b) => {
+    return (moment(b.time).diff(moment(a.time)))
+  })
   for (let item of HISTORY) {
     if (item.data.event === "SCHEDULE") {
-      item.data.data.events = []
-      wakeups.push(item.data.data)
-      wakeupIDs.push(item.data.data.id)
+      if (!wakeupIDs.includes(item.data.data.id)) {
+        item.data.data.events = []
+        wakeups.push(item.data.data)
+        wakeupIDs.push(item.data.data.id)
+      }
     }
     else if (item.data.event === "CANCEL") {
       cancels.push(item.data.data)
@@ -264,7 +269,7 @@ const genWakeups = () => {
     }
     else {
       button.onclick = () => {
-        cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
+        cancelWakeup(wakeup, node)
       }
     }
 
