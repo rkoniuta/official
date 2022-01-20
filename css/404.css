@@ -5,7 +5,7 @@
 #four-0-four {
   width: 80vmin;
   height: 80vmin;
-  position: fixed;
+  position: absolute;
   right: 0px;
   top: calc(77px + 8vh);
   z-index: 0;
