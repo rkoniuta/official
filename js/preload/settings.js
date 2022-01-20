@@ -334,3 +334,14 @@ const canceledClick = (node, wakeup) => {
   elements.push(text)
   MODAL.display(elements)
 }
+
+const selectAccountID = () => {
+  const newSelection = $("#account-id")[0]
+  const selection = window.getSelection()
+  const range = document.createRange()
+  range.setStartBefore(newSelection)
+  range.setEndAfter(newSelection)
+  selection.removeAllRanges()
+  selection.addRange(range)
+  document.execCommand("copy")
+}
