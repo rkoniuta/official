@@ -1,3 +1,4 @@
+const LOCAL_TIME_ZONE = moment.tz.guess()
 let HISTORY = []
 
 const logout = () => {
@@ -82,6 +83,7 @@ const setHistory = (data) => {
     }
   }
   $("#account-earned")[0].innerHTML = (Math.floor(totalEarned / 100).toString() + "." + (totalEarned - (Math.floor(totalEarned / 100) * 100)).toString().padStart(2, "0"))
+  genWakeups()
 }
 
 const setName = () => {
@@ -98,4 +100,232 @@ const updateName = (obj) => {
       ROUTINES.name(name)
     }
   }
+}
+
+const genWakeups = () => {
+  const container = document.getElementById("wakeup-container")
+  const wakeups = []
+  const wakeupIDs = []
+  const cancels = []
+  const verifies = []
+  const payments = []
+  for (let item of HISTORY) {
+    if (item.data.event === "SCHEDULE") {
+      wakeups.push(item.data.data)
+      wakeupIDs.push(item.data.data.id)
+    }
+    else if (item.data.event === "CANCEL") {
+      cancels.push(item.data.data)
+    }
+    else if (item.data.event === "VERIFY") {
+      verifies.push(item.data.data.id)
+    }
+    else if (item.data.event === "PAID") {
+      payments.push(item.data.data)
+    }
+  }
+  for (let id of verifies) {
+    try {
+      wakeups[wakeupIDs.indexOf(id)].verified = true
+    } catch (e) {}
+  }
+  for (let cancel of cancels) {
+    try {
+      wakeups[wakeupIDs.indexOf(cancel.id)].canceled = true
+      wakeups[wakeupIDs.indexOf(cancel.id)].cancelFee = cancel.fee
+    } catch (e) {}
+  }
+  for (let payment of payments) {
+    try {
+      wakeups[wakeupIDs.indexOf(payment.id)].paid = payment.amount
+    } catch (e) {}
+  }
+  wakeups.sort((a,b) => {
+    return (b.day - a.day)
+  })
+  for (const wakeup of wakeups) {
+    const deposit = (wakeup.deposit / 100).toString()
+    const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
+    const hour = m.format("h")
+    const minute = m.format("mm")
+    const date = m.format("MMMM Do")
+    const ampm = m.format("a").toLowerCase()
+    const fromNow = m.fromNow()
+    const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
+
+    let parent = document.createElement("div")
+    parent.id = ("wakeup-" + wakeup.id)
+    parent.className = "wakeup"
+    let depositContainer = document.createElement("div")
+    depositContainer.className = "deposit-container"
+    if (IS_2X) {
+      depositContainer.className = "deposit-container __twox-mode"
+    }
+    let depositBox = document.createElement("div")
+    depositBox.className = "deposit"
+    let h1 = document.createElement("h1")
+    let dollarSign = document.createElement("span")
+    dollarSign.className = "dollar-sign"
+    dollarSign.innerHTML = "$"
+    let depositAmount = document.createElement("span")
+    depositAmount.innerHTML = deposit
+    let info = document.createElement("div")
+    info.className = "info"
+    let h3 = document.createElement("h3")
+    let hourSpan = document.createElement("span")
+    hourSpan.innerHTML = hour
+    let colon = document.createElement("span")
+    colon.className = "colon"
+    colon.innerHTML = ":"
+    let minuteSpan = document.createElement("span")
+    minuteSpan.innerHTML = minute.padStart(2, "0")
+    let am = document.createElement("span")
+    am.className = "am"
+    am.innerHTML = ampm
+    let p = document.createElement("p")
+    let cancel = document.createElement("div")
+    cancel.className = "cancel"
+    let button = document.createElement("img")
+    if (wakeup.verified) {
+      p.innerHTML = (date + " &#8212; <b>Verified</b>")
+      button.src = "assets/images/verified.png"
+      button.className = "verified"
+    }
+    else if (wakeup.canceled) {
+      p.innerHTML = (date + " &#8212; <b class='canceled'>Canceled</b>")
+      button.src = "assets/images/failed.png"
+      button.className = "canceled"
+    }
+    else if (missed) {
+      p.innerHTML = (date + " &#8212; <b class='missed'>Missed</b>")
+      button.src = "assets/images/failed.png"
+      button.className = "missed"
+    }
+    else {
+      p.innerHTML = (date + " &#8212; " + fromNow)
+      button.src = "assets/images/cancel.png"
+    }
+
+    h1.appendChild(dollarSign)
+    h1.appendChild(depositAmount)
+    depositBox.appendChild(h1)
+    depositContainer.appendChild(depositBox)
+    parent.appendChild(depositContainer)
+    h3.appendChild(hourSpan)
+    h3.appendChild(colon)
+    h3.appendChild(minuteSpan)
+    h3.appendChild(am)
+    info.appendChild(h3)
+    info.appendChild(p)
+    parent.appendChild(info)
+    const node = parent.cloneNode(true)
+    cancel.appendChild(button)
+    parent.appendChild(cancel)
+    container.appendChild(parent)
+
+    if (wakeup.verified) {
+      button.onclick = () => {
+        verifiedClick(node, wakeup)
+      }
+      p.querySelector("b").onclick = button.onclick
+      depositBox.onclick = button.onclick
+    }
+    else if (wakeup.canceled) {
+      button.onclick = () => {
+        canceledClick(node, wakeup)
+      }
+      p.querySelector("b").onclick = button.onclick
+      depositBox.onclick = button.onclick
+    }
+    else if (missed) {
+      button.onclick = () => {
+        missedClick(node, wakeup)
+      }
+      p.querySelector("b").onclick = button.onclick
+      depositBox.onclick = button.onclick
+    }
+    else {
+      button.onclick = () => {
+        cancelWakeup(JSON.parse(JSON.stringify(wakeup)), node)
+      }
+    }
+  }
+}
+
+const verifiedClick = (node, wakeup) => {
+  let time = moment().hour(12).add(moment().get("hour") - moment.tz(moment.now(), "America/Los_Angeles").get("hour"), "hours").format("h a")
+  if (time === "12 pm") {
+    time = "noon"
+  }
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/verified.png"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  title.innerHTML = "Verification Successful"
+  title.style.marginBottom = "24px"
+  let text = document.createElement("p")
+  text.innerHTML = ("You successfully verified this wakeup and your deposit was refunded (you were not charged).")
+  if (wakeup.paid) {
+    text.innerHTML = ("You successfully verified this wakeup, your deposit was refunded, and you were paid $" + (Math.floor(wakeup.paid / 100).toString() + "." + (wakeup.paid - (Math.floor(wakeup.paid / 100) * 100)).toString().padStart(2, "0")) + " to your Paywake balance.")
+  }
+  let b = node.querySelector("b")
+  b.onclick = () => {}
+  b.style.cursor = "default"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
+}
+
+const missedClick = (node, wakeup) => {
+  const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/failed.png"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  title.innerHTML = "Verification Missed"
+  title.style.marginBottom = "24px"
+  let text = document.createElement("p")
+  text.innerHTML = ("You missed the photo verification window for this wakeup (<b>" + m.format("h:mm a") + "</b> to <b>" + m.add(3, "minutes").format("h:mm a") + "</b>) and were charged $" + Math.floor(wakeup.deposit / 100).toString() + ".00 USD.")
+  let b = node.querySelector("b")
+  b.onclick = () => {}
+  b.style.cursor = "default"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
+}
+
+const canceledClick = (node, wakeup) => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/failed.png"
+  img.style.opacity = (0.4)
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  title.innerHTML = "Wakeup Canceled"
+  title.style.marginBottom = "24px"
+  let text = document.createElement("p")
+  text.innerHTML = ("You canceled this wakeup and a fee of $" + (Math.floor(wakeup.cancelFee / 100).toString() + "." + (wakeup.cancelFee - (Math.floor(wakeup.cancelFee / 100) * 100)).toString().padStart(2, "0")) + " was deducted from your Paywake balance.")
+  let b = node.querySelector("b")
+  b.onclick = () => {}
+  b.style.cursor = "default"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
 }

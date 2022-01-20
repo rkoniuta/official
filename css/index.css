@@ -433,6 +433,11 @@ button.full-width {
   color: black;
 }
 
+.wakeup > .info > p > b.canceled {
+  color: rgba(0,0,0,0.4);
+  background-image: none;
+}
+
 .wakeup > .info > h3 {
   font-size: 40px;
   font-weight: 600;
