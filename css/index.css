@@ -551,7 +551,7 @@ a.gradient.__twox-mode {
 }
 
 @supports not ( -moz-appearance:none ) {
-  .header {
+  .header.blur {
     backdrop-filter: blur(20px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
     background: rgba(255,255,255,0.8) !important;
