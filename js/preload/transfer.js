@@ -151,6 +151,7 @@ const transfer = () => {
     }
     if (verifyTransfer()) {
       $("#transfer-button").addClass("loading")
+      payload.data = JSON.stringify(payload.data)
       $.ajax({
         url: (API + "/transfer"),
         type: "PUT",
