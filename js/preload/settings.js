@@ -103,6 +103,7 @@ const setHistory = (data) => {
       if (!hasAwards) {
         $("#awards-stat")[0].remove()
       }
+      break;
     }
   }
   let totalScheduled = 0
