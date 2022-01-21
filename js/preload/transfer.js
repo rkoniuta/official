@@ -90,6 +90,16 @@ const verifyPhone = (obj) => {
   return false;
 }
 
+const verifyPostal = (obj) => {
+  const postal = obj.value.toString().trim().replace(/[^0-9]/g, '')
+  if (postal.length === 5) {
+    obj.removeAttribute("invalid")
+    return postal
+  }
+  obj.setAttribute("invalid", "true")
+  return false;
+}
+
 const verifyText = (obj) => {
   const text = obj.value.toString().trim()
   if (text.length) {
@@ -107,9 +117,9 @@ const verifyTransfer = () => {
       verifyText($("#routing-number")[0]) &&
       verifyText($("#account-type")[0]) &&
       verifyText($("#address-line-1")[0]) &&
-      verifyText($("#address-line-2")[0]) &&
       verifyText($("#address-city")[0]) &&
-      verifyText($("#address-state")[0])
+      verifyText($("#address-state")[0]) &&
+      verifyPostal($("#address-postal")[0])
     ) {
       return true;
     }
@@ -137,14 +147,16 @@ const transfer = () => {
         type: "BANK",
         amount: parseInt($("#transfer-slider")[0].value),
         data: {
+          name: (localStorage.getItem(LOCAL_STORAGE_TAG + "name") || USER.signInUserSession.idToken.payload.name),
           accountNumber: $("#account-number")[0].value.toString().trim(),
           routingNumber: $("#routing-number")[0].value.toString().trim(),
           accountType: $("#account-type")[0].value.toString().trim(),
           address: {
             line1: $("#address-line-1")[0].value.toString().trim(),
-            line2: $("#address-line-2")[0].value.toString().trim(),
+            line2: ($("#address-line-2")[0].value.toString().trim() || ""),
             city: $("#address-city")[0].value.toString().trim(),
             state: $("#address-state")[0].value.toString().trim(),
+            postal: $("#address-postal")[0].value.toString().trim(),
           },
         },
       }

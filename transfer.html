@@ -161,11 +161,12 @@
       <br class="__bank">
       <p class="subtitle __bank">U.S. Address Details</p>
       <input spellcheck="false" type="text" id="address-line-1" class="__bank" placeholder="Address" maxlength="46" onblur="verifyText(this)">
-      <input spellcheck="false" type="text" id="address-line-2" class="__bank" placeholder="Apartment, suite, etc." maxlength="46" onblur="verifyText(this)">
+      <input spellcheck="false" type="text" id="address-line-2" class="__bank" placeholder="Apartment, suite, etc." maxlength="46">
       <input spellcheck="false" type="text" id="address-city" class="__bank" placeholder="City" maxlength="50" onblur="verifyText(this)">
       <select class="__bank" onchange="this.dataset.chosen = this.value;" data-chosen="" id="address-state" onblur="verifyText(this)">
         <option disabled selected value="">State</option>
       </select>
+      <input spellcheck="false" type="text" id="address-postal" class="__bank" placeholder="Zip Code" maxlength="5" onblur="verifyPostal(this)">
       <br>
       <button class="full-width" id="transfer-button" onclick="transfer()">Transfer $0.00</button>
       <p class="notice __venmo">$0.25 fee applied to transfer amount</p>
