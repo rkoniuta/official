@@ -79,3 +79,163 @@ const setUSStates = () => {
     document.getElementById("address-state").add(option)
   }
 }
+
+const verifyPhone = (obj) => {
+  const phone = cleanPhone(obj.value)
+  if (phone.length === 10) {
+    obj.removeAttribute("invalid")
+    return phone
+  }
+  obj.setAttribute("invalid", "true")
+  return false;
+}
+
+const verifyText = (obj) => {
+  const text = obj.value.toString().trim()
+  if (text.length) {
+    obj.removeAttribute("invalid")
+    return text
+  }
+  obj.setAttribute("invalid", "true")
+  return false;
+}
+
+const verifyTransfer = () => {
+  if (DESTINATION === 0) {
+    if (
+      verifyText($("#account-number")[0]) &&
+      verifyText($("#routing-number")[0]) &&
+      verifyText($("#account-type")[0]) &&
+      verifyText($("#address-line-1")[0]) &&
+      verifyText($("#address-line-2")[0]) &&
+      verifyText($("#address-city")[0]) &&
+      verifyText($("#address-state")[0])
+    ) {
+      return true;
+    }
+    return false;
+  }
+  else {
+    if (verifyPhone($("#phone")[0])) {
+      return true;
+    }
+    return false;
+  }
+}
+
+const transfer = () => {
+  if (parseInt($("#transfer-slider")[0].value)) {
+    let payload = {
+      type: "VENMO",
+      amount: parseInt($("#transfer-slider")[0].value),
+      data: {
+        phone: $("#phone")[0].value.toString().trim(),
+      },
+    }
+    if (DESTINATION === 0) {
+      payload = {
+        type: "BANK",
+        amount: parseInt($("#transfer-slider")[0].value),
+        data: {
+          accountNumber: $("#account-number")[0].value.toString().trim(),
+          routingNumber: $("#routing-number")[0].value.toString().trim(),
+          accountType: $("#account-type")[0].value.toString().trim(),
+          address: {
+            line1: $("#address-line-1")[0].value.toString().trim(),
+            line2: $("#address-line-2")[0].value.toString().trim(),
+            city: $("#address-city")[0].value.toString().trim(),
+            state: $("#address-state")[0].value.toString().trim(),
+          },
+        },
+      }
+    }
+    if (verifyTransfer()) {
+      $("#transfer-button").addClass("loading")
+      $.ajax({
+        url: (API + "/transfer"),
+        type: "PUT",
+        data: payload,
+        xhrFields: {
+          withCredentials: true
+        },
+        beforeSend: (xhr) => {
+          xhr.setRequestHeader("Authorization", ID_TOKEN)
+        },
+        success: (data) => {
+          $("#transfer-button").removeClass("loading")
+          transferSuccess()
+        },
+        error: (data) => {
+          $("#transfer-button").removeClass("loading")
+          transferError()
+        }
+      })
+    }
+  }
+}
+
+const transferError = () => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/failed.png"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  if (DESTINATION === 1) {
+    title.innerHTML = "Venmo Transfer Failed"
+  }
+  else {
+    title.innerHTML = "Bank Transfer Failed"
+  }
+  title.style.marginBottom = "24px"
+  let text = document.createElement("p")
+  if (DESTINATION === 1) {
+    text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> transfer to Venmo failed. Please check your account details and try again.")
+  }
+  else {
+    text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value) + "</b> bank transfer failed. Please check your account details and try again.")
+  }
+  elements.push(center)
+  elements.push(title)
+  elements.push(text)
+  MODAL.display(elements)
+}
+
+const transferSuccess = () => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/verified.png"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.className = "center"
+  if (DESTINATION === 1) {
+    title.innerHTML = "Venmo Transfer Successful"
+  }
+  else {
+    title.innerHTML = "Bank Transfer Pending"
+  }
+  title.style.marginBottom = "24px"
+  let text = document.createElement("p")
+  if (DESTINATION === 1) {
+    text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> transfer to Venmo was successful. The funds will show up in your Venmo account shortly.")
+  }
+  else {
+    text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value) + "</b> bank transfer was initiated successfully. The funds will show up in your bank account within <b>1 to 3 business days</b>.")
+  }
+  elements.push(center)
+  elements.push(title)
+  elements.push(text)
+  MODAL.display(elements)
+  MODAL.hide = () => {
+    MODAL.visible = false
+    const backdrop = document.getElementById("__modal-backdrop")
+    const container = document.getElementById("__modal-container")
+    $(backdrop).removeClass("visible")
+    $(container).removeClass("visible")
+    leavePage()
+  }
+}

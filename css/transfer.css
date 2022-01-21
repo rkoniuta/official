@@ -185,7 +185,7 @@ input[name=phone] {
   image-orientation: none;
 }
 
-input[invalid=true] {
+input[invalid=true], select[invalid=true] {
   border-color: red;
 }
 
