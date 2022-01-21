@@ -1,6 +1,6 @@
 const YEAR = (new Date()).getFullYear()
 
-let API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/prod"
+let API = "https://sf7d6paxe6.execute-api.us-east-1.amazonaws.com/prod"
 const ESTIMATED_RETURN = 10
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
@@ -14,7 +14,7 @@ const LOCAL_STORAGE_TAG = "__paywake-"
 let IS_2X = false
 
 if (window.location.origin === "https://dev.paywake.net" && !(new URLSearchParams(window.location.search)).get("prod")) {
-  API = API.replace("/prod","/dev")
+  API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/dev"
 }
 
 const IS_IOS = (
