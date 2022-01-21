@@ -175,3 +175,9 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
     }
   })
 }
+
+$(document).ready(() => {
+  try {
+    $("#__YEAR")[0].innerHTML = YEAR.toString()
+  } catch (e) {}
+})
