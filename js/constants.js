@@ -1,6 +1,6 @@
 const YEAR = (new Date()).getFullYear()
 
-const API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/dev"
+let API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/prod"
 const ESTIMATED_RETURN = 10
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
@@ -13,6 +13,10 @@ const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
 let IS_2X = false
 
+if (window.location.origin === "https://dev.paywake.net") {
+  API = API.replace("/prod","/dev")
+}
+
 const IS_IOS = (
   (/iPad|iPhone|iPod/.test(navigator.platform) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
@@ -23,13 +27,6 @@ const REDIRECTS = {
   home: "./",
   onAuth: "./dashboard",
   noAuth: "./login"
-}
-
-if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
-  const add = ("?" + (new URL(window.location.href)).searchParams.toString())
-  for (let key in REDIRECTS) {
-    REDIRECTS[key] = (REDIRECTS[key] + add)
-  }
 }
 
 console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
