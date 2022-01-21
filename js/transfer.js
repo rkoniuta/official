@@ -1,3 +1,5 @@
+setUSStates()
+
 FEEDBACK.mount($(".content")[0])
 
 setMaxTransfer()

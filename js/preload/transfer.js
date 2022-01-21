@@ -7,10 +7,14 @@ const selectDestination = (obj) => {
   $("#destination-" + DESTINATION.toString()).addClass("selected")
   localStorage.setItem(LOCAL_STORAGE_TAG + "destination", DESTINATION)
   if (DESTINATION === 1) {
-    $("#details-title")[0].innerHTML = "Venmo Account Phone"
+    $("#details-title")[0].innerHTML = "Venmo Account Phone Number"
+    $(".__bank").addClass("hidden")
+    $(".__venmo").removeClass("hidden")
   }
   else {
     $("#details-title")[0].innerHTML = "Bank Account Details"
+    $(".__venmo").addClass("hidden")
+    $(".__bank").removeClass("hidden")
   }
   updateTransferButton()
 }
@@ -65,4 +69,13 @@ const setMaxTransfer = () => {
   $("#transfer-amount")[0].maxLength = (Math.floor(BALANCE / 100).toString().length + 3)
   $("#transfer-slider")[0].max = BALANCE
   $("#max-transfer").text("$" + balanceToString(BALANCE))
+}
+
+const setUSStates = () => {
+  for (let state in US_STATES) {
+    let option = document.createElement("option")
+    option.innerHTML = US_STATES[state]
+    option.value = state
+    document.getElementById("address-state").add(option)
+  }
 }

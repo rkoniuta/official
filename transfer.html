@@ -70,6 +70,7 @@
 
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
+    <script src="js/us-states.js"></script>
     <script src="js/preload/copysheet.js"></script>
     <script src="js/preload/balance.js"></script>
     <script src="js/preload/modal.js"></script>
@@ -147,9 +148,27 @@
       </div>
       <br>
       <p class="subtitle" id="details-title">Bank Account Details</p>
-      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="phone" type="text" id="phone" class="phone" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
+      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="phone" type="text" id="phone" class="phone __venmo" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
+      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" type="text" id="account-number" class="__bank" placeholder="Account Number" maxlength="17">
+      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" type="text" id="routing-number" class="__bank" placeholder="9-Digit Routing Number" maxlength="9">
+      <select class="__bank" onchange="this.dataset.chosen = this.value;" data-chosen="" id="account-type">
+        <option disabled selected value="">Account Type</option>
+        <option value="personalChecking">Personal Checking</option>
+        <option value="personalSavings">Personal Savings</option>
+        <option value="businessChecking">Business Checking</option>
+        <option value="businessSavings">Business Savings</option>
+      </select>
+      <br class="__bank">
+      <p class="subtitle __bank">U.S. Address Details</p>
+      <input spellcheck="false" type="text" id="address-line-1" class="__bank" placeholder="Address" maxlength="46">
+      <input spellcheck="false" type="text" id="address-line-2" class="__bank" placeholder="Apartment, suite, etc." maxlength="46">
+      <input spellcheck="false" type="text" id="address-city" class="__bank" placeholder="City" maxlength="50">
+      <select class="__bank" onchange="this.dataset.chosen = this.value;" data-chosen="" id="address-state">
+        <option disabled selected value="">State</option>
+      </select>
       <br>
       <button class="full-width" id="transfer-button">Transfer $0.00</button>
+      <p class="notice __venmo">$0.25 fee applied to transfer amount</p>
     </div>
     <div class="toolbar-container">
       <div class="toolbar">

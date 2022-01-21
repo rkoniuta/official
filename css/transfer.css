@@ -157,6 +157,7 @@ input:not([type=range]) {
   font-weight: 400;
   border-radius: 3px;
   margin-top: 0px;
+  margin-bottom: 8px;
 }
 
 input:not([type=range])::placeholder {
@@ -188,10 +189,43 @@ input[invalid=true] {
   border-color: red;
 }
 
+p.notice {
+  font-size: 14px;
+  margin: 0px;
+  margin-top: 20px;
+}
+
 .destination-container > .option.selected.__twox-mode {
   background: rgb(0,179,255);
   background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
+.__venmo.hidden, .__bank.hidden {
+  display: none;
+}
+
+select {
+  border: none;
+  outline: none;
+  border-bottom: 3px solid #dfe3e7;
+  padding: 16px;
+  padding-left: 0px;
+  background: transparent;
+  box-sizing: border-box;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  color: black;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  border-radius: 3px;
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+select[data-chosen=""] {
+  color: #dfe3e7;
 }
