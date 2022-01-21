@@ -19,4 +19,7 @@
   #four-0-four {
     top: calc(77px + 2vh);
   }
+  .splash {
+    padding-bottom: 0px;
+  }
 }
