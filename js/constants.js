@@ -13,7 +13,7 @@ const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
 let IS_2X = false
 
-if (window.location.origin === "https://dev.paywake.net") {
+if (window.location.origin === "https://dev.paywake.net" && !(new URLSearchParams(window.location.search)).get("prod")) {
   API = API.replace("/prod","/dev")
 }
 
