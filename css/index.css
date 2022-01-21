@@ -549,3 +549,11 @@ a.gradient.__twox-mode {
   background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
 }
+
+@supports not ( -moz-appearance:none ) {
+  .header {
+    backdrop-filter: blur(20px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+    background: rgba(255,255,255,0.8) !important;
+  }
+}
