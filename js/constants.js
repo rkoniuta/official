@@ -32,6 +32,8 @@ if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
   }
 }
 
+console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
+
 const cleanPhone = (string) => {
   return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
 }
