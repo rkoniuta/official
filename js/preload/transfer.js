@@ -179,26 +179,28 @@ const transfer = () => {
       }
     }
     if (verifyTransfer()) {
-      $("#transfer-button").addClass("loading")
-      payload.data = JSON.stringify(payload.data)
-      $.ajax({
-        url: (API + "/transfer"),
-        type: "PUT",
-        data: payload,
-        xhrFields: {
-          withCredentials: true
-        },
-        beforeSend: (xhr) => {
-          xhr.setRequestHeader("Authorization", ID_TOKEN)
-        },
-        success: (data) => {
-          $("#transfer-button").removeClass("loading")
-          transferSuccess()
-        },
-        error: (data) => {
-          $("#transfer-button").removeClass("loading")
-          transferError()
-        }
+      confirmTransfer(() => {
+        $("#transfer-button").addClass("loading")
+        payload.data = JSON.stringify(payload.data)
+        $.ajax({
+          url: (API + "/transfer"),
+          type: "PUT",
+          data: payload,
+          xhrFields: {
+            withCredentials: true
+          },
+          beforeSend: (xhr) => {
+            xhr.setRequestHeader("Authorization", ID_TOKEN)
+          },
+          success: (data) => {
+            $("#transfer-button").removeClass("loading")
+            transferSuccess()
+          },
+          error: (data) => {
+            $("#transfer-button").removeClass("loading")
+            transferError()
+          }
+        })
       })
     }
   }
@@ -332,4 +334,38 @@ const fetchBankData = () => {
       setBankData(data)
     }
   })
+}
+
+const confirmTransfer = (onSuccess = () => {}, onError = () => {}) => {
+  let elements = []
+  let title = document.createElement("h3")
+  title.innerHTML = "Confirm Transfer"
+  elements.push(title)
+  let text = document.createElement("p")
+  if (DESTINATION === 1) {
+    text.innerHTML = ("Are you sure you want to transfer <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> to your Venmo account?")
+  }
+  else {
+    text.innerHTML = ("Are you sure you want to transfer <b>$" + balanceToString($("#transfer-slider")[0].value) + "</b> to your bank account?")
+  }
+  elements.push(text)
+  let group = document.createElement("div")
+  group.className = "button-group"
+  let goback = document.createElement("button")
+  goback.innerHTML = "Go Back"
+  goback.className = "transparent"
+  let confirm = document.createElement("button")
+  confirm.innerHTML = "Confirm"
+  confirm.id = "__modal-dismiss"
+  group.appendChild(goback)
+  group.appendChild(confirm)
+  elements.push(group)
+  goback.onclick = () => {
+    MODAL.hide()
+    onError()
+  }
+  confirm.onclick = () => {
+    onSuccess()
+  }
+  MODAL.display(elements)
 }
