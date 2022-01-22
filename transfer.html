@@ -147,7 +147,10 @@
         </div>
       </div>
       <br>
-      <p class="subtitle" id="details-title">Bank Account Details</p>
+      <div class="between">
+        <p class="subtitle" id="details-title">Bank Account Details</p>
+        <button class="__bank-alt hidden" style="min-width: 176px;" onclick="showBankForm()">Change Account</button>
+      </div>
       <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="phone" type="text" id="phone" class="phone __venmo" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)" onblur="verifyPhone(this)">
       <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" type="text" id="account-number" class="__bank" placeholder="Account Number" maxlength="17" onblur="verifyText(this)">
       <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" type="text" id="routing-number" class="__bank" placeholder="9-Digit Routing Number" maxlength="9" onblur="verifyText(this)">
@@ -167,6 +170,13 @@
         <option disabled selected value="">State</option>
       </select>
       <input spellcheck="false" type="text" id="address-postal" class="__bank" placeholder="Zip Code" maxlength="5" onblur="verifyPostal(this)">
+      <p class="__bank-alt hidden left">
+        <span id="__bank-personal-name">--</span>
+        <br>
+        <span id="__bank-account-name">--</span>
+        <br>
+        <span id="__bank-name">--</span>
+      </p>
       <br>
       <button class="full-width" id="transfer-button" onclick="transfer()">Transfer $0.00</button>
       <p class="notice __venmo">$0.25 fee applied to transfer amount</p>

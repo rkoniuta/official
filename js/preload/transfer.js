@@ -1,6 +1,8 @@
 const BALANCE = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "balance") || "0")
 let DESTINATION = 0
 
+let BANK_DATA = {}
+
 const selectDestination = (obj) => {
   DESTINATION = (parseInt(obj.id.split("-")[1]) || 0)
   $(".destination-container > .option").removeClass("selected")
@@ -12,7 +14,12 @@ const selectDestination = (obj) => {
     $(".__venmo").removeClass("hidden")
   }
   else {
-    $("#details-title")[0].innerHTML = "Bank Account Details"
+    if (BANK_DATA.bank) {
+      $("#details-title")[0].innerHTML = "Bank Account"
+    }
+    else {
+      $("#details-title")[0].innerHTML = "Bank Account Details"
+    }
     $(".__venmo").addClass("hidden")
     $(".__bank").removeClass("hidden")
   }
@@ -112,7 +119,7 @@ const verifyText = (obj) => {
 
 const verifyTransfer = () => {
   if (DESTINATION === 0) {
-    if (
+    if ((
       verifyText($("#account-number")[0]) &&
       verifyText($("#routing-number")[0]) &&
       verifyText($("#account-type")[0]) &&
@@ -120,7 +127,7 @@ const verifyTransfer = () => {
       verifyText($("#address-city")[0]) &&
       verifyText($("#address-state")[0]) &&
       verifyPostal($("#address-postal")[0])
-    ) {
+    ) || BANK_DATA.bank) {
       return true;
     }
     return false;
@@ -159,6 +166,15 @@ const transfer = () => {
             postal: $("#address-postal")[0].value.toString().trim(),
           },
         },
+      }
+      if (BANK_DATA.bank) {
+        payload = {
+          type: "BANK",
+          amount: parseInt($("#transfer-slider")[0].value),
+          data: {
+            recipientId: BANK_DATA.bank.id
+          },
+        }
       }
     }
     if (verifyTransfer()) {
@@ -251,4 +267,64 @@ const transferSuccess = () => {
     $(container).removeClass("visible")
     leavePage()
   }
+}
+
+const setBankData = (data = {}) => {
+  localStorage.setItem(LOCAL_STORAGE_TAG + "bank", JSON.stringify(data))
+  BANK_DATA = data
+  if (BANK_DATA.bank) {
+    $(".__bank").addClass("hidden")
+    $(".__bank").addClass("__bank-t")
+    $(".__bank").removeClass("__bank")
+    $(".__bank-alt").addClass("__bank")
+    $(".__bank-alt").removeClass("__bank-alt")
+    $(".__bank-t").addClass("__bank-alt")
+    $(".__bank-t").removeClass("__bank-t")
+    $("#__bank-personal-name")[0].innerHTML = BANK_DATA.bank.name
+    $("#__bank-name")[0].innerHTML = BANK_DATA.bank.electronicRoutingInfo.bankName
+    $("#__bank-account-name")[0].innerHTML = ((BANK_DATA.bank.electronicRoutingInfo.electronicAccountType
+      .replace("personalChecking","Personal Checking")
+      .replace("personalSavings","Personal Savings")
+      .replace("businessChecking","Business Checking")
+      .replace("businessSavings","Business Savings"))
+      + " "
+      + BANK_DATA.bank.electronicRoutingInfo.accountNumber.toString().substr(BANK_DATA.bank.electronicRoutingInfo.accountNumber.length - 4)
+    )
+    if (DESTINATION === 0) {
+      $("#details-title")[0].innerHTML = "Bank Account"
+      $(".__bank").removeClass("hidden")
+    }
+  }
+  if (BANK_DATA.phone && BANK_DATA.phone.length) {
+    $("#phone")[0].value = BANK_DATA.phone
+  }
+}
+
+const showBankForm = () => {
+  $(".__bank").addClass("hidden")
+  $(".__bank").addClass("__bank-t")
+  $(".__bank").removeClass("__bank")
+  $(".__bank-alt").addClass("__bank")
+  $(".__bank-alt").removeClass("__bank-alt")
+  $(".__bank-t").addClass("__bank-alt")
+  $(".__bank-t").removeClass("__bank-t")
+  $("#details-title")[0].innerHTML = "Bank Account Details"
+  $(".__bank").removeClass("hidden")
+  BANK_DATA.bank = false
+}
+
+const fetchBankData = () => {
+  $.ajax({
+    url: (API + "/bank"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setBankData(data)
+    }
+  })
 }
