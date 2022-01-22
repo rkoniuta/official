@@ -10,3 +10,5 @@ DESTINATION = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "destination"))
 selectDestination($("#destination-" + DESTINATION.toString())[0])
 
 setBankData(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "bank") || "{}"))
+
+$("#personal-name")[0].value = ((localStorage.getItem(LOCAL_STORAGE_TAG + "name") || USER.signInUserSession.idToken.payload.name))

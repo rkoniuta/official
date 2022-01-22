@@ -120,6 +120,7 @@ const verifyText = (obj) => {
 const verifyTransfer = () => {
   if (DESTINATION === 0) {
     if ((
+      verifyText($("#personal-name")[0]) &&
       verifyText($("#account-number")[0]) &&
       verifyText($("#routing-number")[0]) &&
       verifyText($("#account-type")[0]) &&
@@ -154,7 +155,7 @@ const transfer = () => {
         type: "BANK",
         amount: parseInt($("#transfer-slider")[0].value),
         data: {
-          name: (localStorage.getItem(LOCAL_STORAGE_TAG + "name") || USER.signInUserSession.idToken.payload.name),
+          name: $("#personal-name")[0].value.toString().trim(),
           accountNumber: $("#account-number")[0].value.toString().trim(),
           routingNumber: $("#routing-number")[0].value.toString().trim(),
           accountType: $("#account-type")[0].value.toString().trim(),
