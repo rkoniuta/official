@@ -182,25 +182,27 @@ const transfer = () => {
       confirmTransfer(() => {
         $("#transfer-button").addClass("loading")
         payload.data = JSON.stringify(payload.data)
-        $.ajax({
-          url: (API + "/transfer"),
-          type: "PUT",
-          data: payload,
-          xhrFields: {
-            withCredentials: true
-          },
-          beforeSend: (xhr) => {
-            xhr.setRequestHeader("Authorization", ID_TOKEN)
-          },
-          success: (data) => {
-            $("#transfer-button").removeClass("loading")
-            transferSuccess()
-          },
-          error: (data) => {
-            $("#transfer-button").removeClass("loading")
-            transferError()
-          }
-        })
+        setTimeout(() => {
+          $.ajax({
+            url: (API + "/transfer"),
+            type: "PUT",
+            data: payload,
+            xhrFields: {
+              withCredentials: true
+            },
+            beforeSend: (xhr) => {
+              xhr.setRequestHeader("Authorization", ID_TOKEN)
+            },
+            success: (data) => {
+              $("#transfer-button").removeClass("loading")
+              transferSuccess()
+            },
+            error: (data) => {
+              $("#transfer-button").removeClass("loading")
+              transferError()
+            }
+          })
+        }, 300)
       })
     }
   }
