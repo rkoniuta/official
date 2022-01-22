@@ -1,3 +1,5 @@
+fetchBankData()
+
 setUSStates()
 
 FEEDBACK.mount($(".content")[0])
