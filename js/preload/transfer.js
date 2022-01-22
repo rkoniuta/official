@@ -202,7 +202,7 @@ const transfer = () => {
               transferError()
             }
           })
-        }, 300)
+        }, 500)
       })
     }
   }
