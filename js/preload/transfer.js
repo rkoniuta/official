@@ -270,17 +270,20 @@ const transferSuccess = () => {
   }
 }
 
+let EXISTING_BANK = false
 const setBankData = (data = {}) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "bank", JSON.stringify(data))
   BANK_DATA = data
   if (BANK_DATA.bank) {
-    $(".__bank").addClass("hidden")
-    $(".__bank").addClass("__bank-t")
-    $(".__bank").removeClass("__bank")
-    $(".__bank-alt").addClass("__bank")
-    $(".__bank-alt").removeClass("__bank-alt")
-    $(".__bank-t").addClass("__bank-alt")
-    $(".__bank-t").removeClass("__bank-t")
+    if (!EXISTING_BANK) {
+      $(".__bank").addClass("hidden")
+      $(".__bank").addClass("__bank-t")
+      $(".__bank").removeClass("__bank")
+      $(".__bank-alt").addClass("__bank")
+      $(".__bank-alt").removeClass("__bank-alt")
+      $(".__bank-t").addClass("__bank-alt")
+      $(".__bank-t").removeClass("__bank-t")
+    }
     $("#__bank-personal-name")[0].innerHTML = BANK_DATA.bank.name
     $("#__bank-name")[0].innerHTML = BANK_DATA.bank.electronicRoutingInfo.bankName
     $("#__bank-account-name")[0].innerHTML = ((BANK_DATA.bank.electronicRoutingInfo.electronicAccountType
@@ -295,6 +298,7 @@ const setBankData = (data = {}) => {
       $("#details-title")[0].innerHTML = "Bank Account"
       $(".__bank").removeClass("hidden")
     }
+    EXISTING_BANK = true
   }
   if (BANK_DATA.phone && BANK_DATA.phone.length) {
     $("#phone")[0].value = BANK_DATA.phone
