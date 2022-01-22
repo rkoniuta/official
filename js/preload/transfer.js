@@ -365,6 +365,7 @@ const confirmTransfer = (onSuccess = () => {}, onError = () => {}) => {
     onError()
   }
   confirm.onclick = () => {
+    MODAL.hide()
     onSuccess()
   }
   MODAL.display(elements)
