@@ -99,7 +99,7 @@ p.stat {
   margin: 0px;
 }
 
-.events-container > p {
+.events-container > p:not(#transfer-empty) {
   margin: 2px 0px;
   color: rgba(0,0,0,0.4);
   font-size: 12px;
@@ -217,4 +217,12 @@ input::placeholder {
   margin-bottom: 16px;
   text-align: center;
   opacity: 1;
+}
+
+#transfer-container {
+  margin-bottom: 20px;
+}
+
+#transfer-empty {
+  margin: 0px;
 }

@@ -148,6 +148,7 @@ const genWakeups = () => {
   const wakeupIDs = []
   const verifies = []
   const payments = []
+  const transfers = []
   HISTORY.sort((a,b) => {
     return (moment(b.time).diff(moment(a.time)))
   })
@@ -164,6 +165,9 @@ const genWakeups = () => {
     }
     else if (item.data.event === "PAID") {
       payments.push(item.data.data)
+    }
+    else if (item.data.event === "TRANSFER") {
+      transfers.push(item)
     }
   }
   for (let id of verifies) {
@@ -189,6 +193,9 @@ const genWakeups = () => {
   }
   wakeups.sort((a,b) => {
     return (b.day - a.day)
+  })
+  transfers.sort((a,b) => {
+    return (moment(b.time).diff(moment(a.time)))
   })
   for (const wakeup of wakeups) {
     wakeup.events.sort((a,b) => {
@@ -350,6 +357,28 @@ const genWakeups = () => {
   else {
     $("#wakeup-container")[0].childNodes[$("#wakeup-container")[0].childNodes.length - 1].remove()
   }
+  for (let transfer of transfers) {
+    if (!transfer.data.data.type) {
+      transfer.data.data.type = ("BANK")
+    }
+    let p = document.createElement("p")
+    p.className = "transfer-event"
+    let pText = ("<b>" + moment(transfer.time).format("MM/DD/YYYY") + " @ " + moment(transfer.time).format("h:mma") + "</b> &mdash; ")
+    if (transfer.data.data.type === "BANK") {
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount)) + " transferred to bank")
+    }
+    else {
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " transferred to Venmo")
+    }
+    p.innerHTML = pText
+    $("#transfer-container")[0].appendChild(p)
+  }
+  if (!transfers.length) {
+    let p = document.createElement("p")
+    p.id = "transfer-empty"
+    p.innerHTML = "Nothing to see here. <a class='gradient' href='./transfer'>Make a transfer</a>"
+    $("#transfer-container")[0].appendChild(p)
+  }
 }
 
 const verifiedClick = (node, wakeup) => {
@@ -510,5 +539,5 @@ const cancelWakeup = (wakeup, node) => {
 }
 
 const numberWithCommas = (n) => {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
