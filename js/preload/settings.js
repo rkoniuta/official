@@ -144,6 +144,7 @@ const updateName = (obj) => {
 const genWakeups = () => {
   const container = document.getElementById("wakeup-container")
   container.innerHTML = ""
+  $("#transfer-container")[0].innerHTML = ""
   const wakeups = []
   const wakeupIDs = []
   const verifies = []
