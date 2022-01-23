@@ -366,10 +366,10 @@ const genWakeups = () => {
     p.className = "transfer-event"
     let pText = ("<b>" + moment(transfer.time).format("MM/DD/YYYY") + " @ " + moment(transfer.time).format("h:mma") + "</b> &mdash; ")
     if (transfer.data.data.type === "BANK") {
-      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount)) + " transferred to bank")
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount)) + " transferred to bank account (" + transfer.data.data.id + ")")
     }
     else {
-      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " transferred to Venmo")
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " transferred to Venmo account (" + transfer.data.data.id + ")")
     }
     p.innerHTML = pText
     $("#transfer-container")[0].appendChild(p)
