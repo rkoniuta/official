@@ -368,12 +368,16 @@ const genWakeups = () => {
     p.className = "transfer-event"
     let pText = ("<b>" + moment(transfer.time).format("MM/DD/YYYY") + " @ " + moment(transfer.time).format("h:mma") + "</b> &mdash; ")
     if (transfer.data.data.type === "BANK") {
-      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount)) + " to bank (" + transfer.data.data.id + ")")
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount)) + " to bank <span class='transfer-id'>" + transfer.data.data.id + "</span>")
     }
     else {
-      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " to Venmo (" + transfer.data.data.id + ")")
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " to Venmo <span class='transfer-id'>" + transfer.data.data.id + "</span>")
     }
     p.innerHTML = pText
+    const pSpan = p.querySelector("span")
+    pSpan.onclick = () => {
+      selectID(pSpan)
+    }
     $("#transfer-container")[0].appendChild(p)
   }
   if (!transfers.length) {
@@ -466,8 +470,8 @@ const balanceToString = (balance = BALANCE) => {
   return Math.floor(balance / 100).toString() + "." + (balance % 100).toString().padStart(2, "0")
 }
 
-const selectAccountID = () => {
-  const newSelection = $("#account-id")[0]
+const selectID = (obj) => {
+  const newSelection = obj
   const selection = window.getSelection()
   const range = document.createRange()
   range.setStartBefore(newSelection)

@@ -165,14 +165,15 @@ p.subtitle {
   margin-right: 0px;
 }
 
-#account-id {
+#account-id, .transfer-id {
   font-size: 9px;
   font-family: monospace;
   padding: 4px 6px;
   border-radius: 4px;
   vertical-align: middle;
   background: rgba(0,0,0,0.06);
-  cursor: default;
+  cursor: pointer;
+  color: black;
 }
 
 #wakeup-container {
