@@ -168,7 +168,9 @@ const genWakeups = () => {
       payments.push(item.data.data)
     }
     else if (item.data.event === "TRANSFER") {
-      transfers.push(item)
+      if (item.data.data.success) {
+        transfers.push(item)
+      }
     }
   }
   for (let id of verifies) {
