@@ -146,8 +146,12 @@
         <p id="no-wakeups">No mornings selected.</p>
       </div>
       <h3>Payment Information</h3>
-      <div id="payment-information"></div>
-      <div id="save-payment-container">
+      <div class="__payment-alt hidden card-on-file-container">
+        <p id="card-on-file"><span id="card-brand">--</span> ending in <span id="last-four">--</span></p>
+        <button onclick="noCard()" id="change-card">Change Card</button>
+      </div>
+      <div id="payment-information" class="__payment"></div>
+      <div id="save-payment-container" class="__payment">
         <div class="checkbox checked" onclick="toggleSavePaymentInfo()" id="save-payment-info-checkbox">&check;</div>
         <p>Save payment info for future wakeups</p>
       </div>

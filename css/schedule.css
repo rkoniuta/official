@@ -270,3 +270,22 @@ p.subtitle {
 #save-payment-container > p {
   margin: 0px;
 }
+
+.__payment-alt.hidden, .__payment.hidden {
+  display: none !important;
+}
+
+.card-on-file-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  box-sizing: border-box;
+}
+
+#change-card {
+  min-width: 155px;
+  box-sizing: border-box;
+  margin-left: 16px;
+}

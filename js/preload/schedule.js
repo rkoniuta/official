@@ -390,6 +390,48 @@ const fetchWakeups = () => {
   })
 }
 
+const fetchCard = () => {
+  $.ajax({
+    url: (API + "/card"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setCard(data)
+    }
+  })
+}
+
+let USING_CARD_ON_FILE = false;
+let CARD_ON_FILE = { valid: false }
+const setCard = (data = { valid: false }) => {
+  localStorage.setItem(LOCAL_STORAGE_TAG + "card", JSON.stringify(data))
+  CARD_ON_FILE = data
+  if (CARD_ON_FILE.valid) {
+    $("#last-four")[0].innerHTML = CARD_ON_FILE.last4.toString()
+    $("#card-brand")[0].innerHTML = CARD_ON_FILE.cardType.toString()
+    $(".__payment-alt").removeClass("hidden")
+    $(".__payment").addClass("hidden")
+    if (SAVE_PAYMENT_INFO) {
+      toggleSavePaymentInfo()
+    }
+    USING_CARD_ON_FILE = true;
+  }
+}
+
+const noCard = () => {
+  $(".__payment").removeClass("hidden")
+  $(".__payment-alt").addClass("hidden")
+  if (!SAVE_PAYMENT_INFO) {
+    toggleSavePaymentInfo()
+  }
+  USING_CARD_ON_FILE = false;
+}
+
 const schedule = () => {
   if (NUM_SELECTED_DAYS > 0) {
     $("#schedule-button").addClass("loading")
@@ -405,6 +447,10 @@ const schedule = () => {
       else {
         MODAL.displayHTML("<p>Server Error - your wakeup(s) could not be scheduled.")
       }
+    }
+    let customerID = ""
+    if (USING_CARD_ON_FILE) {
+      customerID = CARD_ON_FILE.customerID
     }
     const recurse = () => {
       submitToken((token) => {
@@ -431,7 +477,7 @@ const schedule = () => {
               deposit: wakeup.deposit,
               day: wakeup.day,
               saveCard: SAVE_PAYMENT_INFO,
-              customerID: "", //TODO: add customer ID if using saved card
+              customerID: customerID,
             },
             success: (data) => {
               SAVE_PAYMENT_INFO = false;

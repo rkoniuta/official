@@ -17,4 +17,7 @@ FEEDBACK.mount($(".content")[0])
 setExistingWakeups(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
 fetchWakeups()
 
+setCard(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "card")) || { valid: false })
+fetchCard()
+
 PAYMENT_INFO.mount("#payment-information")
