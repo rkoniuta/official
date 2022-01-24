@@ -43,13 +43,17 @@ $(document).ajaxStart(() => {
 })
 $(document).ajaxComplete(() => {
   __AJAX_STACK--;
-  if (__AJAX_STACK < 1) {
-    killAjaxLoader()
-  }
+  setTimeout(() => {
+    if (__AJAX_STACK < 1) {
+      killAjaxLoader()
+    }
+  }, 300)
 })
 $(document).ajaxError(() => {
   __AJAX_STACK--;
-  if (__AJAX_STACK < 1) {
-    killAjaxLoader()
-  }
+  setTimeout(() => {
+    if (__AJAX_STACK < 1) {
+      killAjaxLoader()
+    }
+  }, 300)
 })
