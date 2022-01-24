@@ -339,7 +339,7 @@ const setExistingWakeups = (data = []) => {
     return (a.day - b.day)
   })
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   EXISTING_WAKEUPS = [false, false, false, false, false, false]
   for (let wakeup of data) {
     let index = ((wakeup.day - TODAY) - 1)
