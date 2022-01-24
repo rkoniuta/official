@@ -38,7 +38,7 @@ const setWakeupMinute = (wakeup, obj) => {
 }
 
 const addWakeup = (index) => {
-  const TODAY = moment().subtract(2, "hours").tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().subtract(2, "hours").tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   const m = moment().add(index + 1, "days").subtract(2, "hours")
   const ofWeek = m.format("ddd").toLowerCase().trim()
   const day = (TODAY + index + 1)
@@ -64,7 +64,7 @@ const toggleDay = (obj) => {
   const index = parseInt(obj.id.split("-")[2])
   if (EXISTING_WAKEUPS[index]) {
     if (WAKEUPS_FETCHED) {
-      const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+      const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
       const formattedDay = moment.tz(EPOCH, TIME_ZONE).add(TODAY + 1 + index, "days").format("MMMM Do")
       MODAL.displayHTML("<p>You already have a wakeup scheduled on " + formattedDay + ".</p>")
     }
@@ -194,7 +194,7 @@ const adjustHourInput = (obj) => {
 
 const initDays = () => {
   const container = document.getElementById("day-container")
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   for (let i = 0; i < 6; i++) {
     let m = moment().add(i + 1, "days").subtract(2, "hours")
     let day = m.format("DD").toString().trim()
