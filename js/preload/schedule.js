@@ -475,7 +475,7 @@ const schedule = () => {
               xhr.setRequestHeader("Authorization", ID_TOKEN)
             },
             data: {
-              token: paymentToken,
+              token: paymentToken.toString(),
               time: time,
               deposit: wakeup.deposit,
               day: wakeup.day,
@@ -530,13 +530,18 @@ const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
 })
 
 const submitToken = (callback) => {
-  stripe.createToken(PAYMENT_INFO).then((result) => {
-    if (result.error) {
-      callback(false)
-    } else {
-      callback(result.token)
-    }
-  })
+  if (USING_CARD_ON_FILE) {
+    callback({ id: true })
+  }
+  else {
+    stripe.createToken(PAYMENT_INFO).then((result) => {
+      if (result.error) {
+        callback(false)
+      } else {
+        callback(result.token)
+      }
+    })
+  }
 }
 
 let SAVE_PAYMENT_INFO = true
