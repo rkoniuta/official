@@ -421,6 +421,9 @@ const setCard = (data = { valid: false }) => {
     }
     USING_CARD_ON_FILE = true;
   }
+  else if (USING_CARD_ON_FILE) {
+    noCard()
+  }
 }
 
 const noCard = () => {
