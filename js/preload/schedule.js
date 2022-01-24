@@ -407,8 +407,13 @@ const fetchCard = () => {
 }
 
 let USING_CARD_ON_FILE = false;
-let CARD_ON_FILE = { valid: false }
-const setCard = (data = { valid: false }) => {
+let DEFAULT_CARD_ON_FILE = {
+  card: {
+    valid: false,
+  },
+}
+let CARD_ON_FILE = DEFAULT_CARD_ON_FILE
+const setCard = (data = DEFAULT_CARD_ON_FILE) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "card", JSON.stringify(data))
   CARD_ON_FILE = data.card
   if (CARD_ON_FILE.valid) {
