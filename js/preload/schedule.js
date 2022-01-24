@@ -531,7 +531,12 @@ const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
 
 const submitToken = (callback) => {
   if (USING_CARD_ON_FILE) {
-    callback({ id: true, card: { id: true } })
+    callback({
+      id: true,
+      card: {
+        id: true,
+      },
+    })
   }
   else {
     stripe.createToken(PAYMENT_INFO).then((result) => {
