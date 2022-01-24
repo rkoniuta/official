@@ -557,3 +557,39 @@ a.gradient.__twox-mode {
     background: rgba(255,255,255,0.8) !important;
   }
 }
+
+div.checkbox {
+  width: 22px;
+  height: 22px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0px;
+  margin-right: 10px;
+  background: transparent;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  cursor: pointer;
+  display: inline-block;
+  user-select: none;
+}
+
+div.checkbox.checked {
+  border-width: 0px;
+  background: rgb(102,0,255);
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
+}
+
+div.checkbox.checked.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}

@@ -257,3 +257,16 @@ p.subtitle {
   background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
 }
+
+#save-payment-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  margin-top: 16px;
+}
+
+#save-payment-container > p {
+  margin: 0px;
+}

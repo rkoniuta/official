@@ -429,9 +429,12 @@ const schedule = () => {
               token: paymentToken,
               time: time,
               deposit: wakeup.deposit,
-              day: wakeup.day
+              day: wakeup.day,
+              saveCard: SAVE_PAYMENT_INFO,
+              customerID: "", //TODO: add customer ID if using saved card
             },
             success: (data) => {
+              SAVE_PAYMENT_INFO = false;
               c++;
               if (c === WAKEUPS.length) {
                 success()
@@ -485,4 +488,18 @@ const submitToken = (callback) => {
       callback(result.token)
     }
   })
+}
+
+let SAVE_PAYMENT_INFO = true
+const toggleSavePaymentInfo = () => {
+  if (SAVE_PAYMENT_INFO) {
+    $("#save-payment-info-checkbox").removeClass("checked")
+    $("#save-payment-info-checkbox")[0].innerHTML = ""
+    SAVE_PAYMENT_INFO = false
+  }
+  else {
+    $("#save-payment-info-checkbox").addClass("checked")
+    $("#save-payment-info-checkbox")[0].innerHTML = "&check;"
+    SAVE_PAYMENT_INFO = true
+  }
 }
