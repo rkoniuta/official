@@ -513,7 +513,7 @@ const schedule = () => {
 
 const STRIPE_ELEMENTS = stripe.elements({
   fonts: [{
-    cssSrc: "https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap"
+    cssSrc: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap"
   }]
 })
 
@@ -521,8 +521,8 @@ const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
   style: {
     base: {
       fontSize: "16px",
-      fontWeight: "500",
-      fontFamily: "'Urbanist', sans-serif",
+      fontWeight: "400",
+      fontFamily: "'Open Sans', sans-serif",
       color: "black",
       width: "300px",
       background: "transparent",
