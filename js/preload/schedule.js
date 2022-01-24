@@ -410,7 +410,7 @@ let USING_CARD_ON_FILE = false;
 let CARD_ON_FILE = { valid: false }
 const setCard = (data = { valid: false }) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "card", JSON.stringify(data))
-  CARD_ON_FILE = data
+  CARD_ON_FILE = data.card
   if (CARD_ON_FILE.valid) {
     $("#last-four")[0].innerHTML = CARD_ON_FILE.last4.toString()
     $("#card-brand")[0].innerHTML = CARD_ON_FILE.cardType.toString()
