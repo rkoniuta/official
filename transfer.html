@@ -126,7 +126,7 @@
         <p class="subtitle">Select Amount</p>
         <h1>
           <span class="dollar-sign">$</span>
-          <input inputmode="numeric" pattern="[0-9]*" type="text" id="transfer-amount" value="5" maxlength="2" onblur="transferInput(this)" onkeydown="adjustTransferInput(this)" onkeyup="adjustTransferInput(this)" onpaste="adjustTransferInput(this)">
+          <input inputmode="decimal" pattern="[0-9]*" type="text" id="transfer-amount" value="5" maxlength="2" onblur="transferInput(this)" onkeydown="adjustTransferInput(this)" onkeyup="adjustTransferInput(this)" onpaste="adjustTransferInput(this)">
         </h1>
       </div>
       <input id="transfer-slider" class="slider" type="range" value="0" min="0" max="1" onchange="slider(this, true)" oninput="slider(this, true)">
