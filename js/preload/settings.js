@@ -404,6 +404,9 @@ const genWakeups = () => {
       selectID(pSpan)
     }
     $("#transfer-container")[0].appendChild(p)
+    if ((transfer.data.data.status || "pending") === "pending") {
+      fetchTransferStatus(transfer)
+    }
   }
   if (!transfers.length) {
     let p = document.createElement("p")
@@ -572,4 +575,36 @@ const cancelWakeup = (wakeup, node) => {
 
 const numberWithCommas = (n) => {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+const setTransferStatus = (transfer, data) => {
+  for (let ev in FLAT_HISTORY) {
+    if (FLAT_HISTORY[index].data.data.event === "TRANSFER") {
+      if (FLAT_HISTORY[index].data.data.id === transfer.data.data.id) {
+        FLAT_HISTORY[index].data.data.status = data.status
+      }
+    }
+  }
+  setHistory(FLAT_HISTORY)
+}
+
+const fetchTransferStatus = (transfer) => {
+  $.ajax({
+    url: (API + "/transferStatus"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    data: {
+      data: JSON.stringify(transfer.data),
+      id: transfer.id,
+      time: transfer.time,
+    },
+    success: (data) => {
+      setTransferStatus(transfer, data)
+    }
+  })
 }
