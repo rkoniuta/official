@@ -577,6 +577,7 @@ const numberWithCommas = (n) => {
 }
 
 const setTransferStatus = (transfer, data) => {
+  const ORIGINAL_STATUS = transfer.data.data.status
   for (let index in FLAT_HISTORY) {
     if (FLAT_HISTORY[index].data.data.event === "TRANSFER") {
       if (FLAT_HISTORY[index].data.data.id === transfer.data.data.id) {
@@ -587,6 +588,9 @@ const setTransferStatus = (transfer, data) => {
   setHistory(FLAT_HISTORY)
   if (data.status === "failed") {
     fetchBalance()
+  }
+  if (data.status !== ORIGINAL_STATUS) {
+    fetchHistory()
   }
 }
 
