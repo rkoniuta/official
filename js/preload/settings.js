@@ -594,7 +594,7 @@ const setTransferStatus = (transfer, data) => {
 const fetchTransferStatus = (transfer) => {
   $.ajax({
     url: (API + "/transferStatus"),
-    type: "GET",
+    type: "POST",
     xhrFields: {
       withCredentials: true
     },
