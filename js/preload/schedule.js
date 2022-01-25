@@ -38,7 +38,7 @@ const setWakeupMinute = (wakeup, obj) => {
 }
 
 const addWakeup = (index) => {
-  const TODAY = moment().subtract(2, "hours").tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
+  const TODAY = moment().subtract(2, "hours").tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
   const m = moment().add(index + 1, "days").subtract(2, "hours")
   const ofWeek = m.format("ddd").toLowerCase().trim()
   const day = (TODAY + index + 1)
