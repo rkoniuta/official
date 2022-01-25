@@ -404,7 +404,7 @@ const genWakeups = () => {
       selectID(pSpan)
     }
     $("#transfer-container")[0].appendChild(p)
-    if ((transfer.data.data.status || "pending") === "pending") {
+    if ((transfer.data.data.status || "pending") === "pending" && transfer.data.data.success) {
       fetchTransferStatus(transfer)
     }
   }
