@@ -609,7 +609,9 @@ const fetchTransferStatus = (transfer) => {
         time: transfer.time,
       },
       success: (data) => {
-        setTransferStatus(transfer, data)
+        setTimeout(() => {
+          setTransferStatus(transfer, data)
+        }, 300)
       }
     })
   }
