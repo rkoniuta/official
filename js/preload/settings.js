@@ -586,6 +586,9 @@ const setTransferStatus = (transfer, data) => {
     }
   }
   setHistory(FLAT_HISTORY)
+  if (data.status === "failed") {
+    fetchBalance()
+  }
 }
 
 const fetchTransferStatus = (transfer) => {
