@@ -1,5 +1,6 @@
 const LOCAL_TIME_ZONE = moment.tz.guess()
 let HISTORY = []
+let FLAT_HISTORY = []
 
 const logout = () => {
   let elements = []
@@ -82,6 +83,7 @@ const addAward = (src, _title, _text) => {
 const setHistory = (data) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data))
   HISTORY = data
+  FLAT_HISTORY = JSON.parse(JSON.stringify(data))
   $("#awards")[0].innerHTML = ("")
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
@@ -368,10 +370,33 @@ const genWakeups = () => {
     p.className = "transfer-event"
     let pText = ("<b>" + moment(transfer.time).format("MM/DD/YYYY") + " @ " + moment(transfer.time).format("h:mma") + "</b> &mdash; ")
     if (transfer.data.data.type === "BANK") {
-      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount)) + " to bank <span class='transfer-id'>" + transfer.data.data.id + "</span>")
+      pText += (
+        "$" +
+        balanceToString(parseInt(transfer.data.data.amount)) +
+        " transferred to " +
+        transfer.data.data.bankName +
+        " " +
+        (
+          transfer.data.data.accountType
+          .replace("personalChecking","Personal Checking")
+          .replace("personalSavings","Personal Savings")
+          .replace("businessChecking","Business Checking")
+          .replace("businessSavings","Business Savings")
+        ) +
+        " " +
+        transfer.data.data.last4.toString() +
+        " <span class='transfer-id'>" +
+        transfer.data.data.id +
+        "</span>" +
+        " <span class='transfer-status " +
+        (transfer.data.data.status || "pending") +
+        "'>" +
+        (transfer.data.data.status || "pending").replace("failed", "Failed, Balance Refunded").replace("sent", "Complete") +
+        "</span>"
+      )
     }
     else {
-      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " to Venmo <span class='transfer-id'>" + transfer.data.data.id + "</span>")
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " to transferred Venmo account <span class='transfer-id'>" + transfer.data.data.id + "</span>")
     }
     p.innerHTML = pText
     const pSpan = p.querySelector("span")
