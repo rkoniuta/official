@@ -509,7 +509,6 @@ const selectID = (obj) => {
   document.execCommand("copy")
 }
 
-
 const cancelWakeup = (wakeup, node) => {
   const balance = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "balance"))
   let elements = []
@@ -591,23 +590,27 @@ const setTransferStatus = (transfer, data) => {
   }
 }
 
+let FETCHED_TRANSFER_STATUSES = []
 const fetchTransferStatus = (transfer) => {
-  $.ajax({
-    url: (API + "/transferStatus"),
-    type: "PUT",
-    xhrFields: {
-      withCredentials: true
-    },
-    beforeSend: (xhr) => {
-      xhr.setRequestHeader("Authorization", ID_TOKEN)
-    },
-    data: {
-      data: JSON.stringify(transfer.data),
-      id: transfer.id,
-      time: transfer.time,
-    },
-    success: (data) => {
-      setTransferStatus(transfer, data)
-    }
-  })
+  if (!FETCHED_TRANSFER_STATUSES.includes(transfer.data.data.id)) {
+    FETCHED_TRANSFER_STATUSES.push(transfer.data.data.id)
+    $.ajax({
+      url: (API + "/transferStatus"),
+      type: "PUT",
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", ID_TOKEN)
+      },
+      data: {
+        data: JSON.stringify(transfer.data),
+        id: transfer.id,
+        time: transfer.time,
+      },
+      success: (data) => {
+        setTransferStatus(transfer, data)
+      }
+    })
+  }
 }
