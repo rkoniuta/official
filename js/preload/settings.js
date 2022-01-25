@@ -385,7 +385,7 @@ const genWakeups = () => {
         ) +
         " " +
         transfer.data.data.last4.toString() +
-        " <span class='transfer-id'>" +
+        "&nbsp; <span class='transfer-id'>" +
         transfer.data.data.id +
         "</span>" +
         " <span class='transfer-status " +
