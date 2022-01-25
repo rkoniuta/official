@@ -578,7 +578,7 @@ const numberWithCommas = (n) => {
 }
 
 const setTransferStatus = (transfer, data) => {
-  for (let ev in FLAT_HISTORY) {
+  for (let index in FLAT_HISTORY) {
     if (FLAT_HISTORY[index].data.data.event === "TRANSFER") {
       if (FLAT_HISTORY[index].data.data.id === transfer.data.data.id) {
         FLAT_HISTORY[index].data.data.status = data.status
@@ -594,7 +594,7 @@ const setTransferStatus = (transfer, data) => {
 const fetchTransferStatus = (transfer) => {
   $.ajax({
     url: (API + "/transferStatus"),
-    type: "POST",
+    type: "PUT",
     xhrFields: {
       withCredentials: true
     },
