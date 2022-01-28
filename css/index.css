@@ -594,6 +594,14 @@ div.checkbox.checked.__twox-mode {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
 }
 
+#progress-bar-background.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
 #__ajax-loader {
   width: 19px;
   height: 19px;
