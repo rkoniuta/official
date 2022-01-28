@@ -125,7 +125,7 @@ p.subtitle {
   right: 0px;
   background: white;
   position: fixed;
-  z-index: 1001;
+  z-index: 1002;
   transition: width ease 0.5s;
 }
 
@@ -135,7 +135,7 @@ p.subtitle {
   width: 100vw;
   left: 0px;
   position: fixed;
-  z-index: 1000;
+  z-index: 1001;
   background: rgb(102,0,255);
   background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
