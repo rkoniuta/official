@@ -22,3 +22,12 @@ const estimateAlert = () => {
 const getStartedClick = () => {
   document.getElementById("name").focus()
 }
+
+const scheduleClick = () => {
+  if (USER === null) {
+    leavePage("./create")
+  }
+  else {
+    leavePage("./schedule")
+  }
+}
