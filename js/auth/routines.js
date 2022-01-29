@@ -72,11 +72,15 @@ const ROUTINES = {
       USER.getSession((err, session) => {
         USER.globalSignOut({
           onSuccess: (data) => {
+            const balance = localStorage.getItem(LOCAL_STORAGE_TAG + "balance")
             localStorage.clear()
+            localStorage.setItem(LOCAL_STORAGE_TAG + "balance", balance)
             window.location.href = REDIRECTS.home
           },
           onFailure: (err) => {
+            const balance = localStorage.getItem(LOCAL_STORAGE_TAG + "balance")
             localStorage.clear()
+            localStorage.setItem(LOCAL_STORAGE_TAG + "balance", balance)
             window.location.href = REDIRECTS.home
           }
         })

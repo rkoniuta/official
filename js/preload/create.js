@@ -114,6 +114,7 @@ const verify = () => {
       isVerifying = true
       ROUTINES.verify(code, (err) => {
         if (err) {
+          console.log(err)
           codeInput.placeholder = "Incorrect code."
           codeInput.setAttribute("invalid", "true")
           codeInput.value = ""
