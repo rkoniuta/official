@@ -115,3 +115,13 @@
     opacity: 1 !important;
   }
 }
+
+#__modal-canvas {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  position: fixed;
+}
