@@ -62,16 +62,16 @@ const estimateAlert = () => {
   const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
   const returns =  (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
   const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0")))
-  let add = "the last 30 days of Paywake user data."
+  let add = "the last 30 days of Paywake user data"
   if (RETURN_TOGGLE === 1) {
     if (YESTERDAY_FLAG) {
-      add = "yesterday's Paywake user data."
+      add = "yesterday's Paywake user data"
     }
     else {
-      add = "today's Paywake user data."
+      add = "today's Paywake user data"
     }
   }
-  const text = ("This $" + dollarString + " average return is based on " + add)
+  const text = ("This $" + dollarString + " average return is based on " + add + " and includes both the extra payment and refunded deposit amounts.")
   MODAL.hide()
   MODAL.displayHTML("<p>" + text + "</p>")
 }
