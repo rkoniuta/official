@@ -91,7 +91,7 @@ const createAccount = () => {
           localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (4).toString())
           setTimeout(() => {
             setScreen(4)
-          },1)
+          }, CODE_SEND_BUFFER)
         }
       })
     }, CREATION_DELAY_MS)

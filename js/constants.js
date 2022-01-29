@@ -8,6 +8,7 @@ const SLIDER_DURATION_MS = 1200
 const DARKNESS_THRESHOLD = 51 //out of 255
 const FOUNDING_USER_THRESHOLD = 10000
 const DIAMOND_USER_THRESHOLD = 500
+const CODE_SEND_BUFFER = 700 //in ms
 const TIME_ZONE = "America/Los_Angeles"
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"

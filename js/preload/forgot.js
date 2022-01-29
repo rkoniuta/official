@@ -44,12 +44,14 @@ const sendCode = () => {
     const phone = ("+1" + cleanPhone(obj.value))
     $("#button-0").addClass("loading")
     ROUTINES.forgot(phone, (err) => {
-      $("#button-0").removeClass("loading")
       if (err) {
         obj.setAttribute("invalid", "true")
       }
       else {
-        nextScreen()
+        setTimeout(() => {
+          $("#button-0").removeClass("loading")
+          nextScreen()
+        }, CODE_SEND_BUFFER)
       }
     })
   }
