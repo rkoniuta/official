@@ -357,6 +357,10 @@ button.full-width {
   box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
 }
 
+.wakeup.twox {
+  cursor: pointer;
+}
+
 .wakeup > .deposit-container > .deposit {
   width: 72px;
   height: 66px;
@@ -370,7 +374,7 @@ button.full-width {
   background: transparent;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: center;
@@ -385,6 +389,15 @@ button.full-width {
   font-weight: 600;
   color: white;
   letter-spacing: 1px;
+}
+
+.wakeup > .deposit-container > .deposit > p {
+  margin: 0px;
+  font-size: 11px;
+  font-family: 'Open Sans';
+  color: rgba(255,255,255,0.6);
+  margin-top: -4px;
+  margin-bottom: -8px;
 }
 
 .wakeup > .deposit-container > .deposit > h1 > .dollar-sign {
@@ -504,21 +517,19 @@ button:disabled {
   cursor: default;
 }
 
-.wakeup > .info > p > b.__twox-mode {
+.wakeup.twox > .info > p > b {
   background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
 }
 
-/*
-.wakeup > .deposit-container.__twox-mode {
+.wakeup.twox > .deposit-container {
   background: rgb(0,179,255);
   background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
 }
-*/
 
 button.gradient.__twox-mode {
   background: rgb(0,179,255);

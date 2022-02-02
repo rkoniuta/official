@@ -226,10 +226,17 @@ const genWakeups = () => {
     const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
     const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
+    const is2x = wakeup.is2x
+    if (is2x) {
+      deposit /= 2
+    }
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
     parent.className = "wakeup"
+    if (is2x) {
+      parent.className = "wakeup twox"
+    }
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
     if (IS_2X) {
@@ -296,6 +303,12 @@ const genWakeups = () => {
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = "2X wakeup"
+      depositBox.appendChild(wakeup2xNote)
+    }
 
     if (wakeup.verified) {
       button.onclick = () => {

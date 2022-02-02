@@ -260,7 +260,7 @@ const setWakeups = (data = []) => {
     noWakeups.style.display = "block"
   }
   for (const wakeup of data) {
-    const deposit = (wakeup.deposit / 100).toString()
+    let deposit = (wakeup.deposit / 100).toString()
     const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
     const hour = m.format("h")
     const minute = m.format("mm")
@@ -268,15 +268,19 @@ const setWakeups = (data = []) => {
     const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
     const missed = ((m.add(3, "minutes").diff(moment()) < 0) && !wakeup.verified)
+    const is2x = wakeup.is2x
+    if (is2x) {
+      deposit /= 2
+    }
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
     parent.className = "wakeup"
+    if (is2x) {
+      parent.className = "wakeup twox"
+    }
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
-    if (IS_2X) {
-      depositContainer.className = "deposit-container __twox-mode"
-    }
     let depositBox = document.createElement("div")
     depositBox.className = "deposit"
     let h1 = document.createElement("h1")
@@ -333,6 +337,12 @@ const setWakeups = (data = []) => {
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = "2X wakeup"
+      depositBox.appendChild(wakeup2xNote)
+    }
 
     if (wakeup.verified) {
       button.onclick = () => {
