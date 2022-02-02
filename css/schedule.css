@@ -252,7 +252,7 @@ p.subtitle {
   border-color: #dfe3e7;
 }
 
-.day-container > .day.selected.__twox-mode {
+.day-container > .day.selected.twox {
   background: rgb(0,179,255);
   background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
@@ -290,4 +290,9 @@ p.subtitle {
   min-width: 155px;
   box-sizing: border-box;
   margin-left: 16px;
+}
+
+#schedule-button {
+  padding-left: 0px;
+  padding-right: 0px;
 }

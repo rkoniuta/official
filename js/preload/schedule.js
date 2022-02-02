@@ -9,6 +9,8 @@ const DEFAULT_WAKEUP_TIME = 480
 const MIN_WAKEUP_TIME = 300
 const MAX_WAKEUP_TIME = 600
 
+const DAY_2X = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day")) || 0)
+
 const displayTimeNotice = () => {
   const p = document.createElement("p")
   p.innerHTML = "You can only use Paywake to wake up between <b>5 am</b> and <b>10 am</b>."
@@ -46,6 +48,12 @@ const addWakeup = (index) => {
   const wakeup = {
     day, deposit, index,
     time: (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek)) || DEFAULT_WAKEUP_TIME)
+  }
+  if (IS_2X && day === DAY_2X) {
+    wakeup.is2x = true
+  }
+  else {
+    wakeup.is2x = false
   }
   WAKEUPS.push(wakeup)
   genWakeups()
@@ -92,13 +100,8 @@ const toggleDay = (obj) => {
     $("#deposit-notice").addClass("visible")
     $("#deposit-slider")[0].value = Math.min($("#deposit-slider")[0].value, 10)
     slider($("#deposit-slider")[0])
-    if (IS_2X) {
-      if (NUM_SELECTED_DAYS < 1) {
-        $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup (0)"
-      }
-      else {
-        $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup (1)"
-      }
+    if (IS_2X && SELECTED_DAYS[TOGGLE_2X_INDEX] === true && NUM_SELECTED_DAYS > 0) {
+      $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup"
     }
     else {
       $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
@@ -110,11 +113,17 @@ const toggleDay = (obj) => {
     $("#deposit-notice").removeClass("visible")
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
-    if (IS_2X) {
-      $("#schedule-button")[0].innerHTML = ("Schedule <span class='twoX'>2X</span> Wakeups (" + NUM_SELECTED_DAYS.toString() + ")")
+
+    if (IS_2X && SELECTED_DAYS[TOGGLE_2X_INDEX] === true) {
+      if (NUM_SELECTED_DAYS === 2) {
+        $("#schedule-button")[0].innerHTML = ("Schedule 1 Wakeup + <span class='twoX'>2X</span> Wakeup")
+      }
+      else {
+        $("#schedule-button")[0].innerHTML = ("Schedule " + (NUM_SELECTED_DAYS - 1).toString() + " Wakeups + <span class='twoX'>2X</span> Wakeup")
+      }
     }
     else {
-    $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
+      $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
     }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Times"
   }
@@ -192,6 +201,7 @@ const adjustHourInput = (obj) => {
   }
 }
 
+let TOGGLE_2X_INDEX = (-1)
 const initDays = () => {
   const container = document.getElementById("day-container")
   const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
@@ -215,6 +225,10 @@ const initDays = () => {
     ofWeek = (ofWeekAdd + ofWeek)
     let div = document.createElement("div")
     div.className = "day"
+    if (IS_2X && (TODAY + 1 + i) === DAY_2X) {
+      div.className = "day twox"
+      TOGGLE_2X_INDEX = (i)
+    }
     div.onclick = () => {
       toggleDay(div)
     }
@@ -254,9 +268,14 @@ const genWakeups = () => {
     const minute = (wakeup.time % 60).toString()
     const date = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
     const fromNow = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+    const is2x = wakeup.is2x
 
     let parent = document.createElement("div")
+    parent.id = ("wakeup-" + wakeup.id)
     parent.className = "wakeup"
+    if (is2x) {
+      parent.className = "wakeup twox"
+    }
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
     if (IS_2X) {
@@ -331,6 +350,12 @@ const genWakeups = () => {
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
+      depositBox.appendChild(wakeup2xNote)
+    }
   }
 }
 

@@ -32,6 +32,7 @@
         const onComplete = () => {
           url.searchParams.set(NOTIFICATION_STRING_2X, true)
           url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
+          localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", (WAKEUP.day + 1).toString())
           leavePage("./dashboard?" + url.searchParams.toString())
         }
         for (wakeup of wakeups) {

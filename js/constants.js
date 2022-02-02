@@ -12,6 +12,7 @@ const CODE_SEND_BUFFER = 700 //in ms
 const TIME_ZONE = "America/Los_Angeles"
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
+const TWOX_WAKEUP_DESC = "2X money"
 const NOTIFICATION_STRING_2X = "2xnotify"
 let IS_2X = false
 
