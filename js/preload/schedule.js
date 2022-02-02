@@ -10,9 +10,6 @@ const MIN_WAKEUP_TIME = 300
 const MAX_WAKEUP_TIME = 600
 
 let DAY_2X = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day")) || 0)
-if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
-  calcDay2X()
-}
 
 const displayTimeNotice = () => {
   const p = document.createElement("p")
@@ -618,4 +615,8 @@ const calcDay2X = () => {
       }
     }
   }
+}
+
+if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
+  calcDay2X()
 }
