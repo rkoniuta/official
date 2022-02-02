@@ -227,7 +227,7 @@ const genWakeups = () => {
       }
     }
 
-    const deposit = (wakeup.deposit / 100).toString()
+    let deposit = (wakeup.deposit / 100).toString()
     const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
     const hour = m.format("h")
     const minute = m.format("mm")
