@@ -197,6 +197,7 @@ const setWakeups = (data = []) => {
     leavePage("./verified")
   }
   if (WAKEUP) {
+    localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "false")
     const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(3, "minutes").tz(LOCAL_TIME_ZONE)
     let flag = false
     let c = 0

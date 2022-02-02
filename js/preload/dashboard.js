@@ -267,7 +267,7 @@ const setWakeups = (data = []) => {
     const date = m.format("MMMM Do")
     const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
-    const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
+    const missed = ((m.add(3, "minutes").diff(moment()) < 0) && !wakeup.verified)
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
