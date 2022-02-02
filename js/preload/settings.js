@@ -152,6 +152,7 @@ const genWakeups = () => {
   const verifies = []
   const payments = []
   const transfers = []
+  const set2xs = []
   HISTORY.sort((a,b) => {
     return (moment(b.time).diff(moment(a.time)))
   })
@@ -174,6 +175,9 @@ const genWakeups = () => {
         transfers.push(item)
       }
     }
+    else if (item.data.event === "SET2X") {
+      set2xs.push(item.data.data.id)
+    }
   }
   for (let id of verifies) {
     try {
@@ -183,6 +187,11 @@ const genWakeups = () => {
   for (let payment of payments) {
     try {
       wakeups[wakeupIDs.indexOf(payment.id)].paid = payment.amount
+    } catch (e) {}
+  }
+  for (let id of set2xs) {
+    try {
+      wakeups[wakeupIDs.indexOf(id)].is2x = true
     } catch (e) {}
   }
   for (let item of HISTORY) {
