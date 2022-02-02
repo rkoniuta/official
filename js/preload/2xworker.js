@@ -29,7 +29,7 @@
       if (diff < 0 && !WAKEUP.verified && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
         localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
         for (wakeup of wakeups) {
-          if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified) {
+          if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified && !wakeup.is2x) {
             const onComplete = () => {
               url.searchParams.set(NOTIFICATION_STRING_2X, true)
               url.searchParams.set("id", encodeURIComponent(WAKEUP.id))

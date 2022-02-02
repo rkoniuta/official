@@ -95,11 +95,15 @@ const putAjaxLoader = () => {
   const loader = document.createElement("img")
   loader.src = ("./assets/images/loader-white.svg")
   loader.id = "__ajax-loader"
-  $(".balance-container")[0].querySelector("h3").appendChild(loader)
+  try {
+    $(".balance-container")[0].querySelector("h3").appendChild(loader)
+  } catch (e) {}
 }
 
 const killAjaxLoader = () => {
-  $("#__ajax-loader").remove()
+  try {
+    $("#__ajax-loader").remove()
+  } catch (e) {}
 }
 
 $(document).ajaxStart(() => {
