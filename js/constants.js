@@ -13,6 +13,18 @@ const TIME_ZONE = "America/Los_Angeles"
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
 const TWOX_WAKEUP_DESC = "2X money"
+const ANTI_CLEARS = [ //Local storage which isn't cleared on logout
+  "earnings",
+  "copysheet-byId",
+  "copysheet-byPage",
+  "wakeup-sun",
+  "wakeup-mon",
+  "wakeup-tue",
+  "wakeup-wed",
+  "wakeup-thu",
+  "wakeup-fri",
+  "wakeup-sat",
+]
 const NOTIFICATION_STRING_2X = "2xnotify"
 let IS_2X = false
 
