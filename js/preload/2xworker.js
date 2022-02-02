@@ -36,6 +36,7 @@
         }
         for (wakeup of wakeups) {
           if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified && !wakeup.is2x) {
+            hitFlag = true
             $.ajax({
               url: (API + "/set2xwakeup"),
               type: "PUT",
@@ -51,7 +52,6 @@
               success: onComplete,
               error: onComplete,
             })
-            hitFlag = true
             break;
           }
         }
