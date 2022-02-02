@@ -612,6 +612,7 @@ const calcDay2X = () => {
       if (wakeup.day === TODAY || wakeup.day === (TODAY - 1)) {
         DAY_2X = (wakeup.day + 1)
         localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", DAY_2X)
+        return;
       }
     }
   }
