@@ -495,6 +495,17 @@ const schedule = () => {
           const hour = parseInt(m.get("hour"))
           const minute = parseInt(m.get("minute"))
           const time = ((hour * 60) + minute)
+          const sendData = {
+            token: paymentToken.toString(),
+            time: time,
+            deposit: wakeup.deposit,
+            day: wakeup.day,
+            saveCard: SAVE_PAYMENT_INFO,
+            customerID: customerID,
+          }
+          if (wakeup.is2x) {
+            sendData.is2x = true
+          }
           $.ajax({
             url: (API + "/schedule"),
             type: "PUT",
@@ -504,14 +515,7 @@ const schedule = () => {
             beforeSend: (xhr) => {
               xhr.setRequestHeader("Authorization", ID_TOKEN)
             },
-            data: {
-              token: paymentToken.toString(),
-              time: time,
-              deposit: wakeup.deposit,
-              day: wakeup.day,
-              saveCard: SAVE_PAYMENT_INFO,
-              customerID: customerID,
-            },
+            data: sendData,
             success: (data) => {
               SAVE_PAYMENT_INFO = false;
               c++;
