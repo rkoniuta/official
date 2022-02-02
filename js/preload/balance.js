@@ -97,13 +97,23 @@ const putAjaxLoader = () => {
   loader.id = "__ajax-loader"
   try {
     $(".balance-container")[0].querySelector("h3").appendChild(loader)
-  } catch (e) {}
+  } catch (e) {
+    $(document).ready(() => {
+      $(".balance-container")[0].querySelector("h3").appendChild(loader)
+    })
+  }
 }
 
 const killAjaxLoader = () => {
   try {
     $("#__ajax-loader").remove()
-  } catch (e) {}
+  } catch (e) {
+    $(document).ready(() => {
+      setTimeout(() => {
+        $("#__ajax-loader").remove()
+      }, 10)
+    })
+  }
 }
 
 $(document).ajaxStart(() => {
