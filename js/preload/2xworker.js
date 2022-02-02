@@ -28,9 +28,31 @@
       const diff = Math.floor(time.diff(moment()) / 1000)
       if (diff < 0 && !WAKEUP.verified && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
         localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
-        url.searchParams.set(NOTIFICATION_STRING_2X, true)
-        url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
-        leavePage("./dashboard?" + url.searchParams.toString())
+        for (wakeup of wakeups) {
+          if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified) {
+            const onComplete = () => {
+              url.searchParams.set(NOTIFICATION_STRING_2X, true)
+              url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
+              leavePage("./dashboard?" + url.searchParams.toString())
+            }
+            $.ajax({
+              url: (API + "/set2xwakeup"),
+              type: "PUT",
+              data: {
+                id: wakeup.id
+              },
+              xhrFields: {
+                withCredentials: true
+              },
+              beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", ID_TOKEN)
+              },
+              success: onComplete,
+              error: onComplete,
+            })
+            break;
+          }
+        }
       }
     }
     else {
