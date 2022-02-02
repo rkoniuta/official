@@ -599,23 +599,9 @@ const toggleSavePaymentInfo = () => {
 }
 
 const calcDay2X = () => {
-  let wakeups = (JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
-  wakeups.sort((a,b) => {
-    return (b.day - a.day)
-  })
-  if (wakeups.length) {
-    for (wakeup of wakeups) {
-      if (wakeup.verified) {
-        return;
-      }
-      if (wakeup.day === TODAY || wakeup.day === (TODAY - 1)) {
-        DAY_2X = (wakeup.day + 1)
-        localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", DAY_2X)
-        return;
-      }
-    }
-  }
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
+  DAY_2X = (TODAY + 1)
+  localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", DAY_2X)
 }
 
 if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
