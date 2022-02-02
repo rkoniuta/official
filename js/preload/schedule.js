@@ -502,6 +502,7 @@ const schedule = () => {
             day: wakeup.day,
             saveCard: SAVE_PAYMENT_INFO,
             customerID: customerID,
+            totalScheduled: NUM_SELECTED_DAYS,
           }
           if (wakeup.is2x) {
             sendData.is2x = true
