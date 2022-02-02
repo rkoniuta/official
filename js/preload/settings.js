@@ -236,9 +236,6 @@ const genWakeups = () => {
     const fromNow = m.fromNow()
     const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
     const is2x = wakeup.is2x
-    if (is2x) {
-      deposit /= 2
-    }
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
