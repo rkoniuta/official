@@ -9,7 +9,10 @@ const DEFAULT_WAKEUP_TIME = 480
 const MIN_WAKEUP_TIME = 300
 const MAX_WAKEUP_TIME = 600
 
-const DAY_2X = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day")) || 0)
+let DAY_2X = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day")) || 0)
+if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
+  calcDay2X()
+}
 
 const displayTimeNotice = () => {
   const p = document.createElement("p")
@@ -595,5 +598,23 @@ const toggleSavePaymentInfo = () => {
     $("#save-payment-info-checkbox").addClass("checked")
     $("#save-payment-info-checkbox")[0].innerHTML = "&check;"
     SAVE_PAYMENT_INFO = true
+  }
+}
+
+const calcDay2X = () => {
+  let wakeups = (JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  wakeups.sort((a,b) => {
+    return (b.day - a.day)
+  })
+  if (wakeups.length) {
+    for (wakeup of wakeups) {
+      if (wakeup.verified) {
+        return;
+      }
+      if (wakeup.day === TODAY || wakeup.day === (TODAY - 1)) {
+        DAY_2X = wakeup.day
+      }
+    }
   }
 }
