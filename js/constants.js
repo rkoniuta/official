@@ -12,6 +12,7 @@ const CODE_SEND_BUFFER = 700 //in ms
 const TIME_ZONE = "America/Los_Angeles"
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
+const NOTIFICATION_STRING_2X = "2xnotify"
 let IS_2X = false
 
 if (window.location.origin === "https://dev.paywake.net" && !(new URLSearchParams(window.location.search)).get("prod")) {

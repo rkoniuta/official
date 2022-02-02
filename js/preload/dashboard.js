@@ -379,6 +379,7 @@ const fetchWakeups = () => {
     success: (data) => {
       setWakeups(data.wakeups)
       displayVerified()
+      displayIfFailure()
     }
   })
 }
@@ -396,6 +397,59 @@ const displayVerified = () => {
     }
     window.history.replaceState(null, null, window.location.pathname + devAdd)
     document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+  }
+}
+
+const displayIfFailure = () => {
+  const url = new URL(window.location.href)
+  if (url.searchParams.get(NOTIFICATION_STRING_2X)) {
+    const wakeupID = decodeURIComponent(url.searchParams.get("id"))
+    url.searchParams.delete(NOTIFICATION_STRING_2X)
+    url.searchParams.delete("id")
+    window.history.replaceState(null, null, url.toString())
+    MODAL.hide = () => {
+      if (MODAL.visible) {
+        MODAL.visible = false
+        const backdrop = document.getElementById("__modal-backdrop")
+        const container = document.getElementById("__modal-container")
+        $(backdrop).removeClass("visible")
+        $(container).removeClass("visible")
+        setTimeout(() => {
+          backdrop.className = ""
+          setTimeout(() => {
+            display2XMode()
+          }, 50)
+        }, 650)
+        try {
+          $("#__modal-canvas")[0].remove()
+        } catch (e) {}
+      }
+    }
+    document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+  }
+}
+
+let HAS_DISPLAYED_2X_MODE = false
+const display2XMode = () => {
+  if (!HAS_DISPLAYED_2X_MODE) {
+    MODAL.hide = () => {
+      if (MODAL.visible) {
+        MODAL.visible = false
+        const backdrop = document.getElementById("__modal-backdrop")
+        const container = document.getElementById("__modal-container")
+        $(backdrop).removeClass("visible")
+        $(container).removeClass("visible")
+        setTimeout(() => {
+          backdrop.className = ""
+        }, 650)
+        try {
+          $("#__modal-canvas")[0].remove()
+        } catch (e) {}
+      }
+    }
+    HAS_DISPLAYED_2X_MODE = true
+    console.log("2X Mode Modal")
+    //TODO: display
   }
 }
 

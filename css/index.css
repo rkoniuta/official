@@ -510,6 +510,7 @@ button:disabled {
   background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
 }
 
+/*
 .wakeup > .deposit-container.__twox-mode {
   background: rgb(0,179,255);
   background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
@@ -517,6 +518,7 @@ button:disabled {
   background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
 }
+*/
 
 button.gradient.__twox-mode {
   background: rgb(0,179,255);
