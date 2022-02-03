@@ -182,7 +182,7 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
     else if (__TWOX_MODE_PAGE === "settings") {
       $(".toolbar")[0].childNodes[5].querySelector("img").src = "assets/images/settings-2xmode.png"
     }
-    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login") {
+    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "faq") {
       $("#sun")[0].src = "assets/images/sun-192-green.png"
     }
   })
