@@ -230,13 +230,13 @@ input::placeholder {
 }
 
 .transfer-event {
-  color: black;
   margin-bottom: 8px !important;
 }
 
 .transfer-status {
   font-size: 14px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: bold;
   text-transform: capitalize;
   border-radius: 4px;
   margin-left: 4px;
