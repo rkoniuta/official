@@ -74,6 +74,7 @@
   box-sizing: border-box;
   overflow: hidden;
   height: auto;
+  padding-bottom: 4px;
 }
 
 .faq:not(.expanded) > .answer {
