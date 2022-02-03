@@ -366,12 +366,6 @@ const genWakeups = () => {
         display2XWakeup(node)
       }
     }
-
-    if (is2x) {
-      let wakeup2xNote = document.createElement("p")
-      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
-      depositBox.appendChild(wakeup2xNote)
-    }
     c++;
   }
 
