@@ -9,6 +9,7 @@ const fetchWakeups = () => {
       xhr.setRequestHeader("Authorization", ID_TOKEN)
     },
     success: (data) => {
+      data = data.wakeups
       data = data.sort((a, b) => {
         return (a.day - b.day)
       })
