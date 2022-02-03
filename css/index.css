@@ -310,7 +310,7 @@ button.loading {
   background-size: 24px 24px;
   background-position: center;
   background-repeat: no-repeat;
-  color: transparent;
+  color: transparent !important;
 }
 
 button.full-width {
