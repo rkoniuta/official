@@ -79,6 +79,8 @@
 
 .faq:not(.expanded) > .answer {
   height: 0px;
+  max-height: 0px;
+  padding-bottom: 0px;
 }
 
 .faq > .answer > p {
