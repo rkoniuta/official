@@ -60,7 +60,8 @@ const __COPYSHEET = {
 (async () => {
   const SHEET_ID = ("1bNc_Zc6t9Lidda9IELTPAJuRvXBKkCK5l99yp41pctg")
   let SHEET_NAME = "/prod"
-  if (window.location.toString().split("//")[1].substring(0,3).toLowerCase().trim() === "dev") {
+  const subdomain = window.location.toString().split("//")[1].substring(0,3).toLowerCase().trim()
+  if (subdomain === "dev" || subdomain === "/us") {
     SHEET_NAME = "/dev"
   }
   const sheetData = await fetch("https://opensheet.vercel.app/" + SHEET_ID + SHEET_NAME).then(r => r.json()).then((data) => {
