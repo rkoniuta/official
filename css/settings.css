@@ -233,6 +233,10 @@ input::placeholder {
   margin-bottom: 8px !important;
 }
 
+.transfer-event.pending {
+  color: black !important;
+}
+
 .transfer-status {
   font-size: 14px;
   font-family: 'Urbanist', sans-serif;

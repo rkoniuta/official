@@ -387,6 +387,9 @@ const genWakeups = () => {
     }
     let p = document.createElement("p")
     p.className = "transfer-event"
+    if ((transfer.data.data.status || "pending") === "pending") {
+      p.className = "transfer-event pending"
+    }
     let pText = ("<b>" + moment(transfer.time).format("MM/DD/YYYY") + " @ " + moment(transfer.time).format("h:mma") + "</b> &mdash; ")
     if (transfer.data.data.type === "BANK") {
       pText += (
