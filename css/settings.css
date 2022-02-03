@@ -249,3 +249,7 @@ input::placeholder {
   color: black;
   white-space: nowrap;
 }
+
+.events-container > p:not(#transfer-empty) > b {
+  font-family: 'Urbanist', sans-serif;
+}
