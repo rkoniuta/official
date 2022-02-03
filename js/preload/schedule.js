@@ -585,6 +585,7 @@ const confirmSchedule = () => {
           const disclaimer = $("#disclaimer")[0].cloneNode(true)
           disclaimer.style.marginBottom = ("24px")
           disclaimer.style.color = ("rgba(0,0,0,0.4)")
+          disclaimer.querySelector("a").remove()
           elements.push(disclaimer)
           let group = document.createElement("div")
           group.className = "button-group"
