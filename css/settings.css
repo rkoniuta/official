@@ -230,6 +230,7 @@ input::placeholder {
 }
 
 .transfer-event {
+  color: black;
   margin-bottom: 8px !important;
 }
 
