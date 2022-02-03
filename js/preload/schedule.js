@@ -361,7 +361,7 @@ const genWakeups = () => {
     parent.appendChild(cancel)
     container.appendChild(parent)
 
-    if (wakeup.is2x && !wakeup.verified && !missed) {
+    if (wakeup.is2x) {
       depositBox.onclick = () => {
         display2XWakeup(node)
       }
