@@ -396,7 +396,9 @@ const fetchWakeups = () => {
         __worker2x()
       }
       displayVerified()
-      displayIfFailure()
+      if (localStorage.getItem(LOCAL_STORAGE_TAG + "stale") !== null) {
+        displayIfFailure()
+      }
     }
   })
 }
