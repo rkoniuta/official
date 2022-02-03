@@ -588,12 +588,10 @@ let SAVE_PAYMENT_INFO = true
 const toggleSavePaymentInfo = () => {
   if (SAVE_PAYMENT_INFO) {
     $("#save-payment-info-checkbox").removeClass("checked")
-    $("#save-payment-info-checkbox")[0].innerHTML = ""
     SAVE_PAYMENT_INFO = false
   }
   else {
     $("#save-payment-info-checkbox").addClass("checked")
-    $("#save-payment-info-checkbox")[0].innerHTML = "&check;"
     SAVE_PAYMENT_INFO = true
   }
 }

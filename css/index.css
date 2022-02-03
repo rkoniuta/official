@@ -592,7 +592,10 @@ div.checkbox {
   font-size: 14px;
   line-height: 24px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   user-select: none;
 }
 
@@ -603,6 +606,18 @@ div.checkbox.checked {
   background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
   background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
+}
+
+div.checkbox > div {
+  background-image: url('../assets/images/checkmark.png');
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  opacity: 0;
+}
+
+div.checkbox.checked > div {
+  opacity: 1;
 }
 
 div.checkbox.checked.__twox-mode {
