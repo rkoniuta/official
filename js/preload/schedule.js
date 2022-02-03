@@ -207,7 +207,7 @@ const initDays = () => {
   const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   for (let i = 0; i < 6; i++) {
     let m = moment().add(i + 1, "days").subtract(2, "hours")
-    let day = m.format("DD").toString().trim()
+    let day = m.format("D").toString().trim()
     let month = m.format("MMM").toUpperCase().trim()
     let ofWeek = m.format("ddd").trim()
     if (i === 0) {
