@@ -478,12 +478,14 @@ const noCard = () => {
 
 const schedule = () => {
   if (NUM_SELECTED_DAYS > 0) {
+    $("#__modal-dismiss").addClass("loading")
     $("#schedule-button").addClass("loading")
     let c = 0
     const success = () => {
       $("#home-button")[0].click()
     }
     const error = () => {
+      $("#__modal-dismiss").removeClass("loading")
       $("#schedule-button").removeClass("loading")
       if (c > 0) {
         MODAL.displayHTML("<p>Server error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
@@ -544,6 +546,7 @@ const schedule = () => {
           })
         }
         else {
+          $("#__modal-dismiss").removeClass("loading")
           $("#schedule-button").removeClass("loading")
         }
       })
