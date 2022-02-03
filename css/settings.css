@@ -102,7 +102,7 @@ p.stat {
 .events-container > p:not(#transfer-empty) {
   margin: 2px 0px;
   color: rgba(0,0,0,0.4);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .wakeup {
@@ -234,7 +234,7 @@ input::placeholder {
 }
 
 .transfer-status {
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Open Sans', sans-serif;
   text-transform: capitalize;
   border-radius: 4px;
