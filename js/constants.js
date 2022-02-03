@@ -141,7 +141,7 @@ const __EMOJIS = {};
   }
 
   //EMOJI HOLIDAYS
-  setEmojiDate("FEB", 14, "💕")
+  //setEmojiDate("FEB", 14, "💕")
   setEmojiDate("MAR", 17, "☘️")
   setEmojiDate("JUL",  4, "🇺🇸")
   setEmojiDate("OCT", 31, "🎃")
