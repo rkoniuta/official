@@ -107,13 +107,13 @@ const toggleDay = (obj) => {
       $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
     }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Time"
+    $("#wakeup-plural")[0].innerHTML = "your wakeup"
   }
   else {
     $("#deposit-slider").removeClass("limited")
     $("#deposit-notice").removeClass("visible")
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
-
     if (IS_2X && SELECTED_DAYS[TOGGLE_2X_INDEX] === true) {
       if (NUM_SELECTED_DAYS === 2) {
         $("#schedule-button")[0].innerHTML = ("Schedule 1 Wakeup + <span class='twoX'>2X</span> Wakeup")
@@ -126,6 +126,7 @@ const toggleDay = (obj) => {
       $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
     }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Times"
+    $("#wakeup-plural")[0].innerHTML = "one of your wakeups"
   }
   if (NUM_SELECTED_DAYS < 1) {
     $("#schedule-button")[0].disabled = true
@@ -260,7 +261,9 @@ const genWakeups = () => {
   else {
     noWakeups.style.display = "block"
   }
+  let totalAmount = 0
   for (const wakeup of data) {
+    totalAmount += wakeup.deposit;
     const ofWeek = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("ddd").toLowerCase().trim()
     localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek, wakeup.time.toString())
     const deposit = (wakeup.deposit / 100).toString()
@@ -357,6 +360,12 @@ const genWakeups = () => {
       depositBox.appendChild(wakeup2xNote)
     }
   }
+
+  $("#total-amount")[0].innerHTML = ("<span>$</span>" + balanceToString(totalAmount))
+}
+
+const balanceToString = (balance = BALANCE) => {
+  return Math.floor(balance / 100).toString() + "." + (balance % 100).toString().padStart(2, "0")
 }
 
 const setExistingWakeups = (data = []) => {
