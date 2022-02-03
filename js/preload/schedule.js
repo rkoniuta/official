@@ -607,3 +607,6 @@ const calcDay2X = () => {
 if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
   calcDay2X()
 }
+
+fetchWakeups()
+fetchCard()

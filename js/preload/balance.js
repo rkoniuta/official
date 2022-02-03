@@ -139,3 +139,5 @@ $(document).ajaxError(() => {
     }
   }, 300)
 })
+
+fetchBalance()

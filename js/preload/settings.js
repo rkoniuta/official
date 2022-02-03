@@ -639,3 +639,5 @@ const fetchTransferStatus = (transfer) => {
     })
   }
 }
+
+fetchHistory()

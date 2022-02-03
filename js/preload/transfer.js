@@ -372,3 +372,5 @@ const confirmTransfer = (onSuccess = () => {}, onError = () => {}) => {
   }
   MODAL.display(elements)
 }
+
+fetchBankData()

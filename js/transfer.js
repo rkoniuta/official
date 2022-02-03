@@ -1,7 +1,5 @@
 setBankData(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "bank") || "{}"))
 
-fetchBankData()
-
 setUSStates()
 
 FEEDBACK.mount($(".content")[0])
