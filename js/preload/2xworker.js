@@ -1,4 +1,4 @@
-(() => {
+const __worker2x = () => {
   const kill2XMode = () => {
     if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
       localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "false")
@@ -68,4 +68,6 @@
   else {
     kill2XMode()
   }
-})()
+}
+
+__worker2x()

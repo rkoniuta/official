@@ -387,7 +387,14 @@ const fetchWakeups = () => {
       xhr.setRequestHeader("Authorization", ID_TOKEN)
     },
     success: (data) => {
+      let setFlag = false
+      if (!(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || []).length) {
+        setFlag = true
+      }
       setWakeups(data.wakeups)
+      if (setFlag) {
+        __worker2x()
+      }
       displayVerified()
       displayIfFailure()
     }
