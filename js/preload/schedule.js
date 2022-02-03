@@ -9,6 +9,8 @@ const DEFAULT_WAKEUP_TIME = 480
 const MIN_WAKEUP_TIME = 300
 const MAX_WAKEUP_TIME = 600
 
+let DAY_2X = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day")) || 0)
+
 const displayTimeNotice = () => {
   const p = document.createElement("p")
   p.innerHTML = "You can only use Paywake to wake up between <b>5 am</b> and <b>10 am</b>."
@@ -47,6 +49,12 @@ const addWakeup = (index) => {
     day, deposit, index,
     time: (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek)) || DEFAULT_WAKEUP_TIME)
   }
+  if (IS_2X && day === DAY_2X) {
+    wakeup.is2x = true
+  }
+  else {
+    wakeup.is2x = false
+  }
   WAKEUPS.push(wakeup)
   genWakeups()
 }
@@ -64,7 +72,7 @@ const toggleDay = (obj) => {
   const index = parseInt(obj.id.split("-")[2])
   if (EXISTING_WAKEUPS[index]) {
     if (WAKEUPS_FETCHED) {
-      const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+      const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
       const formattedDay = moment.tz(EPOCH, TIME_ZONE).add(TODAY + 1 + index, "days").format("MMMM Do")
       MODAL.displayHTML("<p>You already have a wakeup scheduled on " + formattedDay + ".</p>")
     }
@@ -92,31 +100,33 @@ const toggleDay = (obj) => {
     $("#deposit-notice").addClass("visible")
     $("#deposit-slider")[0].value = Math.min($("#deposit-slider")[0].value, 10)
     slider($("#deposit-slider")[0])
-    if (IS_2X) {
-      if (NUM_SELECTED_DAYS < 1) {
-        $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup (0)"
-      }
-      else {
-        $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup (1)"
-      }
+    if (IS_2X && SELECTED_DAYS[TOGGLE_2X_INDEX] === true && NUM_SELECTED_DAYS > 0) {
+      $("#schedule-button")[0].innerHTML = "Schedule <span class='twoX'>2X</span> Wakeup"
     }
     else {
       $("#schedule-button")[0].innerHTML = "Schedule Wakeup"
     }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Time"
+    $("#wakeup-plural")[0].innerHTML = "your wakeup"
   }
   else {
     $("#deposit-slider").removeClass("limited")
     $("#deposit-notice").removeClass("visible")
     $("#deposit-slider")[0].value = (parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "deposit")) || 10)
     slider($("#deposit-slider")[0])
-    if (IS_2X) {
-      $("#schedule-button")[0].innerHTML = ("Schedule <span class='twoX'>2X</span> Wakeups (" + NUM_SELECTED_DAYS.toString() + ")")
+    if (IS_2X && SELECTED_DAYS[TOGGLE_2X_INDEX] === true) {
+      if (NUM_SELECTED_DAYS === 2) {
+        $("#schedule-button")[0].innerHTML = ("Schedule 1 Wakeup + <span class='twoX'>2X</span> Wakeup")
+      }
+      else {
+        $("#schedule-button")[0].innerHTML = ("Schedule " + (NUM_SELECTED_DAYS - 1).toString() + " Wakeups + <span class='twoX'>2X</span> Wakeup")
+      }
     }
     else {
-    $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
+      $("#schedule-button")[0].innerHTML = ("Schedule " + NUM_SELECTED_DAYS.toString() + " Wakeups")
     }
     $("#wakeup-times-subtitle")[0].innerHTML = "Select Wakeup Times"
+    $("#wakeup-plural")[0].innerHTML = "one of your wakeups"
   }
   if (NUM_SELECTED_DAYS < 1) {
     $("#schedule-button")[0].disabled = true
@@ -192,12 +202,13 @@ const adjustHourInput = (obj) => {
   }
 }
 
+let TOGGLE_2X_INDEX = (-1)
 const initDays = () => {
   const container = document.getElementById("day-container")
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   for (let i = 0; i < 6; i++) {
     let m = moment().add(i + 1, "days").subtract(2, "hours")
-    let day = m.format("DD").toString().trim()
+    let day = m.format("D").toString().trim()
     let month = m.format("MMM").toUpperCase().trim()
     let ofWeek = m.format("ddd").trim()
     if (i === 0) {
@@ -215,6 +226,10 @@ const initDays = () => {
     ofWeek = (ofWeekAdd + ofWeek)
     let div = document.createElement("div")
     div.className = "day"
+    if (IS_2X && (TODAY + 1 + i) === DAY_2X) {
+      div.className = "day twox"
+      TOGGLE_2X_INDEX = (i)
+    }
     div.onclick = () => {
       toggleDay(div)
     }
@@ -246,7 +261,10 @@ const genWakeups = () => {
   else {
     noWakeups.style.display = "block"
   }
+  let totalAmount = 0
+  let c = 0
   for (const wakeup of data) {
+    totalAmount += wakeup.deposit;
     const ofWeek = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("ddd").toLowerCase().trim()
     localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-" + ofWeek, wakeup.time.toString())
     const deposit = (wakeup.deposit / 100).toString()
@@ -254,9 +272,14 @@ const genWakeups = () => {
     const minute = (wakeup.time % 60).toString()
     const date = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("MMMM Do")
     const fromNow = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").hour(parseInt(hour)).minute(parseInt(minute)).fromNow()
+    const is2x = wakeup.is2x
 
     let parent = document.createElement("div")
+    parent.id = ("wakeup-" + c.toString())
     parent.className = "wakeup"
+    if (is2x) {
+      parent.className = "wakeup twox"
+    }
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
     if (IS_2X) {
@@ -328,10 +351,29 @@ const genWakeups = () => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
+      depositBox.appendChild(wakeup2xNote)
+    }
+    const node = parent.cloneNode(true)
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (wakeup.is2x) {
+      depositBox.onclick = () => {
+        display2XWakeup(node)
+      }
+    }
+    c++;
   }
+
+  $("#total-amount")[0].innerHTML = ("<span>$</span>" + balanceToString(totalAmount))
+}
+
+const balanceToString = (balance = BALANCE) => {
+  return Math.floor(balance / 100).toString() + "." + (balance % 100).toString().padStart(2, "0")
 }
 
 const setExistingWakeups = (data = []) => {
@@ -339,7 +381,7 @@ const setExistingWakeups = (data = []) => {
     return (a.day - b.day)
   })
   localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data))
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   EXISTING_WAKEUPS = [false, false, false, false, false, false]
   for (let wakeup of data) {
     let index = ((wakeup.day - TODAY) - 1)
@@ -390,21 +432,83 @@ const fetchWakeups = () => {
   })
 }
 
+const fetchCard = () => {
+  $.ajax({
+    url: (API + "/card"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      setCard(data)
+    }
+  })
+}
+
+let USING_CARD_ON_FILE = false;
+let DEFAULT_CARD_ON_FILE = {
+  card: {
+    valid: false,
+  },
+}
+let CARD_ON_FILE = DEFAULT_CARD_ON_FILE
+const setCard = (data = DEFAULT_CARD_ON_FILE) => {
+  localStorage.setItem(LOCAL_STORAGE_TAG + "card", JSON.stringify(data))
+  CARD_ON_FILE = data.card
+  if (CARD_ON_FILE.valid) {
+    $("#last-four")[0].innerHTML = CARD_ON_FILE.last4.toString()
+    $("#card-brand")[0].innerHTML = CARD_ON_FILE.cardType.toString()
+    $(".__payment-alt").removeClass("hidden")
+    $(".__payment").addClass("hidden")
+    if (SAVE_PAYMENT_INFO) {
+      toggleSavePaymentInfo()
+    }
+    USING_CARD_ON_FILE = true;
+  }
+  else if (USING_CARD_ON_FILE) {
+    noCard()
+  }
+}
+
+const noCard = () => {
+  $(".__payment").removeClass("hidden")
+  $(".__payment-alt").addClass("hidden")
+  if (!SAVE_PAYMENT_INFO) {
+    toggleSavePaymentInfo()
+  }
+  USING_CARD_ON_FILE = false;
+}
+
 const schedule = () => {
   if (NUM_SELECTED_DAYS > 0) {
+    $("#__modal-dismiss").addClass("loading")
     $("#schedule-button").addClass("loading")
     let c = 0
     const success = () => {
-      $("#home-button")[0].click()
-    }
-    const error = () => {
-      $("#schedule-button").removeClass("loading")
-      if (c > 0) {
-        MODAL.displayHTML("<p>Server Error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
+      if (NUM_SELECTED_DAYS === 1) {
+        localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-plural", "single")
       }
       else {
-        MODAL.displayHTML("<p>Server Error - your wakeup(s) could not be scheduled.")
+        localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-plural", "plural")
       }
+      leavePage("./scheduled")
+    }
+    const error = () => {
+      $("#__modal-dismiss").removeClass("loading")
+      $("#schedule-button").removeClass("loading")
+      if (c > 0) {
+        MODAL.displayHTML("<p>Server error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
+      }
+      else {
+        MODAL.displayHTML("<p>Server error - your wakeup(s) could not be scheduled.")
+      }
+    }
+    let customerID = ""
+    if (USING_CARD_ON_FILE) {
+      customerID = CARD_ON_FILE.customerID
     }
     const recurse = () => {
       submitToken((token) => {
@@ -416,6 +520,18 @@ const schedule = () => {
           const hour = parseInt(m.get("hour"))
           const minute = parseInt(m.get("minute"))
           const time = ((hour * 60) + minute)
+          const sendData = {
+            token: paymentToken.toString(),
+            time: time,
+            deposit: wakeup.deposit,
+            day: wakeup.day,
+            saveCard: SAVE_PAYMENT_INFO,
+            customerID: customerID,
+            totalScheduled: NUM_SELECTED_DAYS,
+          }
+          if (wakeup.is2x) {
+            sendData.is2x = true
+          }
           $.ajax({
             url: (API + "/schedule"),
             type: "PUT",
@@ -425,13 +541,9 @@ const schedule = () => {
             beforeSend: (xhr) => {
               xhr.setRequestHeader("Authorization", ID_TOKEN)
             },
-            data: {
-              token: paymentToken,
-              time: time,
-              deposit: wakeup.deposit,
-              day: wakeup.day
-            },
+            data: sendData,
             success: (data) => {
+              SAVE_PAYMENT_INFO = false;
               c++;
               if (c === WAKEUPS.length) {
                 success()
@@ -446,6 +558,7 @@ const schedule = () => {
           })
         }
         else {
+          $("#__modal-dismiss").removeClass("loading")
           $("#schedule-button").removeClass("loading")
         }
       })
@@ -454,9 +567,62 @@ const schedule = () => {
   }
 }
 
+const confirmSchedule = () => {
+  if (NUM_SELECTED_DAYS > 0) {
+    submitToken((token) => {
+      if (token) {
+        try {
+          let elements = []
+          let title = document.createElement("h3")
+          title.innerHTML = "Confirm Schedule"
+          elements.push(title)
+          const confirmContainer = document.createElement("div")
+          confirmContainer.id = "confirm-container"
+          for (let wakeup of $(".wakeup-container > .wakeup")) {
+            const clone = wakeup.cloneNode(true)
+            clone.querySelector(".cancel").remove()
+            for (let input of clone.querySelectorAll("input")) {
+              input.setAttribute("readonly", true)
+            }
+            confirmContainer.appendChild(clone)
+          }
+          elements.push(confirmContainer)
+          elements.push($("#total-bar")[0].cloneNode(true))
+          const disclaimer = $("#disclaimer")[0].cloneNode(true)
+          disclaimer.style.marginBottom = ("24px")
+          disclaimer.style.color = ("rgba(0,0,0,0.4)")
+          disclaimer.querySelector("a").remove()
+          elements.push(disclaimer)
+          let group = document.createElement("div")
+          group.className = "button-group"
+          let goback = document.createElement("button")
+          goback.innerHTML = "Go Back"
+          goback.className = "transparent"
+          let confirm = document.createElement("button")
+          confirm.innerHTML = "Confirm"
+          confirm.id = "__modal-dismiss"
+          group.appendChild(goback)
+          group.appendChild(confirm)
+          elements.push(group)
+          goback.onclick = () => {
+            MODAL.hide()
+          }
+          confirm.onclick = () => {
+            schedule()
+          }
+          MODAL.display(elements)
+        }
+        catch (e) {
+          console.log(e)
+        }
+      }
+    })
+  }
+}
+
 const STRIPE_ELEMENTS = stripe.elements({
   fonts: [{
-    cssSrc: "https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap"
+    cssSrc: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap"
   }]
 })
 
@@ -464,8 +630,8 @@ const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
   style: {
     base: {
       fontSize: "16px",
-      fontWeight: "500",
-      fontFamily: "'Urbanist', sans-serif",
+      fontWeight: "400",
+      fontFamily: "'Open Sans', sans-serif",
       color: "black",
       width: "300px",
       background: "transparent",
@@ -478,11 +644,66 @@ const PAYMENT_INFO = STRIPE_ELEMENTS.create('card', {
 })
 
 const submitToken = (callback) => {
-  stripe.createToken(PAYMENT_INFO).then((result) => {
-    if (result.error) {
-      callback(false)
-    } else {
-      callback(result.token)
-    }
-  })
+  if (USING_CARD_ON_FILE) {
+    callback({
+      id: true,
+      card: {
+        id: true,
+      },
+    })
+  }
+  else {
+    stripe.createToken(PAYMENT_INFO).then((result) => {
+      if (result.error) {
+        callback(false)
+      } else {
+        callback(result.token)
+      }
+    })
+  }
 }
+
+let SAVE_PAYMENT_INFO = true
+const toggleSavePaymentInfo = () => {
+  if (SAVE_PAYMENT_INFO) {
+    $("#save-payment-info-checkbox").removeClass("checked")
+    SAVE_PAYMENT_INFO = false
+  }
+  else {
+    $("#save-payment-info-checkbox").addClass("checked")
+    SAVE_PAYMENT_INFO = true
+  }
+}
+
+const calcDay2X = () => {
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
+  DAY_2X = (TODAY + 1)
+  localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", DAY_2X)
+}
+
+if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
+  calcDay2X()
+}
+
+const display2XWakeup = (node) => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/lightning.png"
+  img.style.marginBottom = "32px"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
+  title.style.marginBottom = "20px"
+  let text = document.createElement("p")
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a>"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
+}
+
+fetchWakeups()
+fetchCard()

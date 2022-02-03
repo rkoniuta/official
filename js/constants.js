@@ -1,6 +1,6 @@
 const YEAR = (new Date()).getFullYear()
 
-const API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/dev"
+let API = "https://sf7d6paxe6.execute-api.us-east-1.amazonaws.com/prod"
 const ESTIMATED_RETURN = 10
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
@@ -8,10 +8,29 @@ const SLIDER_DURATION_MS = 1200
 const DARKNESS_THRESHOLD = 51 //out of 255
 const FOUNDING_USER_THRESHOLD = 10000
 const DIAMOND_USER_THRESHOLD = 500
+const CODE_SEND_BUFFER = 700 //in ms
 const TIME_ZONE = "America/Los_Angeles"
 const EPOCH = [1970, 0, 1]
 const LOCAL_STORAGE_TAG = "__paywake-"
+const TWOX_WAKEUP_DESC = "2X money"
+const ANTI_CLEARS = [ //Local storage which isn't cleared on logout
+  "earnings",
+  "copysheet-byId",
+  "copysheet-byPage",
+  "wakeup-sun",
+  "wakeup-mon",
+  "wakeup-tue",
+  "wakeup-wed",
+  "wakeup-thu",
+  "wakeup-fri",
+  "wakeup-sat",
+]
+const NOTIFICATION_STRING_2X = "2xnotify"
 let IS_2X = false
+
+if (window.location.origin === "https://dev.paywake.net" && !(new URLSearchParams(window.location.search)).get("prod")) {
+  API = "https://0zynwo3qw4.execute-api.us-east-1.amazonaws.com/dev"
+}
 
 const IS_IOS = (
   (/iPad|iPhone|iPod/.test(navigator.platform) ||
@@ -25,12 +44,7 @@ const REDIRECTS = {
   noAuth: "./login"
 }
 
-if (JSON.parse(localStorage.getItem("__paywake-dev"))) {
-  const add = ("?" + (new URL(window.location.href)).searchParams.toString())
-  for (let key in REDIRECTS) {
-    REDIRECTS[key] = (REDIRECTS[key] + add)
-  }
-}
+console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
 
 const cleanPhone = (string) => {
   return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
@@ -127,7 +141,7 @@ const __EMOJIS = {};
   }
 
   //EMOJI HOLIDAYS
-  setEmojiDate("FEB", 14, "💕")
+  //setEmojiDate("FEB", 14, "💕")
   setEmojiDate("MAR", 17, "☘️")
   setEmojiDate("JUL",  4, "🇺🇸")
   setEmojiDate("OCT", 31, "🎃")
@@ -168,8 +182,14 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
     else if (__TWOX_MODE_PAGE === "settings") {
       $(".toolbar")[0].childNodes[5].querySelector("img").src = "assets/images/settings-2xmode.png"
     }
-    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial") {
+    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "faq") {
       $("#sun")[0].src = "assets/images/sun-192-green.png"
     }
   })
 }
+
+$(document).ready(() => {
+  try {
+    $("#__YEAR")[0].innerHTML = YEAR.toString()
+  } catch (e) {}
+})

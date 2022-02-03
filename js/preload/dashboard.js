@@ -62,16 +62,16 @@ const estimateAlert = () => {
   const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
   const returns =  (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
   const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0")))
-  let add = "the last 30 days of Paywake user data."
+  let add = "the last 30 days of Paywake user data"
   if (RETURN_TOGGLE === 1) {
     if (YESTERDAY_FLAG) {
-      add = "yesterday's Paywake user data."
+      add = "yesterday's Paywake user data"
     }
     else {
-      add = "today's Paywake user data."
+      add = "today's Paywake user data"
     }
   }
-  const text = ("This $" + dollarString + " average return is based on " + add)
+  const text = ("This $" + dollarString + " average return is based on " + add + " and includes both the extra payment and refunded deposit amounts.")
   MODAL.hide()
   MODAL.displayHTML("<p>" + text + "</p>")
 }
@@ -260,23 +260,27 @@ const setWakeups = (data = []) => {
     noWakeups.style.display = "block"
   }
   for (const wakeup of data) {
-    const deposit = (wakeup.deposit / 100).toString()
+    let deposit = (wakeup.deposit / 100).toString()
     const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
     const hour = m.format("h")
     const minute = m.format("mm")
     const date = m.format("MMMM Do")
     const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
-    const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
+    const missed = ((m.add(3, "minutes").diff(moment()) < 0) && !wakeup.verified)
+    const is2x = wakeup.is2x
+    if (is2x) {
+      deposit /= 2
+    }
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
     parent.className = "wakeup"
+    if (is2x) {
+      parent.className = "wakeup twox"
+    }
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
-    if (IS_2X) {
-      depositContainer.className = "deposit-container __twox-mode"
-    }
     let depositBox = document.createElement("div")
     depositBox.className = "deposit"
     let h1 = document.createElement("h1")
@@ -329,10 +333,21 @@ const setWakeups = (data = []) => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
+      depositBox.appendChild(wakeup2xNote)
+    }
     const node = parent.cloneNode(true)
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (wakeup.is2x && !wakeup.verified && !missed) {
+      depositBox.onclick = () => {
+        display2XWakeup(node)
+      }
+    }
 
     if (wakeup.verified) {
       button.onclick = () => {
@@ -361,7 +376,14 @@ const fetchEarnings = () => {
     url: (API + "/earnings"),
     type: "GET",
     success: (data) => {
-      setEarnings(data)
+      if (document.readyState === "complete") {
+        setEarnings(data)
+      }
+      else {
+        window.addEventListener("load", () => {
+          setEarnings(data)
+        })
+      }
     }
   })
 }
@@ -377,8 +399,25 @@ const fetchWakeups = () => {
       xhr.setRequestHeader("Authorization", ID_TOKEN)
     },
     success: (data) => {
+      let setFlag = false
+      if (!(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || []).length) {
+        setFlag = true
+      }
       setWakeups(data.wakeups)
+      if (setFlag) {
+        __worker2x()
+      }
       displayVerified()
+      if (localStorage.getItem(LOCAL_STORAGE_TAG + "stale") !== null) {
+        if (document.readyState === "complete") {
+          displayIfFailure()
+        }
+        else {
+          window.addEventListener("load", () => {
+            displayIfFailure()
+          })
+        }
+      }
     }
   })
 }
@@ -397,6 +436,111 @@ const displayVerified = () => {
     window.history.replaceState(null, null, window.location.pathname + devAdd)
     document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
   }
+}
+
+const displayIfFailure = () => {
+  const url = new URL(window.location.href)
+  if (url.searchParams.get(NOTIFICATION_STRING_2X)) {
+    const wakeupID = decodeURIComponent(url.searchParams.get("id"))
+    url.searchParams.delete(NOTIFICATION_STRING_2X)
+    url.searchParams.delete("id")
+    window.history.replaceState(null, null, url.toString())
+    MODAL.hide = () => {
+      if (MODAL.visible) {
+        MODAL.visible = false
+        const backdrop = document.getElementById("__modal-backdrop")
+        const container = document.getElementById("__modal-container")
+        $(backdrop).removeClass("visible")
+        $(container).removeClass("visible")
+        setTimeout(() => {
+          backdrop.className = ""
+          setTimeout(() => {
+            display2XMode()
+          }, 50)
+        }, 650)
+        try {
+          $("#__modal-canvas")[0].remove()
+        } catch (e) {}
+      }
+    }
+    document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+  }
+}
+
+let HAS_DISPLAYED_2X_MODE = false
+const display2XMode = () => {
+  if (!HAS_DISPLAYED_2X_MODE) {
+    MODAL.hide = () => {
+      if (MODAL.visible) {
+        MODAL.visible = false
+        const backdrop = document.getElementById("__modal-backdrop")
+        const container = document.getElementById("__modal-container")
+        $(backdrop).removeClass("visible")
+        $(container).removeClass("visible")
+        setTimeout(() => {
+          backdrop.className = ""
+        }, 650)
+        try {
+          $("#__modal-canvas")[0].remove()
+        } catch (e) {}
+      }
+    }
+    HAS_DISPLAYED_2X_MODE = true
+    let elements = []
+    let center = document.createElement("div")
+    center.className = "center"
+    let img = document.createElement("img")
+    img.src = "assets/images/lightning.png"
+    img.style.width = "96px"
+    img.style.height = "96px"
+    img.style.marginBottom = "32px"
+    center.appendChild(img)
+    let title = document.createElement("h3")
+    title.innerHTML = "You've got <span class='twoX'>2X</span> for the day"
+    let text = document.createElement("p")
+    text.innerHTML = "Woke up late? We know the feeling.<br><br>That's why we're giving you <b><span class='twoX'>2X</span></b> rewards for the day. This means you'll be paid double when you wake up tomorrow. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a><br><br>"
+    elements.push(center)
+    elements.push(title)
+    elements.push(text)
+    let group = document.createElement("div")
+    group.className = "button-group"
+    let goback = document.createElement("button")
+    goback.innerHTML = "Dismiss"
+    goback.className = "transparent"
+    let confirm = document.createElement("button")
+    confirm.innerHTML = "Schedule a <span class='twoX'>2X</span> Wakeup"
+    confirm.id = "__modal-dismiss"
+    group.appendChild(goback)
+    group.appendChild(confirm)
+    elements.push(group)
+    goback.onclick = () => {
+      MODAL.hide()
+    }
+    confirm.onclick = () => {
+      leavePage("./schedule")
+    }
+    MODAL.display(elements)
+  }
+}
+
+const display2XWakeup = (node) => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/lightning.png"
+  img.style.marginBottom = "32px"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
+  title.style.marginBottom = "20px"
+  let text = document.createElement("p")
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a>"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
 }
 
 let MADE_CHART = false
@@ -615,3 +759,6 @@ const genEarningsChart = (data) => {
     }
   }
 }
+
+fetchEarnings()
+fetchWakeups()

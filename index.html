@@ -54,12 +54,18 @@
     <link rel="stylesheet" href="https://onload.paywake.net/package/dev.css">
     <script src="https://onload.paywake.net/package/dev.js"></script>
 
+    <!--COGNITO-->
+    <script src="js/aws/sdk.min.js"></script>
+    <script src="js/aws/cognito.min.js"></script>
+    <script src="js/aws/identity.min.js"></script>
+
     <!--MOMENTJS-->
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
+    <script src="js/auth/auth.js"></script>
     <script src="js/preload/copysheet.js"></script>
     <script src="js/preload/index.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-192.png" media="(max-width: 192px)">
@@ -79,7 +85,7 @@
   </head>
   <body>
     <!--CONTENT-->
-    <div class="header">
+    <div class="header blur">
       <a href="./" class="logo">
         <img id="sun" src="assets/images/sun-192.png">
         <h1>Paywake</h1>
@@ -113,19 +119,19 @@
           <small>Tonight</small>
           <small>Tomorrow</small>
         </div>
-        <input class="slider" type="range" value="30" min="5" max="100" onchange="slider(this)" oninput="slider(this)">
+        <input class="slider" type="range" value="30" min="5" max="99" onchange="slider(this)" oninput="slider(this)">
         <div class="range bounds">
           <small>$5 USD</small>
-          <small>$100</small>
+          <small>$99</small>
         </div>
         <br><br>
         <div class="middle">
-          <a href="./create"><button class="full-width">Schedule a Wakeup</button></a>
+          <a onclick="scheduleClick()"><button class="full-width">Schedule a Wakeup</button></a>
         </div>
       </div>
       <div class="footer-container">
         <div class="footer">
-          <p>&copy; 2022 Paywake Corporation</p>
+          <p>&copy; <span id="__YEAR">--</span> Paywake Corporation</p>
           <div class="wrapper">
             <a href="mailto:hello@paywake.net">Contact Us</a>
             <a href="mailto:press@paywake.net">Press</a>

@@ -68,16 +68,21 @@
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 
+    <!--CONFETTI-->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
+    <script src="js/us-states.js"></script>
     <script src="js/preload/copysheet.js"></script>
-    <script src="js/preload/balance.js"></script>
     <script src="js/preload/modal.js"></script>
-    <script src="js/preload/transfer.js"></script>
     <script src="js/preload/feedback.js"></script>
     <script src="js/auth/logged-in-only.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/auth/routines.js"></script>
+    <script src="js/preload/2xworker.js"></script>
+    <script src="js/preload/balance.js"></script>
+    <script src="js/preload/transfer.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-transparent-192.png" media="(max-width: 192px)">
 
     <!--TITLE-->
@@ -125,7 +130,7 @@
         <p class="subtitle">Select Amount</p>
         <h1>
           <span class="dollar-sign">$</span>
-          <input inputmode="numeric" pattern="[0-9]*" type="text" id="transfer-amount" value="5" maxlength="2" onblur="transferInput(this)" onkeydown="adjustTransferInput(this)" onkeyup="adjustTransferInput(this)" onpaste="adjustTransferInput(this)">
+          <input inputmode="decimal" pattern="[0-9]*" type="text" id="transfer-amount" value="5" maxlength="2" onblur="transferInput(this)" onkeydown="adjustTransferInput(this)" onkeyup="adjustTransferInput(this)" onpaste="adjustTransferInput(this)">
         </h1>
       </div>
       <input id="transfer-slider" class="slider" type="range" value="0" min="0" max="1" onchange="slider(this, true)" oninput="slider(this, true)">
@@ -146,10 +151,40 @@
         </div>
       </div>
       <br>
-      <p class="subtitle" id="details-title">Bank Account Details</p>
-      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="phone" type="text" id="phone" class="phone" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)">
+      <div class="between">
+        <p class="subtitle" id="details-title">Bank Account Details</p>
+        <button class="__bank-alt hidden" style="min-width: 176px;" onclick="showBankForm()">Change Account</button>
+      </div>
+      <input spellcheck="false" type="text" id="personal-name" class="__bank" placeholder="Legal Name" maxlength="100" onblur="verifyText(this)">
+      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" name="phone" type="text" id="phone" class="phone __venmo" placeholder="(123) 456-7890" maxlength="14" onkeyup="phoneFormatter(this)" onpaste="phoneFormatter(this)" onblur="verifyPhone(this)">
+      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" type="text" id="account-number" class="__bank" placeholder="Account Number" maxlength="17" onblur="verifyText(this)">
+      <input inputmode="numeric" pattern="[0-9]*" spellcheck="false" type="text" id="routing-number" class="__bank" placeholder="9-Digit Routing Number" maxlength="9" onblur="verifyText(this)">
+      <select class="__bank" onchange="this.dataset.chosen = this.value;" data-chosen="" id="account-type" onblur="verifyText(this)">
+        <option disabled selected value="">Account Type</option>
+        <option value="personalChecking">Personal Checking</option>
+        <option value="personalSavings">Personal Savings</option>
+        <option value="businessChecking">Business Checking</option>
+        <option value="businessSavings">Business Savings</option>
+      </select>
+      <br class="__bank">
+      <p class="subtitle __bank">U.S. Address Details</p>
+      <input spellcheck="false" type="text" id="address-line-1" class="__bank" placeholder="Address" maxlength="46" onblur="verifyText(this)">
+      <input spellcheck="false" type="text" id="address-line-2" class="__bank" placeholder="Apartment, suite, etc." maxlength="46">
+      <input spellcheck="false" type="text" id="address-city" class="__bank" placeholder="City" maxlength="50" onblur="verifyText(this)">
+      <select class="__bank" onchange="this.dataset.chosen = this.value;" data-chosen="" id="address-state" onblur="verifyText(this)">
+        <option disabled selected value="">State</option>
+      </select>
+      <input spellcheck="false" type="text" id="address-postal" class="__bank" placeholder="Zip Code" maxlength="5" onblur="verifyPostal(this)">
+      <p class="__bank-alt hidden left">
+        <span id="__bank-personal-name">--</span>
+        <br>
+        <span id="__bank-account-name">--</span>
+        <br>
+        <span id="__bank-name">--</span>
+      </p>
       <br>
-      <button class="full-width" id="transfer-button">Transfer $0.00</button>
+      <button class="full-width" id="transfer-button" onclick="transfer()">Transfer $0.00</button>
+      <p class="notice __venmo">$0.25 fee applied to transfer amount</p>
     </div>
     <div class="toolbar-container">
       <div class="toolbar">

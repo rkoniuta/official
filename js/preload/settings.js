@@ -1,5 +1,6 @@
 const LOCAL_TIME_ZONE = moment.tz.guess()
 let HISTORY = []
+let FLAT_HISTORY = []
 
 const logout = () => {
   let elements = []
@@ -82,6 +83,7 @@ const addAward = (src, _title, _text) => {
 const setHistory = (data) => {
   localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data))
   HISTORY = data
+  FLAT_HISTORY = JSON.parse(JSON.stringify(data))
   $("#awards")[0].innerHTML = ("")
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
@@ -103,6 +105,7 @@ const setHistory = (data) => {
       if (!hasAwards) {
         $("#awards-stat")[0].remove()
       }
+      break;
     }
   }
   let totalScheduled = 0
@@ -143,10 +146,13 @@ const updateName = (obj) => {
 const genWakeups = () => {
   const container = document.getElementById("wakeup-container")
   container.innerHTML = ""
+  $("#transfer-container")[0].innerHTML = ""
   const wakeups = []
   const wakeupIDs = []
   const verifies = []
   const payments = []
+  const transfers = []
+  const set2xs = []
   HISTORY.sort((a,b) => {
     return (moment(b.time).diff(moment(a.time)))
   })
@@ -164,6 +170,14 @@ const genWakeups = () => {
     else if (item.data.event === "PAID") {
       payments.push(item.data.data)
     }
+    else if (item.data.event === "TRANSFER") {
+      if (item.data.data.success) {
+        transfers.push(item)
+      }
+    }
+    else if (item.data.event === "SET2X") {
+      set2xs.push(item.data.data.id)
+    }
   }
   for (let id of verifies) {
     try {
@@ -173,6 +187,11 @@ const genWakeups = () => {
   for (let payment of payments) {
     try {
       wakeups[wakeupIDs.indexOf(payment.id)].paid = payment.amount
+    } catch (e) {}
+  }
+  for (let id of set2xs) {
+    try {
+      wakeups[wakeupIDs.indexOf(id)].is2x = true
     } catch (e) {}
   }
   for (let item of HISTORY) {
@@ -188,6 +207,9 @@ const genWakeups = () => {
   }
   wakeups.sort((a,b) => {
     return (b.day - a.day)
+  })
+  transfers.sort((a,b) => {
+    return (moment(b.time).diff(moment(a.time)))
   })
   for (const wakeup of wakeups) {
     wakeup.events.sort((a,b) => {
@@ -205,7 +227,7 @@ const genWakeups = () => {
       }
     }
 
-    const deposit = (wakeup.deposit / 100).toString()
+    let deposit = (wakeup.deposit / 100).toString()
     const m = moment.tz(EPOCH, TIME_ZONE).add(wakeup.day, "days").add(Math.floor(wakeup.time / 60), "hours").add(wakeup.time % 60, "minutes").tz(LOCAL_TIME_ZONE)
     const hour = m.format("h")
     const minute = m.format("mm")
@@ -213,10 +235,14 @@ const genWakeups = () => {
     const ampm = m.format("a").toLowerCase()
     const fromNow = m.fromNow()
     const missed = ((m.add(3, "minutes").add(10, "seconds").diff(moment()) < 0) && !wakeup.verified)
+    const is2x = wakeup.is2x
 
     let parent = document.createElement("div")
     parent.id = ("wakeup-" + wakeup.id)
     parent.className = "wakeup"
+    if (is2x) {
+      parent.className = "wakeup twox"
+    }
     let depositContainer = document.createElement("div")
     depositContainer.className = "deposit-container"
     if (IS_2X) {
@@ -279,10 +305,21 @@ const genWakeups = () => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
+      depositBox.appendChild(wakeup2xNote)
+    }
     const node = parent.cloneNode(true)
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (wakeup.is2x && !wakeup.verified && !missed) {
+      depositBox.onclick = () => {
+        display2XWakeup(node)
+      }
+    }
 
     if (wakeup.verified) {
       button.onclick = () => {
@@ -348,6 +385,61 @@ const genWakeups = () => {
   }
   else {
     $("#wakeup-container")[0].childNodes[$("#wakeup-container")[0].childNodes.length - 1].remove()
+  }
+  for (let transfer of transfers) {
+    if (!transfer.data.data.type) {
+      transfer.data.data.type = ("BANK")
+    }
+    let p = document.createElement("p")
+    p.className = "transfer-event"
+    if ((transfer.data.data.status || "pending") === "pending") {
+      p.className = "transfer-event pending"
+    }
+    let pText = ("<b>" + moment(transfer.time).format("MM/DD/YYYY") + " @ " + moment(transfer.time).format("h:mma") + "</b> &mdash; ")
+    if (transfer.data.data.type === "BANK") {
+      pText += (
+        "$" +
+        balanceToString(parseInt(transfer.data.data.amount)) +
+        " transferred to " +
+        transfer.data.data.bankName +
+        " " +
+        (
+          transfer.data.data.accountType
+          .replace("personalChecking","Personal Checking")
+          .replace("personalSavings","Personal Savings")
+          .replace("businessChecking","Business Checking")
+          .replace("businessSavings","Business Savings")
+        ) +
+        " " +
+        transfer.data.data.last4.toString() +
+        "&nbsp; <span class='transfer-id'>" +
+        transfer.data.data.id +
+        "</span>" +
+        " <span class='transfer-status " +
+        (transfer.data.data.status || "pending") +
+        "'>" +
+        (transfer.data.data.status || "pending").replace("failed", "Failed, Balance Refunded").replace("sent", "Complete") +
+        "</span>"
+      )
+    }
+    else {
+      pText += ("$" + balanceToString(parseInt(transfer.data.data.amount) - 25) + " to transferred Venmo account <span class='transfer-id'>" + transfer.data.data.id + "</span>")
+    }
+    p.innerHTML = pText
+    const pSpan = p.querySelector("span")
+    pSpan.onclick = () => {
+      selectID(pSpan)
+    }
+    $("#transfer-container")[0].appendChild(p)
+    if ((transfer.data.data.status || "pending") === "pending" && transfer.data.data.success) {
+      fetchTransferStatus(transfer)
+    }
+  }
+  if (!transfers.length) {
+    let p = document.createElement("p")
+    p.id = "transfer-empty"
+    p.innerHTML = "Nothing to see here. <a class='gradient' href='./transfer'>Make a transfer</a>"
+    $("#transfer-container")[0].appendChild(p)
   }
 }
 
@@ -433,8 +525,8 @@ const balanceToString = (balance = BALANCE) => {
   return Math.floor(balance / 100).toString() + "." + (balance % 100).toString().padStart(2, "0")
 }
 
-const selectAccountID = () => {
-  const newSelection = $("#account-id")[0]
+const selectID = (obj) => {
+  const newSelection = obj
   const selection = window.getSelection()
   const range = document.createRange()
   range.setStartBefore(newSelection)
@@ -443,7 +535,6 @@ const selectAccountID = () => {
   selection.addRange(range)
   document.execCommand("copy")
 }
-
 
 const cancelWakeup = (wakeup, node) => {
   const balance = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "balance"))
@@ -509,5 +600,72 @@ const cancelWakeup = (wakeup, node) => {
 }
 
 const numberWithCommas = (n) => {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
+
+const setTransferStatus = (transfer, data) => {
+  const ORIGINAL_STATUS = transfer.data.data.status
+  for (let index in FLAT_HISTORY) {
+    if (FLAT_HISTORY[index].data.data.event === "TRANSFER") {
+      if (FLAT_HISTORY[index].data.data.id === transfer.data.data.id) {
+        FLAT_HISTORY[index].data.data.status = data.status
+      }
+    }
+  }
+  setHistory(FLAT_HISTORY)
+  if (data.status === "failed") {
+    fetchBalance()
+  }
+  if (data.status !== ORIGINAL_STATUS) {
+    fetchHistory()
+  }
+}
+
+let FETCHED_TRANSFER_STATUSES = []
+const fetchTransferStatus = (transfer) => {
+  if (!FETCHED_TRANSFER_STATUSES.includes(transfer.data.data.id)) {
+    FETCHED_TRANSFER_STATUSES.push(transfer.data.data.id)
+    $.ajax({
+      url: (API + "/transferStatus"),
+      type: "PUT",
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", ID_TOKEN)
+      },
+      data: {
+        data: JSON.stringify(transfer.data),
+        id: transfer.id,
+        time: transfer.time,
+      },
+      success: (data) => {
+        setTimeout(() => {
+          setTransferStatus(transfer, data)
+        }, 300)
+      }
+    })
+  }
+}
+
+const display2XWakeup = (node) => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/lightning.png"
+  img.style.marginBottom = "32px"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
+  title.style.marginBottom = "20px"
+  let text = document.createElement("p")
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a>"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
+}
+
+fetchHistory()

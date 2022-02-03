@@ -1,4 +1,4 @@
-const SCREENS = 5
+const SCREENS = 6
 let SCREEN = 0
 
 const setScreen = (n) => {
@@ -20,7 +20,7 @@ const setScreen = (n) => {
   if (SCREEN === 2) {
     sliderInit(document.getElementById("estimate-slider"))
   }
-  if (SCREEN === 4) {
+  if (SCREEN === 5) {
     $("#continue")[0].innerHTML = ("Finish Tutorial")
     $("#continue").addClass("gradient")
   }
@@ -28,6 +28,7 @@ const setScreen = (n) => {
     $("#continue")[0].innerHTML = ("Continue")
     $("#continue").removeClass("gradient")
   }
+  $("#progress-bar")[0].style.width = ((100 - Math.round((SCREEN / (SCREENS - 1)) * 100)).toString() + "vw")
   setTimeout(() => {
     try {
       $("#screen-" + SCREEN.toString() + "-input")[0].focus()

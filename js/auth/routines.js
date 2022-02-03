@@ -68,16 +68,27 @@ const ROUTINES = {
 
   //LOGOUT
   logout: () => {
+    const redirect = () => {
+      const anticlears = {}
+      for (let anticlear of ANTI_CLEARS) {
+        if (localStorage.getItem(LOCAL_STORAGE_TAG + anticlear) !== null) {
+          anticlears[anticlear] = localStorage.getItem(LOCAL_STORAGE_TAG + anticlear)
+        }
+      }
+      localStorage.clear()
+      for (let anticlear in anticlears) {
+        localStorage.setItem(LOCAL_STORAGE_TAG + anticlear, anticlears[anticlear])
+      }
+      window.location.href = REDIRECTS.home
+    }
     if (USER != null) {
       USER.getSession((err, session) => {
         USER.globalSignOut({
           onSuccess: (data) => {
-            localStorage.clear()
-            window.location.href = REDIRECTS.home
+            redirect()
           },
           onFailure: (err) => {
-            localStorage.clear()
-            window.location.href = REDIRECTS.home
+            redirect()
           }
         })
       })

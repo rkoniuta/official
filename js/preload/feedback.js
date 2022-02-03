@@ -1,3 +1,10 @@
+const __FOOTER_LINKS = {
+  "FAQ": "./faq",
+  "Tutorial": "./tutorial",
+  "Terms": "",
+  "Support": "mailto:support@paywake.net",
+}
+
 const FEEDBACK = {
   container: false,
   mount: (root) => {
@@ -35,6 +42,15 @@ const FEEDBACK = {
     }
     root.appendChild(container)
     FEEDBACK.container = container
+    const footer = document.createElement("div")
+    footer.id = "__FEEDBACK-footer"
+    for (let key in __FOOTER_LINKS) {
+      const a = document.createElement("a")
+      a.innerHTML = key
+      a.href = __FOOTER_LINKS[key]
+      footer.appendChild(a)
+    }
+    root.appendChild(footer)
   },
   negative: (factor = 1) => {
     MODAL.hide()

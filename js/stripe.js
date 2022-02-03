@@ -1,2 +1,3 @@
-const stripe = Stripe("pk_test_51JUdOkLpUT5ZEdXBfLc7zrtfyF0ZExQDolGH78FwUuRIC3O2qPalOclEL8mCNISHrXhGuxNA7mX17ARbY28hsvMT00QUcJY6MC")
+//const stripe = Stripe("pk_test_51JUdOkLpUT5ZEdXBfLc7zrtfyF0ZExQDolGH78FwUuRIC3O2qPalOclEL8mCNISHrXhGuxNA7mX17ARbY28hsvMT00QUcJY6MC")
+const stripe = Stripe("pk_live_51JUdOkLpUT5ZEdXBwemtdnAbiHF7oMdQTeLQlWaR9joaYYU9bhGOvfYJhPwc20TA27X2siOEhwTzWGbkYTA6B0Yh00jPLRltI7")
 const STRIPE = stripe

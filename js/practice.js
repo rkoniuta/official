@@ -1,4 +1,4 @@
-if (localStorage.getItem(LOCAL_STORAGE_TAG + "tutorial-mode").toString() === "true") {
+if (localStorage.getItem(LOCAL_STORAGE_TAG + "tutorial-mode") === "true") {
   $("#back-button")[0].innerHTML = ("<button>Go Back</button>")
   $("#back-button")[0].href = ("./tutorial")
 }

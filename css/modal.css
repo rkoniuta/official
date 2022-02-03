@@ -42,9 +42,9 @@
   align-content: center;
   padding: 36px 0px;
   bottom: calc(-70vh - 1px);
-  max-height: 70vh;
-  transition: bottom ease 0.5s;
-  -webkit-transition: bottom ease 0.5s;
+  max-height: 75vh;
+  transition: bottom ease 0.5s, top ease 0.5s;
+  -webkit-transition: bottom ease 0.5s, top ease 0.5s;
 }
 
 #__modal-container.visible {
@@ -54,6 +54,7 @@
 #__modal {
   width: min(calc(60vw + 75px), calc(60vh + 150px));
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 #__modal > h3 {
@@ -67,7 +68,7 @@
 }
 
 #__modal > p {
-  opacity: 0.6;
+  color: rgba(0,0,0,0.6);
   font-weight: 400;
   font-size: 16px;
 }
@@ -114,4 +115,14 @@
   #__modal-backdrop.on.visible {
     opacity: 1 !important;
   }
+}
+
+#__modal-canvas {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  position: fixed;
 }

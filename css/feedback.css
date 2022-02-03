@@ -118,3 +118,33 @@
 #__FEEDBACK-sorry-input[invalid=true] {
   border-color: red;
 }
+
+#__FEEDBACK-footer {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 16px;
+  margin-bottom: 0px;
+}
+
+#__FEEDBACK-footer > a {
+  margin: 0px 10px;
+  font-weight: 600;
+  border-bottom: 0px solid #dfe3e7;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: bold;
+  color: rgba(0,0,0,0.2);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color linear 0.1;
+  -webkit-transition: color linear 0.1;
+}
+
+#__FEEDBACK-footer > a:hover {
+  color: rgba(0,0,0,0.4);
+}

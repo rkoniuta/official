@@ -11,7 +11,7 @@ $("input").on("keyup", (e) => {
 SCREEN = (-1)
 
 const localScreen = parseInt(localStorage.getItem(LOCAL_STORAGE_TAG + "tutorial-screen"))
-if (localScreen && localScreen !== 4) {
+if (localScreen && localScreen !== 5) {
   setScreen(localScreen)
 }
 else {

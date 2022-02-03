@@ -310,7 +310,7 @@ button.loading {
   background-size: 24px 24px;
   background-position: center;
   background-repeat: no-repeat;
-  color: transparent;
+  color: transparent !important;
 }
 
 button.full-width {
@@ -357,6 +357,10 @@ button.full-width {
   box-shadow: inset 0 0 8px rgba(255,255,255,0.3);
 }
 
+.wakeup.twox {
+  cursor: pointer;
+}
+
 .wakeup > .deposit-container > .deposit {
   width: 72px;
   height: 66px;
@@ -370,7 +374,7 @@ button.full-width {
   background: transparent;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: center;
@@ -385,6 +389,15 @@ button.full-width {
   font-weight: 600;
   color: white;
   letter-spacing: 1px;
+}
+
+.wakeup > .deposit-container > .deposit > p {
+  margin: 0px;
+  font-size: 11px;
+  font-family: 'Open Sans';
+  color: rgba(255,255,255,0.6);
+  margin-top: -4px;
+  margin-bottom: -10px;
 }
 
 .wakeup > .deposit-container > .deposit > h1 > .dollar-sign {
@@ -504,13 +517,19 @@ button:disabled {
   cursor: default;
 }
 
-.wakeup > .info > p > b.__twox-mode {
+h3 > a.__twox-mode {
   background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
 }
 
-.wakeup > .deposit-container.__twox-mode {
+.wakeup.twox > .info > p > b {
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+}
+
+.wakeup.twox > .deposit-container {
   background: rgb(0,179,255);
   background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
   background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
@@ -535,6 +554,15 @@ button.gradient.__twox-mode {
 }
 
 a.gradient.__twox-mode {
+  font-weight: 600;
+  border-bottom: 3px solid #dfe3e7;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  cursor: pointer;
+  text-decoration: none;
   background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
@@ -548,4 +576,85 @@ a.gradient.__twox-mode {
   background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
   background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+}
+
+@supports not ( -moz-appearance:none ) {
+  .header.blur {
+    backdrop-filter: blur(20px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+    background: rgba(255,255,255,0.8) !important;
+  }
+}
+
+div.checkbox {
+  width: 22px;
+  height: 22px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0px;
+  margin-right: 10px;
+  background: transparent;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+div.checkbox.checked {
+  border-width: 0px;
+  background: rgb(102,0,255);
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
+}
+
+div.checkbox > div {
+  background-image: url('../assets/images/checkmark.png');
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity ease 0.1s;
+  -webkit-transition: opacity ease 0.1s;
+}
+
+div.checkbox.checked > div {
+  opacity: 1;
+}
+
+div.checkbox.checked.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
+#progress-bar-background.__twox-mode {
+  background: rgb(0,179,255);
+  background: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  background: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b3ff",endColorstr="#00ff00",GradientType=1);
+}
+
+#__ajax-loader {
+  width: 19px;
+  height: 19px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin-left: 16px;
+  opacity: 0.3;
+  margin-right: -35px;
+  margin-top: -2px;
+  transform: translateY(2px);
 }

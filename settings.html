@@ -67,16 +67,20 @@
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 
+    <!--CONFETTI-->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
     <script src="js/preload/copysheet.js"></script>
-    <script src="js/preload/balance.js"></script>
     <script src="js/preload/modal.js"></script>
-    <script src="js/preload/settings.js"></script>
     <script src="js/preload/feedback.js"></script>
     <script src="js/auth/logged-in-only.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/auth/routines.js"></script>
+    <script src="js/preload/2xworker.js"></script>
+    <script src="js/preload/balance.js"></script>
+    <script src="js/preload/settings.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-transparent-192.png" media="(max-width: 192px)">
 
     <!--TITLE-->
@@ -152,9 +156,12 @@
       </div>
       <h3>Wakeup History</h3>
       <div class="wakeup-container" id="wakeup-container"></div>
+      <h3>Transfer History</h3>
+      <div class="events-container" id="transfer-container">
+      </div>
       <br>
       <p class="stat">Account created on <b><span id="account-birthday">--</span></b></p>
-      <p class="stat">Account ID: <span id="account-id" onclick="selectAccountID()">--</span></p>
+      <p class="stat">Account ID: <span id="account-id" onclick="selectID(this)">--</span></p>
       <br>
     </div>
     <div class="toolbar-container">

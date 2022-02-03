@@ -1,23 +1,15 @@
-#badge {
-  width: 72px;
-  height: 72px;
-  box-sizing: border-box;
-  margin-top: 48px;
+#loader {
+  margin-top: 128px;
+  width: 64px;
+  height: 64px;
 }
 
-.content > h3 {
-  width: min(calc(60vw + 75px), calc(60vh + 150px));
-  text-align: center;
-  margin-top: 24px;
-  margin-bottom: 16px;
-}
-
-.content > p {
-  width: min(calc(60vw + 75px), calc(60vh + 150px));
-  text-align: left;
+#redirect {
+  margin-top: 64px;
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  text-align: center;
 }
 
 a.gradient {

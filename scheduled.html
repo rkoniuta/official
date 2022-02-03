@@ -64,10 +64,10 @@
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
     <script src="js/preload/copysheet.js"></script>
-    <script src="js/preload/balance.js"></script>
     <script src="js/auth/logged-in-only.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/auth/routines.js"></script>
+    <script src="js/preload/balance.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-transparent-192.png" media="(max-width: 192px)">
 
     <!--TITLE-->
@@ -110,8 +110,14 @@
     </div>
     <div id="grab-handle"></div>
     <div class="content">
-      <!--FIXME: Add Content-->
-      <div id="buffer" class="if-ios"></div>
+      <img src="./assets/images/verified.png" id="badge">
+      <h3>See you in the morning!</h3>
+      <p>Your <span id="if-plural">wakeups were</span> successfully scheduled.</p>
+      <p id="__COPYSHEET-tutorial-verification-explanation">At your wake up time, you'll have 3 minutes to log into Paywake and prove you're awake through photo verification.</p>
+      <p>Want some practice? Try out photo verification <a class="gradient" href="./practice">here</a></p>
+      <br>
+      <button class="full-width" onclick="leavePage('./dashboard')">Back to Dashboard</button>
+      <br>
     </div>
     <div class="toolbar-container">
       <div class="toolbar">
@@ -129,5 +135,6 @@
 
     <!--POST-LOAD-->
     <script src="js/balance.js"></script>
+    <script src="js/scheduled.js"></script>
   </body>
 </html>

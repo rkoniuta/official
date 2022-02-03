@@ -22,6 +22,9 @@ const MODAL = {
       setTimeout(() => {
         backdrop.className = ""
       }, 650)
+      try {
+        $("#__modal-canvas")[0].remove()
+      } catch (e) {}
     }
   },
   setContent: (elements = []) => {

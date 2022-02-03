@@ -91,7 +91,7 @@ const createAccount = () => {
           localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (4).toString())
           setTimeout(() => {
             setScreen(4)
-          },1)
+          }, CODE_SEND_BUFFER)
         }
       })
     }, CREATION_DELAY_MS)
@@ -108,12 +108,15 @@ const resend = () => {
 let isVerifying = false
 const verify = () => {
   if (!isVerifying) {
+    $("#verify-button").addClass("loading")
     const codeInput = document.getElementById("screen-3-input")
     if (verifyCode(codeInput)) {
       const code = cleanPhone(codeInput.value)
       isVerifying = true
       ROUTINES.verify(code, (err) => {
+        $("#verify-button").removeClass("loading")
         if (err) {
+          console.log(err)
           codeInput.placeholder = "Incorrect code."
           codeInput.setAttribute("invalid", "true")
           codeInput.value = ""
