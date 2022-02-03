@@ -566,6 +566,9 @@ const confirmSchedule = () => {
           for (let wakeup of $(".wakeup-container > .wakeup")) {
             const clone = wakeup.cloneNode(true)
             clone.querySelector(".cancel").remove()
+            for (let input of clone.querySelectorAll("input")) {
+              input.setAttribute("readonly", true)
+            }
             confirmContainer.appendChild(clone)
           }
           elements.push(confirmContainer)
