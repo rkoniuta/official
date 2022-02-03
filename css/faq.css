@@ -43,6 +43,7 @@
   margin-left: 16px;
   background-image: url("../assets/images/expand.png");
   background-size: cover;
+  flex-shrink: 0;
 }
 
 .faq.expanded > .question > .toggle {
