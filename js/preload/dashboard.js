@@ -688,3 +688,6 @@ const genEarningsChart = (data) => {
     }
   }
 }
+
+fetchEarnings()
+fetchWakeups()

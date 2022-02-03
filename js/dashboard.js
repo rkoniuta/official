@@ -10,5 +10,3 @@ FEEDBACK.mount($(".content")[0])
 
 setEarnings(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "earnings")) || DEFAULT_EARNINGS_DATA)
 setWakeups(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
-fetchEarnings()
-fetchWakeups()
