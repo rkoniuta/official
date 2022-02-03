@@ -482,7 +482,13 @@ const schedule = () => {
     $("#schedule-button").addClass("loading")
     let c = 0
     const success = () => {
-      $("#home-button")[0].click()
+      if (NUM_SELECTED_DAYS === 1) {
+        localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-plural", "single")
+      }
+      else {
+        localStorage.setItem(LOCAL_STORAGE_TAG + "wakeup-plural", "plural")
+      }
+      leavePage("./scheduled")
     }
     const error = () => {
       $("#__modal-dismiss").removeClass("loading")
