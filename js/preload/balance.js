@@ -18,12 +18,13 @@ const fetchBalance = () => {
     },
     success: (data) => {
       let local = localStorage.getItem(LOCAL_STORAGE_TAG + "balance")
-      if (local !== null) {
+      if (local !== null && localStorage.getItem(LOCAL_STORAGE_TAG + "stale") !== null) {
         if ((parseInt(local) < data.balance) && data.balance !== 0) {
           gotPaid(data.balance - parseInt(local))
         }
       }
       setBalance(data.balance)
+      localStorage.setItem(LOCAL_STORAGE_TAG + "stale", "true")
     }
   })
 }
