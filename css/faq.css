@@ -55,7 +55,7 @@
   background-image: url("../assets/images/collapse.png");
 }
 
-.faq > .question:active > h3 {
+.faq > .question:hover > h3 {
   border-color: #dfe3e7;
 }
 
