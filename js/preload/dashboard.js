@@ -467,8 +467,40 @@ const display2XMode = () => {
       }
     }
     HAS_DISPLAYED_2X_MODE = true
-    console.log("2X Mode Modal")
-    //TODO: display
+    let elements = []
+    let center = document.createElement("div")
+    center.className = "center"
+    let img = document.createElement("img")
+    img.src = "assets/images/lightning.png"
+    img.style.width = "96px"
+    img.style.height = "96px"
+    img.style.marginBottom = "32px"
+    center.appendChild(img)
+    let title = document.createElement("h3")
+    title.innerHTML = "You've got <span class='twoX'>2X</span> for the day"
+    let text = document.createElement("p")
+    text.innerHTML = "Woke up late? We know the feeling.<br><br>That's why we're giving you <b><span class='twoX'>2X</span></b> rewards for the day. This means you'll be paid double when you wake up tomorrow.<br><br>"
+    elements.push(center)
+    elements.push(title)
+    elements.push(text)
+    let group = document.createElement("div")
+    group.className = "button-group"
+    let goback = document.createElement("button")
+    goback.innerHTML = "Dismiss"
+    goback.className = "transparent"
+    let confirm = document.createElement("button")
+    confirm.innerHTML = "Schedule a <span class='twoX'>2X</span> Wakeup"
+    confirm.id = "__modal-dismiss"
+    group.appendChild(goback)
+    group.appendChild(confirm)
+    elements.push(group)
+    goback.onclick = () => {
+      MODAL.hide()
+    }
+    confirm.onclick = () => {
+      leavePage("./schedule")
+    }
+    MODAL.display(elements)
   }
 }
 
