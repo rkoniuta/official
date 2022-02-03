@@ -142,3 +142,9 @@ p.subtitle {
   background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6600ff",endColorstr="#ffcc00",GradientType=1);
 }
+
+span.emoji {
+  color: black;
+  font-size: 18px;
+  margin-bottom: -4px;
+}
