@@ -376,7 +376,14 @@ const fetchEarnings = () => {
     url: (API + "/earnings"),
     type: "GET",
     success: (data) => {
-      setEarnings(data)
+      if (document.readyState === "complete") {
+        setEarnings(data)
+      }
+      else {
+        window.addEventListener("load", () => {
+          setEarnings(data)
+        })
+      }
     }
   })
 }
