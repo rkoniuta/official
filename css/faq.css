@@ -113,3 +113,7 @@ a.gradient {
   cursor: pointer;
   text-decoration: none;
 }
+
+p {
+  font-weight: 300;
+}
