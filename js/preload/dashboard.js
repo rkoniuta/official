@@ -333,15 +333,20 @@ const setWakeups = (data = []) => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
+      depositBox.appendChild(wakeup2xNote)
+    }
     const node = parent.cloneNode(true)
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
 
-    if (is2x) {
-      let wakeup2xNote = document.createElement("p")
-      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
-      depositBox.appendChild(wakeup2xNote)
+    if (wakeup.is2x && !wakeup.verified && !missed) {
+      depositBox.onclick = () => {
+        display2XWakeup(node)
+      }
     }
 
     if (wakeup.verified) {
@@ -479,7 +484,7 @@ const display2XMode = () => {
     let title = document.createElement("h3")
     title.innerHTML = "You've got <span class='twoX'>2X</span> for the day"
     let text = document.createElement("p")
-    text.innerHTML = "Woke up late? We know the feeling.<br><br>That's why we're giving you <b><span class='twoX'>2X</span></b> rewards for the day. This means you'll be paid double when you wake up tomorrow.<br><br>"
+    text.innerHTML = "Woke up late? We know the feeling.<br><br>That's why we're giving you <b><span class='twoX'>2X</span></b> rewards for the day. This means you'll be paid double when you wake up tomorrow. <a class='gradient __twox-mode' href='./faq?search=2X%20mode'>Learn more</a><br><br>"
     elements.push(center)
     elements.push(title)
     elements.push(text)
@@ -502,6 +507,26 @@ const display2XMode = () => {
     }
     MODAL.display(elements)
   }
+}
+
+const display2XWakeup = (node) => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/lightning.png"
+  img.style.marginBottom = "32px"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
+  title.style.marginBottom = "20px"
+  let text = document.createElement("p")
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20mode'>Learn more</a>"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
 }
 
 let MADE_CHART = false

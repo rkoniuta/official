@@ -351,9 +351,21 @@ const genWakeups = () => {
     info.appendChild(h3)
     info.appendChild(p)
     parent.appendChild(info)
+    if (is2x) {
+      let wakeup2xNote = document.createElement("p")
+      wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
+      depositBox.appendChild(wakeup2xNote)
+    }
+    const node = parent.cloneNode(true)
     cancel.appendChild(button)
     parent.appendChild(cancel)
     container.appendChild(parent)
+
+    if (wakeup.is2x && !wakeup.verified && !missed) {
+      depositBox.onclick = () => {
+        display2XWakeup(node)
+      }
+    }
 
     if (is2x) {
       let wakeup2xNote = document.createElement("p")
@@ -677,6 +689,26 @@ const calcDay2X = () => {
 
 if (IS_2X && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-day") === null) {
   calcDay2X()
+}
+
+const display2XWakeup = (node) => {
+  let elements = []
+  let center = document.createElement("div")
+  center.className = "center"
+  let img = document.createElement("img")
+  img.src = "assets/images/lightning.png"
+  img.style.marginBottom = "32px"
+  center.appendChild(img)
+  let title = document.createElement("h3")
+  title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
+  title.style.marginBottom = "20px"
+  let text = document.createElement("p")
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20mode'>Learn more</a>"
+  elements.push(center)
+  elements.push(title)
+  elements.push(node)
+  elements.push(text)
+  MODAL.display(elements)
 }
 
 fetchWakeups()
