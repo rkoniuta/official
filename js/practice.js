@@ -3,6 +3,7 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "tutorial-mode").toString() === "tr
   $("#back-button")[0].href = ("./tutorial")
 }
 
+fetchChallenge()
 setInstruction()
 const INIT_VIDEO_INTERVAL = setInterval(() => {
   if (document.getElementById("__modal")) {

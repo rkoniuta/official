@@ -196,5 +196,3 @@ const successful = () => {
   $("#capture-button").removeClass("loading")
   refreshChallenge()
 }
-
-fetchChallenge()
