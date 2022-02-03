@@ -402,7 +402,14 @@ const fetchWakeups = () => {
       }
       displayVerified()
       if (localStorage.getItem(LOCAL_STORAGE_TAG + "stale") !== null) {
-        displayIfFailure()
+        if (document.readyState === "complete") {
+          displayIfFailure()
+        }
+        else {
+          window.addEventListener("load", () => {
+            displayIfFailure()
+          })
+        }
       }
     }
   })
