@@ -262,6 +262,7 @@ const genWakeups = () => {
     noWakeups.style.display = "block"
   }
   let totalAmount = 0
+  let c = 0
   for (const wakeup of data) {
     totalAmount += wakeup.deposit;
     const ofWeek = moment.tz(EPOCH, LOCAL_TIME_ZONE).add(wakeup.day, "days").format("ddd").toLowerCase().trim()
@@ -274,7 +275,7 @@ const genWakeups = () => {
     const is2x = wakeup.is2x
 
     let parent = document.createElement("div")
-    parent.id = ("wakeup-" + wakeup.id)
+    parent.id = ("wakeup-" + c.toString())
     parent.className = "wakeup"
     if (is2x) {
       parent.className = "wakeup twox"
@@ -359,6 +360,7 @@ const genWakeups = () => {
       wakeup2xNote.innerHTML = TWOX_WAKEUP_DESC
       depositBox.appendChild(wakeup2xNote)
     }
+    c++;
   }
 
   $("#total-amount")[0].innerHTML = ("<span>$</span>" + balanceToString(totalAmount))
@@ -484,10 +486,10 @@ const schedule = () => {
     const error = () => {
       $("#schedule-button").removeClass("loading")
       if (c > 0) {
-        MODAL.displayHTML("<p>Server Error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
+        MODAL.displayHTML("<p>Server error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
       }
       else {
-        MODAL.displayHTML("<p>Server Error - your wakeup(s) could not be scheduled.")
+        MODAL.displayHTML("<p>Server error - your wakeup(s) could not be scheduled.")
       }
     }
     let customerID = ""
@@ -547,6 +549,55 @@ const schedule = () => {
       })
     }
     recurse()
+  }
+}
+
+const confirmSchedule = () => {
+  if (NUM_SELECTED_DAYS > 0) {
+    submitToken((token) => {
+      if (token) {
+        try {
+          let elements = []
+          let title = document.createElement("h3")
+          title.innerHTML = "Confirm Schedule"
+          elements.push(title)
+          const confirmContainer = document.createElement("div")
+          confirmContainer.id = "confirm-container"
+          for (let wakeup of $(".wakeup-container > .wakeup")) {
+            const clone = wakeup.cloneNode(true)
+            clone.querySelector(".cancel").remove()
+            confirmContainer.appendChild(clone)
+          }
+          elements.push(confirmContainer)
+          elements.push($("#total-bar")[0].cloneNode(true))
+          const disclaimer = $("#disclaimer")[0].cloneNode(true)
+          disclaimer.style.marginBottom = ("24px")
+          disclaimer.style.color = ("rgba(0,0,0,0.4)")
+          elements.push(disclaimer)
+          let group = document.createElement("div")
+          group.className = "button-group"
+          let goback = document.createElement("button")
+          goback.innerHTML = "Go Back"
+          goback.className = "transparent"
+          let confirm = document.createElement("button")
+          confirm.innerHTML = "Confirm"
+          confirm.id = "__modal-dismiss"
+          group.appendChild(goback)
+          group.appendChild(confirm)
+          elements.push(group)
+          goback.onclick = () => {
+            MODAL.hide()
+          }
+          confirm.onclick = () => {
+            schedule()
+          }
+          MODAL.display(elements)
+        }
+        catch (e) {
+          console.log(e)
+        }
+      }
+    })
   }
 }
 

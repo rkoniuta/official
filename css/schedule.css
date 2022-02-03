@@ -341,3 +341,11 @@ a.gradient {
   font-weight: 600;
   margin-right: 4px;
 }
+
+#confirm-container {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
