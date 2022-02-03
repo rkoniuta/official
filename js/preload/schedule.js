@@ -703,7 +703,7 @@ const display2XWakeup = (node) => {
   title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
   title.style.marginBottom = "20px"
   let text = document.createElement("p")
-  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20mode'>Learn more</a>"
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a>"
   elements.push(center)
   elements.push(title)
   elements.push(node)

@@ -484,7 +484,7 @@ const display2XMode = () => {
     let title = document.createElement("h3")
     title.innerHTML = "You've got <span class='twoX'>2X</span> for the day"
     let text = document.createElement("p")
-    text.innerHTML = "Woke up late? We know the feeling.<br><br>That's why we're giving you <b><span class='twoX'>2X</span></b> rewards for the day. This means you'll be paid double when you wake up tomorrow. <a class='gradient __twox-mode' href='./faq?search=2X%20mode'>Learn more</a><br><br>"
+    text.innerHTML = "Woke up late? We know the feeling.<br><br>That's why we're giving you <b><span class='twoX'>2X</span></b> rewards for the day. This means you'll be paid double when you wake up tomorrow. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a><br><br>"
     elements.push(center)
     elements.push(title)
     elements.push(text)
@@ -521,7 +521,7 @@ const display2XWakeup = (node) => {
   title.innerHTML = "This is a <span class='twoX'>2X</span> Wakeup"
   title.style.marginBottom = "20px"
   let text = document.createElement("p")
-  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20mode'>Learn more</a>"
+  text.innerHTML = "With this wakeup, you'll be paid double if you wake up on time. <a class='gradient __twox-mode' href='./faq?search=2X%20wakeup'>Learn more</a>"
   elements.push(center)
   elements.push(title)
   elements.push(node)
