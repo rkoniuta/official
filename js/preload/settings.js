@@ -88,7 +88,7 @@ const setHistory = (data) => {
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
       $("#user-number")[0].innerHTML = numberWithCommas(parseInt(item.data.data.userNumber))
-      $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
+      $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM Do, YYYY")
       let hasAwards = false
       if (moment(item.time).isBefore("2022-02-16")) {
         addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there since day 1!")
