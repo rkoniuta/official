@@ -44,10 +44,37 @@ const fetchWakeups = () => {
           if (diff < 0 && !WAKEUP.verified) {
             localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
             localStorage.setItem(LOCAL_STORAGE_TAG + "stale", "true")
-            url.searchParams.set(NOTIFICATION_STRING_2X, true)
-            url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
-            localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", (WAKEUP.day + 1).toString())
-            leavePage("./dashboard?" + url.searchParams.toString())
+            let hitFlag = false
+            const onComplete = () => {
+              url.searchParams.set(NOTIFICATION_STRING_2X, true)
+              url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
+              localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", (WAKEUP.day + 1).toString())
+              leavePage("./dashboard?" + url.searchParams.toString())
+            }
+            for (wakeup of wakeups) {
+              if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified && !wakeup.is2x) {
+                hitFlag = true
+                $.ajax({
+                  url: (API + "/set2xwakeup"),
+                  type: "PUT",
+                  data: {
+                    id: wakeup.id
+                  },
+                  xhrFields: {
+                    withCredentials: true
+                  },
+                  beforeSend: (xhr) => {
+                    xhr.setRequestHeader("Authorization", ID_TOKEN)
+                  },
+                  success: onComplete,
+                  error: onComplete,
+                })
+                break;
+              }
+            }
+            if (!hitFlag) {
+              onComplete()
+            }
           }
         }
         else {
