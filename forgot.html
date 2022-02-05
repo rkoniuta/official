@@ -117,7 +117,7 @@
           <input id="screen-1-input" inputmode="numeric" pattern="[0-9]*" type="text" name="otp-code" auto-complete="one-time-code" spellcheck="false" placeholder="Type your code here..." maxlength="6" onkeyup="codeFormatter(this)" onpaste="codeFormatter(this)" onblur="verifyCode(this)">
           <br>
           <div class="spread">
-            <a id="pre-resend" class="back" onclick="resend()">Didn't get the code? <u>Resend</u></a>
+            <a id="pre-resend" class="back" onclick="previousScreen()">Go back</a>
             <a id="post-resend" class="back invisible">We resent your code.</a>
             <button class="small" onclick="verify()" id="button-1">Verify</button>
           </div>
