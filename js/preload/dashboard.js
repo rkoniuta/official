@@ -463,7 +463,11 @@ const displayIfFailure = () => {
         } catch (e) {}
       }
     }
-    document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+    try {
+      document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+    } catch (e) {
+      display2XMode()
+    }
   }
 }
 
