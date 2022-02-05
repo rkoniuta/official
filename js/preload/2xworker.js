@@ -117,17 +117,19 @@ const __worker2x = () => {
 
 __worker2x()
 
-$.ajax({
-  url: (API + "/history"),
-  type: "GET",
-  xhrFields: {
-    withCredentials: true
-  },
-  beforeSend: (xhr) => {
-    xhr.setRequestHeader("Authorization", ID_TOKEN)
-  },
-  success: (data) => {
-    localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data.history || []))
-    __worker2x()
-  }
-})
+if (!localStorage.getItem(LOCAL_STORAGE_TAG + "history")) {
+  $.ajax({
+    url: (API + "/history"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data.history || []))
+      __worker2x()
+    }
+  })
+}
