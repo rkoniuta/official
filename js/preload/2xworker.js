@@ -18,6 +18,8 @@ const __worker2x = () => {
     if (item.data.event === "SCHEDULE") {
       if (!wakeupIDs.includes(item.data.data.id)) {
         item.data.data.events = []
+        item.data.data.verified = false
+        item.data.data.day = JSON.parse(item.data.data.day)
         wakeups.push(item.data.data)
         wakeupIDs.push(item.data.data.id)
       }
