@@ -54,7 +54,6 @@
 #__modal {
   width: min(calc(60vw + 75px), calc(60vh + 150px));
   box-sizing: border-box;
-  overflow-y: scroll;
 }
 
 #__modal > h3 {
