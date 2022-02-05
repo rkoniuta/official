@@ -87,7 +87,8 @@ const __worker2x = () => {
     if (WAKEUP) {
       const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(3, "minutes").tz(LOCAL_TIME_ZONE)
       const diff = Math.floor(time.diff(moment()) / 1000)
-      if (diff < 0 && !WAKEUP.verified && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
+      console.log(diff)
+      if (diff < 0 && diff > (-86401) && !WAKEUP.verified && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
         localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
         let hitFlag = false
         const onComplete = () => {

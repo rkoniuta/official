@@ -99,7 +99,7 @@ const fetchWakeups = () => {
         if (WAKEUP) {
           const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(3, "minutes").tz(LOCAL_TIME_ZONE)
           const diff = Math.floor(time.diff(moment()) / 1000)
-          if (diff < 0 && !WAKEUP.verified) {
+          if (diff < 0 && diff > (-86401) && !WAKEUP.verified) {
             localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
             localStorage.setItem(LOCAL_STORAGE_TAG + "stale", "true")
             let hitFlag = false
