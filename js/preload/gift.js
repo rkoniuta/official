@@ -92,7 +92,7 @@ const fetchWakeups = () => {
             kill2XMode()
             return;
           }
-          if (wakeup.day === TODAY || wakeup.day === (TODAY - 1)) {
+          if ((wakeup.day === TODAY || wakeup.day === (TODAY - 1)) && !wakeup.canceled) {
             WAKEUP = wakeup
           }
         }
