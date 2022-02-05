@@ -6,12 +6,55 @@ const __worker2x = () => {
     }
   }
   const url = new URL(window.location.href)
-  let wakeups = (JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
-  const LOCAL_TIME_ZONE = moment.tz.guess()
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const HISTORY = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "history") || "[]")
+  HISTORY.sort((a,b) => {
+    return (moment(b.time).diff(moment(a.time)))
+  })
+  const wakeups = []
+  const wakeupIDs = []
+  const verifies = []
+  const set2xs = []
+  for (let item of HISTORY) {
+    if (item.data.event === "SCHEDULE") {
+      if (!wakeupIDs.includes(item.data.data.id)) {
+        item.data.data.events = []
+        wakeups.push(item.data.data)
+        wakeupIDs.push(item.data.data.id)
+      }
+    }
+    else if (item.data.event === "VERIFY") {
+      verifies.push(item.data.data.id)
+    }
+    else if (item.data.event === "SET2X") {
+      set2xs.push(item.data.data.id)
+    }
+  }
+  for (let id of verifies) {
+    try {
+      wakeups[wakeupIDs.indexOf(id)].verified = true
+    } catch (e) {}
+  }
+  for (let id of set2xs) {
+    try {
+      wakeups[wakeupIDs.indexOf(id)].is2x = true
+    } catch (e) {}
+  }
+  for (let item of HISTORY) {
+    if (item.data.event === "SCHEDULE" || item.data.event === "CANCEL" || item.data.event === "VERIFY" || item.data.event === "PAID" || item.data.event === "CHARGED") {
+      try {
+        const id = item.data.data.id
+        if (!wakeups[wakeupIDs.indexOf(id)].events) {
+          wakeups[wakeupIDs.indexOf(id)].events = []
+        }
+        wakeups[wakeupIDs.indexOf(id)].events.push(item)
+      } catch (e) {}
+    }
+  }
   wakeups.sort((a,b) => {
     return (b.day - a.day)
   })
+  const LOCAL_TIME_ZONE = moment.tz.guess()
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
   let WAKEUP = null
   if (wakeups.length) {
     for (wakeup of wakeups) {
