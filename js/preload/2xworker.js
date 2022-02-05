@@ -52,6 +52,22 @@ const __worker2x = () => {
       } catch (e) {}
     }
   }
+  for (const wakeup of wakeups) {
+    wakeup.events.sort((a,b) => {
+      return (moment(b.time).diff(moment(a.time)))
+    })
+    for (let ev of wakeup.events) {
+      if (ev.data.event === "SCHEDULE") {
+        wakeup.canceled = false;
+        break;
+      }
+      if (ev.data.event === "CANCEL") {
+        wakeup.canceled = true;
+        wakeup.cancelFee = ev.data.data.fee;
+        break;
+      }
+    }
+  }
   wakeups.sort((a,b) => {
     return (b.day - a.day)
   })
@@ -81,7 +97,7 @@ const __worker2x = () => {
           leavePage("./dashboard?" + url.searchParams.toString())
         }
         for (wakeup of wakeups) {
-          if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified && !wakeup.is2x) {
+          if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified && !wakeup.canceled && !wakeup.is2x) {
             hitFlag = true
             $.ajax({
               url: (API + "/set2xwakeup"),

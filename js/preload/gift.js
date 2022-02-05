@@ -64,6 +64,22 @@ const fetchWakeups = () => {
           } catch (e) {}
         }
       }
+      for (const wakeup of wakeups) {
+        wakeup.events.sort((a,b) => {
+          return (moment(b.time).diff(moment(a.time)))
+        })
+        for (let ev of wakeup.events) {
+          if (ev.data.event === "SCHEDULE") {
+            wakeup.canceled = false;
+            break;
+          }
+          if (ev.data.event === "CANCEL") {
+            wakeup.canceled = true;
+            wakeup.cancelFee = ev.data.data.fee;
+            break;
+          }
+        }
+      }
       wakeups.sort((a,b) => {
         return (b.day - a.day)
       })
