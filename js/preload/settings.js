@@ -85,28 +85,33 @@ const setHistory = (data) => {
   HISTORY = data
   FLAT_HISTORY = JSON.parse(JSON.stringify(data))
   $("#awards")[0].innerHTML = ("")
+  const births = []
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
-      $("#user-number")[0].innerHTML = numberWithCommas(parseInt(item.data.data.userNumber))
-      $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM Do, YYYY")
-      let hasAwards = false
-      if (moment(item.time).isBefore("2022-02-16")) {
-        addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there since day 1!")
-        hasAwards = true
-      }
-      if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the team, thanks for helping make Paywake what it is today.")
-        hasAwards = true
-      }
-      if (item.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award-3.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake. Congratulations!")
-        hasAwards = true
-      }
-      if (!hasAwards) {
-        $("#awards-stat")[0].remove()
-      }
-      break;
+      births.push(item)
     }
+  }
+  births.sort((a,b) => {
+    return ((new Date(a.time)).getTime() - (new Date(b.time)).getTime())
+  })
+  const birth = births[0]
+  $("#user-number")[0].innerHTML = numberWithCommas(parseInt(birth.data.data.userNumber))
+  $("#account-birthday")[0].innerHTML = moment(birth.time).format("MMMM Do, YYYY")
+  let hasAwards = false
+  if (moment(birth.time).isBefore("2022-02-16")) {
+    addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there since day 1!")
+    hasAwards = true
+  }
+  if (birth.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
+    addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the team, thanks for helping make Paywake what it is today.")
+    hasAwards = true
+  }
+  if (birth.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
+    addAward("assets/images/award-3.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake. Congratulations!")
+    hasAwards = true
+  }
+  if (!hasAwards) {
+    $("#awards-stat")[0].remove()
   }
   let totalScheduled = 0
   for (let item of HISTORY) {
