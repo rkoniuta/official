@@ -122,6 +122,9 @@ const __worker2x = () => {
           onComplete()
         }
       }
+      else {
+        kill2XMode()
+      }
     }
     else {
       kill2XMode()

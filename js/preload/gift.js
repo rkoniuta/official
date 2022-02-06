@@ -134,6 +134,9 @@ const fetchWakeups = () => {
               onComplete()
             }
           }
+          else {
+            kill2XMode()
+          }
         }
         else {
           kill2XMode()
