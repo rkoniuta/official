@@ -563,9 +563,9 @@ a.gradient.__twox-mode {
   background-clip: text;
   cursor: pointer;
   text-decoration: none;
-  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
-  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
-  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%);
+  background-image: -moz-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%) !important;
+  background-image: -webkit-linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%) !important;
+  background-image: linear-gradient(340deg, rgba(0,179,255,1) 0%, rgba(0,255,0,1) 50%, rgba(199,255,0,1) 100%) !important;
 }
 
 .twoX {
