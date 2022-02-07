@@ -444,6 +444,9 @@ const genWakeups = () => {
     let p = document.createElement("p")
     p.id = "transfer-empty"
     p.innerHTML = "Nothing to see here. <a class='gradient' href='./transfer'>Make a transfer</a>"
+    if (IS_2X) {
+      p.innerHTML = "Nothing to see here. <a class='gradient __twox-mode' href='./transfer'>Make a transfer</a>"
+    }
     $("#transfer-container")[0].appendChild(p)
   }
 }
