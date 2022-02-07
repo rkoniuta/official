@@ -1,8 +1,10 @@
 const __worker2x = () => {
   const kill2XMode = () => {
+    console.log("Kill2x")
     if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
-      localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "false")
-      window.location.reload()
+      //FIXME: ADD
+      //localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "false")
+      //window.location.reload()
     }
   }
   const url = new URL(window.location.href)
@@ -77,6 +79,7 @@ const __worker2x = () => {
   if (wakeups.length) {
     for (wakeup of wakeups) {
       if (wakeup.verified) {
+        console.log("Kill2xD")
         kill2XMode()
         return;
       }
@@ -118,6 +121,7 @@ const __worker2x = () => {
           }
         }
         if (!hitFlag) {
+          console.log("Kill2xA")
           onComplete()
         }
       }
@@ -126,10 +130,12 @@ const __worker2x = () => {
       }
     }
     else {
+      console.log("Kill2xB")
       kill2XMode()
     }
   }
   else {
+    console.log("Kill2xC")
     kill2XMode()
   }
 }
