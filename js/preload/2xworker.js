@@ -1,10 +1,8 @@
 const __worker2x = () => {
   const kill2XMode = () => {
-    console.log("Kill2x")
     if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
-      //FIXME: ADD
-      //localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "false")
-      //window.location.reload()
+      localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "false")
+      window.location.reload()
     }
   }
   const url = new URL(window.location.href)
@@ -79,7 +77,6 @@ const __worker2x = () => {
   if (wakeups.length) {
     for (wakeup of wakeups) {
       if (wakeup.verified) {
-        console.log("Kill2xD")
         kill2XMode()
         return;
       }
@@ -90,16 +87,16 @@ const __worker2x = () => {
     if (WAKEUP) {
       const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(3, "minutes").tz(LOCAL_TIME_ZONE)
       const diff = Math.floor(time.diff(moment()) / 1000)
-      console.log(diff)
-      console.log(WAKEUP.verified)
-      if (diff < 0 && diff > (-86401) && !WAKEUP.verified && localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
+      if (diff < 0 && diff > (-86401) && !WAKEUP.verified) {
         localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
         let hitFlag = false
         const onComplete = () => {
           url.searchParams.set(NOTIFICATION_STRING_2X, true)
           url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
           localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", (WAKEUP.day + 1).toString())
-          leavePage("./dashboard?" + url.searchParams.toString())
+          if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
+            leavePage("./dashboard?" + url.searchParams.toString())
+          }
         }
         for (wakeup of wakeups) {
           if (wakeup.day === (WAKEUP.day + 1) && !wakeup.verified && !wakeup.canceled && !wakeup.is2x) {
@@ -123,7 +120,6 @@ const __worker2x = () => {
           }
         }
         if (!hitFlag) {
-          console.log("Kill2xA")
           onComplete()
         }
       }
@@ -132,12 +128,10 @@ const __worker2x = () => {
       }
     }
     else {
-      console.log("Kill2xB")
       kill2XMode()
     }
   }
   else {
-    console.log("Kill2xC")
     kill2XMode()
   }
 }
