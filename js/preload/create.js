@@ -143,20 +143,20 @@ const verify = () => {
         else {
           const firstName = localStorage.getItem(LOCAL_STORAGE_TAG + "temp-name").split(" ")[0].trim()
           document.getElementById("first-name").innerHTML = (", " + firstName)
-          localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
+          localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (6).toString())
           ROUTINES.login(
             localStorage.getItem(LOCAL_STORAGE_TAG + "temp-username"),
             localStorage.getItem(LOCAL_STORAGE_TAG + "temp-password"),
             RECAPTCHA_TOKEN,
             (err) => {
               if (err) {
-                localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (6).toString())
-                setScreen(6)
+                localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
+                setScreen(5)
               }
               else {
                 localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-username")
                 localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-password")
-                nextScreen()
+                setScreen(6)
               }
             }
           )
@@ -218,20 +218,20 @@ const setRecaptchaToken = (token) => {
 
 const setRecaptchaTokenSecond = (token) => {
   RECAPTCHA_TOKEN = token
-  localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
+  localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (6).toString())
   ROUTINES.login(
     localStorage.getItem(LOCAL_STORAGE_TAG + "temp-username"),
     localStorage.getItem(LOCAL_STORAGE_TAG + "temp-password"),
     RECAPTCHA_TOKEN,
     (err) => {
       if (err) {
-        localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (6).toString())
-        setScreen(6)
+        localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
+        setScreen(5)
       }
       else {
         localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-username")
         localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-password")
-        setScreen(5)
+        setScreen(6)
       }
     }
   )
