@@ -60,10 +60,8 @@ const login = (obj) => {
             phoneNumberDoesntExist()
           }
           else {
+            grecaptcha.reset()
             recaptchaError()
-            if (verifyRecaptcha()) {
-              window.location.reload()
-            }
           }
         }
         else {
