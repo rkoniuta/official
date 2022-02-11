@@ -1,10 +1,14 @@
 const ROUTINES = {
 
   //LOGIN
-  login: (phone, password, callback = (() => {})) => {
+  login: (phone, password, token, callback = (() => {})) => {
     const AUTH_DETAILS = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails({
       Username: phone,
       Password: password,
+      validationData: [{
+        Name: "recaptchaToken",
+        Value: token,
+      }],
     })
     USER = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
       Username: phone,
