@@ -349,3 +349,7 @@ a.gradient {
   justify-content: center;
   flex-direction: column;
 }
+
+#__modal {
+  overflow-y: scroll !important;
+}
