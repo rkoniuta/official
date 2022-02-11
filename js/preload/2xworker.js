@@ -80,7 +80,7 @@ const __worker2x = () => {
     return (b.day - a.day)
   })
   const LOCAL_TIME_ZONE = moment.tz.guess()
-  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(0).minute(0).second(0), "days")
+  const TODAY = moment().tz(TIME_ZONE).diff(moment.tz(EPOCH, TIME_ZONE).hour(2).minute(0).second(0), "days")
   let WAKEUP = null
   if (wakeups.length) {
     for (wakeup of wakeups) {
