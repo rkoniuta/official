@@ -17,6 +17,7 @@ const ROUTINES = {
         callback(null)
       },
       onFailure: (err) => {
+        console.log(err)
         callback(err)
       },
     })
