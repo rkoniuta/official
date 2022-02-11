@@ -70,7 +70,7 @@ const __worker2x = () => {
   }
   const localWakeups = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups"))
   for (let localWakeup of localWakeups) {
-    for (let index of wakeups) {
+    for (let index in wakeups) {
       if (wakeups[index].id === localWakeup.id) {
         wakeups[index] = localWakeup
       }
