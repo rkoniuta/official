@@ -28,6 +28,10 @@ const incorrectPassword = () => {
   document.getElementById("password").setAttribute("invalid", "true")
 }
 
+const recaptchaError = () => {
+  document.getElementById("message").innerHTML = "Please complete the reCAPTCHA."
+}
+
 const login = (obj) => {
   const phoneInput = document.getElementById("phone")
   const passwordInput = document.getElementById("password")
@@ -40,6 +44,14 @@ const login = (obj) => {
       if (err) {
         if (err.code === "UserNotFoundException") {
           phoneNumberDoesntExist()
+        }
+        else if (err.code === "UserLambdaValidationException") {
+          if (err.message === "PreAuthentication failed with error USER NOT FOUND.") {
+            phoneNumberDoesntExist()
+          }
+          else {
+            recaptchaError()
+          }
         }
         else {
           incorrectPassword()
