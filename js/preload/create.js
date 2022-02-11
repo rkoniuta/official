@@ -205,3 +205,5 @@ let RECAPTCHA_TOKEN = null
 const setRecaptchaToken = (token) => {
   RECAPTCHA_TOKEN = token
 }
+
+window.setRecaptchaToken = setRecaptchaToken
