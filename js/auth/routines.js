@@ -5,10 +5,7 @@ const ROUTINES = {
     const AUTH_DETAILS = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails({
       Username: phone,
       Password: password,
-      ValidationData: [{
-        Name: "recaptchaToken",
-        Value: token,
-      }],
+      ValidationData: [token],
     })
     USER = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
       Username: phone,
