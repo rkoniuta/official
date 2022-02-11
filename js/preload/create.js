@@ -65,12 +65,23 @@ const unknownError = () => {
   setScreen(2)
 }
 
+const recaptchaError = () => {
+  document.getElementById("subtext-2").innerHTML = "Please complete the recaptcha."
+  setScreen(2)
+}
+
 const createAccount = () => {
   if (!verifyName(document.getElementById("screen-0-input"))) {
     setScreen(0)
+    return;
   }
   else if (!verifyPhone(document.getElementById("screen-1-input"))) {
     setScreen(1)
+    return;
+  }
+  else if (!RECAPTCHA_TOKEN) {
+    recaptchaError()
+    return;
   }
   if (verifyPassword(document.getElementById("screen-2-input"))) {
     const name = cleanName(document.getElementById("screen-0-input").value)
@@ -78,10 +89,14 @@ const createAccount = () => {
     const password = document.getElementById("screen-2-input").value
     setScreen(3)
     setTimeout(() => {
-      ROUTINES.signup(name, phone, password, (err) => {
+      ROUTINES.signup(name, phone, password, RECAPTCHA_TOKEN, (err) => {
         if (err) {
           if (err.code === "UsernameExistsException") {
             phoneNumberExists()
+          }
+          else if (err.code === "UserLambdaValidationException") {
+            grecaptcha.reset()
+            recaptchaError()
           }
           else {
             unknownError()
@@ -184,4 +199,9 @@ const verifyCode = (obj) => {
 const toDashboard = () => {
   localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-name", name)
   leavePage("tutorial")
+}
+
+let RECAPTCHA_TOKEN = null
+const setRecaptchaToken = (token) => {
+  RECAPTCHA_TOKEN = token
 }

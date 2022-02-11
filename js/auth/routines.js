@@ -23,7 +23,7 @@ const ROUTINES = {
   },
 
   //SIGNUP
-  signup: (name, phone, password, callback = (() => {})) => {
+  signup: (name, phone, password, token, callback = (() => {})) => {
     let attributes = new Array()
     const PHONE = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
       Name: "phone_number",
@@ -36,7 +36,10 @@ const ROUTINES = {
     attributes.push(PHONE)
     attributes.push(NAME)
 
-    USER_POOL.signUp(phone, password, attributes, null, (err, result) => {
+    USER_POOL.signUp(phone, password, attributes, [{
+      Name: "recaptchaToken",
+      Value: token,
+    }], (err, result) => {
       if (err) {
         callback(err)
       }
