@@ -145,8 +145,6 @@ const __worker2x = () => {
   }
 }
 
-__worker2x()
-
 if (!localStorage.getItem(LOCAL_STORAGE_TAG + "history")) {
   $.ajax({
     url: (API + "/history"),
@@ -180,3 +178,5 @@ if (!localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) {
     }
   })
 }
+
+__worker2x()
