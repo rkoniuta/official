@@ -709,7 +709,7 @@ const genEarningsChart = (data) => {
                 color: "rgba(0,0,0,0)"
               },
               min: 0,
-              max: (maxValue + 2),
+              max: (maxValue + 1),
             },
           },
           plugins: {
