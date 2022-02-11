@@ -620,7 +620,7 @@ const confirmSchedule = () => {
   }
 }
 
-const STRIPE_ELEMENTS = stripe.elements({
+const STRIPE_ELEMENTS = STRIPE.elements({
   fonts: [{
     cssSrc: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap"
   }]
@@ -653,7 +653,7 @@ const submitToken = (callback) => {
     })
   }
   else {
-    stripe.createToken(PAYMENT_INFO).then((result) => {
+    STRIPE.createToken(PAYMENT_INFO).then((result) => {
       if (result.error) {
         callback(false)
       } else {

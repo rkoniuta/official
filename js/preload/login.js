@@ -1,3 +1,5 @@
+const SOURCE = (new URLSearchParams(window.location.search)).get("source")
+
 const verifyPhone = (obj) => {
   const phone = cleanPhone(obj.value)
   if (phone.length === 10) {
@@ -13,6 +15,18 @@ const verifyPassword = (obj) => {
   if (password.length > 7) {
     obj.removeAttribute("invalid")
     return password
+  }
+  obj.setAttribute("invalid", "true")
+  return false
+}
+
+const verifyDevKey = (obj) => {
+  const devkey = obj.value
+  if (devkey.length > 0 && Stripe(devkey)._keyMode === "test") {
+    obj.removeAttribute("invalid")
+    RECAPTCHA_TOKEN = devkey
+    localStorage.setItem("__paywake-dev-key", devkey)
+    return devkey
   }
   obj.setAttribute("invalid", "true")
   return false
@@ -45,7 +59,8 @@ const recaptchaError = () => {
 const login = (obj) => {
   const phoneInput = document.getElementById("phone")
   const passwordInput = document.getElementById("password")
-  if (verifyPhone(phoneInput) && verifyPassword(passwordInput) && verifyRecaptcha()) {
+  const devKeyInput = document.getElementById("devkey")
+  if (verifyPhone(phoneInput) && verifyPassword(passwordInput) && verifyRecaptcha() && (SOURCE !== "dev" || verifyDevKey(devKeyInput))) {
     const phone = ("+1" + cleanPhone(phoneInput.value))
     const password = passwordInput.value
     $(obj).addClass("loading")
