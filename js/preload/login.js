@@ -19,7 +19,7 @@ const verifyPassword = (obj) => {
 }
 
 const verifyRecaptcha = () => {
-  if (RECAPTCHA_TOKEN.length) {
+  if ((RECAPTCHA_TOKEN || "").length) {
     return RECAPTCHA_TOKEN
   }
   else {
