@@ -500,10 +500,10 @@ const schedule = () => {
       $("#__modal-dismiss").removeClass("loading")
       $("#schedule-button").removeClass("loading")
       if (c > 0) {
-        MODAL.displayHTML("<p>Server error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
+        MODAL.displayHTML("<p><b>Card declined.</b> Only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully. Please check your card balance or try a different card.")
       }
       else {
-        MODAL.displayHTML("<p>Server error - your wakeup(s) could not be scheduled.")
+        MODAL.displayHTML("<p><b>Card declined.</b> Please check your card balance or try a different card.")
       }
     }
     let customerID = ""
