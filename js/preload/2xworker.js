@@ -68,7 +68,7 @@ const __worker2x = () => {
       }
     }
   }
-  const localWakeups = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups"))
+  const localWakeups = (JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) || [])
   for (let localWakeup of localWakeups) {
     for (let index in wakeups) {
       if (wakeups[index].id === localWakeup.id) {
@@ -159,6 +159,23 @@ if (!localStorage.getItem(LOCAL_STORAGE_TAG + "history")) {
     },
     success: (data) => {
       localStorage.setItem(LOCAL_STORAGE_TAG + "history", JSON.stringify(data.history || []))
+      __worker2x()
+    }
+  })
+}
+
+if (!localStorage.getItem(LOCAL_STORAGE_TAG + "wakeups")) {
+  $.ajax({
+    url: (API + "/wakeups"),
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader("Authorization", ID_TOKEN)
+    },
+    success: (data) => {
+      localStorage.setItem(LOCAL_STORAGE_TAG + "wakeups", JSON.stringify(data.wakeups || []))
       __worker2x()
     }
   })
