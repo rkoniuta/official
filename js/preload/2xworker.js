@@ -90,19 +90,20 @@ const __worker2x = () => {
       }
       if ((wakeup.day === TODAY || wakeup.day === (TODAY - 1)) && !wakeup.canceled) {
         WAKEUP = wakeup
+        break;
       }
     }
     if (WAKEUP) {
       const time = moment.tz(EPOCH, TIME_ZONE).add(WAKEUP.day, "days").add(Math.floor(WAKEUP.time / 60), "hours").add(WAKEUP.time % 60, "minutes").add(3, "minutes").tz(LOCAL_TIME_ZONE)
       const diff = Math.floor(time.diff(moment()) / 1000)
       if (diff < 0 && diff > (-86401) && !WAKEUP.verified) {
-        localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
         let hitFlag = false
         const onComplete = () => {
           url.searchParams.set(NOTIFICATION_STRING_2X, true)
           url.searchParams.set("id", encodeURIComponent(WAKEUP.id))
           localStorage.setItem(LOCAL_STORAGE_TAG + "2x-day", (WAKEUP.day + 1).toString())
           if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") !== "true") {
+            localStorage.setItem(LOCAL_STORAGE_TAG + "2x-mode", "true")
             leavePage("./dashboard?" + url.searchParams.toString())
           }
         }
