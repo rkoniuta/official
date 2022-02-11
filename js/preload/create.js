@@ -87,7 +87,7 @@ const createAccount = () => {
     document.getElementById("subtext-2").innerHTML = ""
   }
   if (verifyPassword(document.getElementById("screen-2-input"))) {
-    const name = cleanName(document.getElementById("screen-0-input").value)
+    const name = document.getElementById("screen-0-input").value
     const phone = ("+1" + cleanPhone(document.getElementById("screen-1-input").value))
     const password = document.getElementById("screen-2-input").value
     setScreen(3)
