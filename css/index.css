@@ -658,3 +658,47 @@ div.checkbox.checked.__twox-mode {
   margin-top: -2px;
   transform: translateY(2px);
 }
+
+#__show-password {
+  background-image: url("../assets/images/show-password.png");
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+  margin-left: -24px;
+  box-sizing: border-box;
+  transform: translateY(8px);
+  cursor: pointer;
+  display: inline-block;
+}
+
+#__show-password.visible {
+  background-image: url("../assets/images/hide-password.png");
+}
+
+#__show-password-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  margin-bottom: -20px;
+}
+
+#__show-password-container.dark {
+  margin-bottom: 0px;
+}
+
+
+#__show-password-container.dark > #__show-password {
+  margin-left: -38px;
+  background-image: url("../assets/images/show-password-dark.png");
+  opacity: 0.2;
+}
+
+#__show-password-container.dark > #__show-password.visible {
+  background-image: url("../assets/images/hide-password-dark.png");
+  opacity: 0.2;
+}

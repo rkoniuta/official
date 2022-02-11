@@ -193,3 +193,24 @@ $(document).ready(() => {
     $("#__YEAR")[0].innerHTML = YEAR.toString()
   } catch (e) {}
 })
+
+$(document).ready(() => {
+  try {
+    const showPassword = $("#__show-password")[0]
+    if (showPassword) {
+      const showPasswordTarget = $(showPassword.getAttribute("target"))[0]
+      showPassword.onclick = () => {
+        if (showPasswordTarget.type === "password") {
+          showPasswordTarget.type = "text"
+          $(showPassword).addClass("visible")
+          $("#__show-password-container").addClass("visible")
+        }
+        else {
+          showPasswordTarget.type = "password"
+          $(showPassword).removeClass("visible")
+          $("#__show-password-container").removeClass("visible")
+        }
+      }
+    }
+  } catch (e) {}
+})

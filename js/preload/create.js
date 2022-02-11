@@ -124,7 +124,7 @@ const verify = () => {
         }
         else {
           const firstName = localStorage.getItem(LOCAL_STORAGE_TAG + "temp-name").split(" ")[0].trim()
-          document.getElementById("first-name").innerHTML = firstName
+          document.getElementById("first-name").innerHTML = (", " + firstName)
           localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
           ROUTINES.login(
             localStorage.getItem(LOCAL_STORAGE_TAG + "temp-username"),
@@ -142,8 +142,8 @@ const verify = () => {
 }
 
 const verifyName = (obj) => {
-  const name = cleanName(obj.value)
-  if (name.length > 0) {
+  const name = obj.value
+  if (name.length > 0 && name.length < 65) {
     obj.removeAttribute("invalid")
     return name
   }
