@@ -6,7 +6,7 @@ const setBalance = (balance = 0) => {
   document.getElementById("balance-cents").innerHTML = ("." + cents.toString().padStart(2, "0"))
 }
 
-const fetchBalance = () => {
+const fetchBalance = (showGotPaid = true) => {
   $.ajax({
     url: (API + "/balance"),
     type: "GET",
@@ -20,7 +20,9 @@ const fetchBalance = () => {
       let local = localStorage.getItem(LOCAL_STORAGE_TAG + "balance")
       if (local !== null && localStorage.getItem(LOCAL_STORAGE_TAG + "stale") !== null) {
         if ((parseInt(local) < data.balance) && data.balance !== 0) {
-          gotPaid(data.balance - parseInt(local))
+          if (showGotPaid) {
+            gotPaid(data.balance - parseInt(local))
+          }
         }
       }
       setBalance(data.balance)
