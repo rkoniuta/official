@@ -18,6 +18,16 @@ const verifyPassword = (obj) => {
   return false
 }
 
+const verifyRecaptcha = () => {
+  if (RECAPTCHA_TOKEN.length) {
+    return RECAPTCHA_TOKEN
+  }
+  else {
+    recaptchaError()
+  }
+  return false
+}
+
 const phoneNumberDoesntExist = () => {
   document.getElementById("message").innerHTML = "No account exists with that phone number."
   document.getElementById("phone").setAttribute("invalid", "true")
@@ -35,7 +45,7 @@ const recaptchaError = () => {
 const login = (obj) => {
   const phoneInput = document.getElementById("phone")
   const passwordInput = document.getElementById("password")
-  if (verifyPhone(phoneInput) && verifyPassword(passwordInput)) {
+  if (verifyPhone(phoneInput) && verifyPassword(passwordInput) && verifyRecaptcha()) {
     const phone = ("+1" + cleanPhone(phoneInput.value))
     const password = passwordInput.value
     $(obj).addClass("loading")
@@ -51,6 +61,9 @@ const login = (obj) => {
           }
           else {
             recaptchaError()
+            if (verifyRecaptcha()) {
+              window.location.reload()
+            }
           }
         }
         else {
