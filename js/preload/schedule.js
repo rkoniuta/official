@@ -248,6 +248,24 @@ const initDays = () => {
   }
 }
 
+const cacheValue = (input) => {
+  input.setAttribute("cache", input.value)
+  input.placeholder = input.value
+  input.value = ""
+}
+const uncacheValue = (input) => {
+  if (!input.value.length) {
+    input.value = input.getAttribute("cache")
+  }
+  input.removeAttribute("cache")
+  if (input.className === "minute-input") {
+    input.placeholder = "00"
+  }
+  else if (input.className === "hour-input") {
+    input.placeholder = "8"
+  }
+}
+
 const genWakeups = () => {
   const data = WAKEUPS.sort((a, b) => {
     return (a.day - b.day)
@@ -303,7 +321,11 @@ const genWakeups = () => {
     hourInput.pattern = "[0-9]*"
     hourInput.placeholder = Math.floor(DEFAULT_WAKEUP_TIME / 60).toString()
     hourInput.value = hour
+    hourInput.onfocus = () => {
+      cacheValue(hourInput)
+    }
     hourInput.onblur = () => {
+      uncacheValue(hourInput)
       setWakeupHour(wakeup, hourInput)
     }
     const adjustment = () => {
@@ -323,7 +345,11 @@ const genWakeups = () => {
     minuteInput.pattern = "[0-9]*"
     minuteInput.placeholder = Math.floor(DEFAULT_WAKEUP_TIME % 60).toString().padStart(2, "0")
     minuteInput.value = minute.padStart(2, "0")
+    minuteInput.onfocus = () => {
+      cacheValue(minuteInput)
+    }
     minuteInput.onblur = () => {
+      uncacheValue(minuteInput)
       setWakeupMinute(wakeup, minuteInput)
     }
     let am = document.createElement("span")
