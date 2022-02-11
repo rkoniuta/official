@@ -552,7 +552,7 @@ const cancelWakeup = (wakeup, node) => {
   elements.push(title)
   elements.push(node)
   let text = document.createElement("p")
-  let fee = Math.min(Math.max(Math.floor(wakeup.deposit * 0.015), 15), balance)
+  let fee = Math.min(Math.max(Math.floor((wakeup.is2x ? (wakeup.deposit / 2) : wakeup.deposit) * 0.015), 15), balance)
   let dollars = Math.floor(fee / 100)
   let cents = Math.floor(fee % 100)
   if (fee > 0) {
