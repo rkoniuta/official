@@ -51,3 +51,9 @@ const login = (obj) => {
     })
   }
 }
+
+let RECAPTCHA_TOKEN = null
+const setRecaptchaToken = (data) => {
+  //FIXME: change
+  console.log(data)
+}
