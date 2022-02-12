@@ -44,7 +44,10 @@ const REDIRECTS = {
   noAuth: "./login"
 }
 
-console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
+const __scamNotice = () => {
+  console.log("%cStop! ✋🏼","font-size: 72px; font-family: 'Urbanist', sans-serif; color: red;")
+  console.log("%cThis is a browser feature intended for developers only. If someone told you to copy-paste something here to enable a Paywake feature or \"hack\" someone's account, it is a scam and will give them access to your Paywake account.\n", "font-size: 20px; font-family: 'Urbanist', sans-serif;")
+}
 
 const cleanPhone = (string) => {
   return string.toString().trim().toLowerCase().replace(/[^0-9]+/g, "")
@@ -223,3 +226,6 @@ $(document).ready(() => {
     }
   } catch (e) {}
 })
+
+__scamNotice()
+console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
