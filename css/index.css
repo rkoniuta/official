@@ -447,7 +447,7 @@ button.full-width {
 }
 
 .wakeup > .info > p > b.canceled {
-  color: rgba(0,0,0,0.4);
+  color: #999999;
   background-image: none;
 }
 
