@@ -49,6 +49,9 @@ const fetchHistory = () => {
 
 const addAward = (src, _title, _text) => {
   const award = document.createElement("img")
+  if (IS_2X) {
+    src = src.replace(".png", "-green.png")
+  }
   award.src = src
   award.id = "award-icon"
   award.onclick = () => {
@@ -69,6 +72,9 @@ const addAward = (src, _title, _text) => {
     let a = document.createElement("a")
     a.innerHTML = "Rewards coming soon."
     a.className = "gradient"
+    if (IS_2X) {
+      a.className = "gradient __twox-mode"
+    }
     rewards.id = "rewards-soon"
     rewards.appendChild(a)
     elements.push(center)
