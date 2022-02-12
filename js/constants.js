@@ -44,6 +44,16 @@ const REDIRECTS = {
   noAuth: "./login"
 }
 
+const __ensureInContinentalUS = () => {
+  try {
+    const timeDiff = ((moment().tz(TIME_ZONE).zone() - moment().zone()) / 60)
+    if (!(timeDiff <= 3 && (-1) <= timeDiff)) {
+      leavePage("./international")
+    }
+  }
+  catch (e) {}
+}
+
 const __scamNotice = () => {
   console.log("%cStop! ✋🏼","font-size: 72px; font-family: 'Urbanist', sans-serif; color: red;")
   console.log("%cThis is a browser feature intended for developers only. If someone told you to copy-paste something here to enable a Paywake feature or \"hack\" someone's account, it is a scam and will give them access to your Paywake account.\n", "font-size: 20px; font-family: 'Urbanist', sans-serif;")
@@ -194,7 +204,7 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
         $("#award-icon[src='assets/images/award-5.png']")[0].src = "assets/images/award-5-green.png"
       } catch (e) {}
     }
-    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "faq") {
+    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "faq" || __TWOX_MODE_PAGE === "international") {
       $("#sun")[0].src = "assets/images/sun-192-green.png"
     }
   })
