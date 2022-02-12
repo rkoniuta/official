@@ -249,3 +249,9 @@ p.left {
   text-align: left;
   margin: 0px;
 }
+
+#no-funds-notice {
+  width: min(calc(60vw + 75px), calc(60vh + 150px));
+  font-weight: 300;
+  font-size: 16px;
+}
