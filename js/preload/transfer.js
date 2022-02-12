@@ -373,4 +373,8 @@ const confirmTransfer = (onSuccess = () => {}, onError = () => {}) => {
   MODAL.display(elements)
 }
 
+const goToSchedulePage = () => {
+  leavePage("./schedule")
+}
+
 fetchBankData()
