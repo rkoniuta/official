@@ -46,7 +46,8 @@ const REDIRECTS = {
 
 const __ensureInContinentalUS = () => {
   try {
-    const timeDiff = (((moment().tz(TIME_ZONE).utcOffset() - moment().utcOffset()) / 60) * (-1))
+    let timeDiff = (((moment().tz(TIME_ZONE).utcOffset() - moment().utcOffset()) / 60) * (-1))
+    timeDiff += 0;
     if (!(timeDiff <= 3 && (-1) <= timeDiff)) {
       leavePage("./international")
     }
