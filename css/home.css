@@ -1,0 +1,70 @@
+.content {
+  top: 360px;
+  padding-top: 160px;
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 200px);
+  background: -webkit-linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 200px);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 200px);
+}
+
+#phone-in-hand {
+  position: fixed;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  padding-top: 100px;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+
+#phone-in-hand > img {
+  width: 600px;
+}
+
+#screen-blocker {
+  position: fixed;
+  overflow: hidden;
+  width: 100vw;
+  height: 102px;
+  box-sizing: border-box;
+  background: white;
+  top: 0px;
+  left: 0px;
+  z-index: -2;
+}
+
+#screenshot {
+  position: fixed;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  padding-top: 106px;
+  top: 0px;
+  left: 0px;
+  z-index: -3;
+}
+
+#screenshot, .phone-blocker {
+  will-change: transform;
+}
+
+#screenshot > img {
+  width: 136px;
+}
+
+.bounds > small {
+  z-index: 0;
+}

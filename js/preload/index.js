@@ -31,3 +31,14 @@ const scheduleClick = () => {
     leavePage("./schedule")
   }
 }
+
+const SCREEN_PARA = 2.5
+const HAND_PARA = 2
+$(window).scroll(() => {
+  const scroll = $(window).scrollTop()
+  try {
+    $(".phone-block").css("transform", ("translateY(-" + (scroll / HAND_PARA).toString() + "px)"))
+    $("#screenshot").css("transform", ("translateY(-" + ((scroll / HAND_PARA) + (scroll / SCREEN_PARA)).toString() + "px)"))
+  }
+  catch (e) {}
+})
