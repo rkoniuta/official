@@ -32,25 +32,13 @@ const scheduleClick = () => {
   }
 }
 
-const throttle = (ms, callback) => {
-  let lastCall = 0
-  return () => {
-    const now = new Date().getTime()
-    const diff = (now - lastCall)
-    if (diff >= ms) {
-      lastCall = now
-      callback.apply(this)
-    }
-  }
-}
-
 const SCREEN_PARA = 2.5
 const HAND_PARA = 2
-$(window).scroll(throttle(10, () => {
+$(window).scroll(() => {
   const scroll = $(window).scrollTop()
   try {
     $(".phone-block").css("transform", ("translateY(-" + (scroll / HAND_PARA).toString() + "px)"))
     $("#screenshot").css("transform", ("translateY(-" + ((scroll / HAND_PARA) + (scroll / SCREEN_PARA)).toString() + "px)"))
   }
   catch (e) {}
-}))
+})
