@@ -59,8 +59,8 @@
 
 #screenshot, .phone-blocker {
   will-change: transform;
-  transition: transform linear 0.2s;
-  -webkit-transition: transform linear 0.2s;
+  transition: transform linear 0.1s;
+  -webkit-transition: transform linear 0.1s;
 }
 
 #screenshot > img {
