@@ -238,7 +238,18 @@ $(document).ready(() => {
       }
     }
   } catch (e) {}
-})
+});
+
+(() => {
+  const __url = new URLSearchParams(window.location.search)
+  if (__url.get("source")) {
+    const __source = decodeURIComponent(url.get("source"))
+    if (__source !== "dev") {
+      localStorage.setItem(LOCAL_STORAGE_TAG + "source", __source)
+      window.history.replaceState(null, null, window.location.pathname)
+    }
+  }
+})();
 
 __scamNotice()
 console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
