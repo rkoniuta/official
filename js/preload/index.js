@@ -40,6 +40,7 @@ const mobileCheck = () => {
 
 const SCREEN_PARA = 2.5
 const HAND_PARA = 2
+const PHONE_PARA = 5
 const IS_MOBILE = mobileCheck()
 if (IS_MOBILE) {
   $(document).ready(() => {
@@ -57,6 +58,11 @@ $(window).scroll(() => {
       $(".phone-block").css("transform", ("translateY(-" + (scroll / HAND_PARA).toString() + "px)"))
       $("#screenshot").css("transform", ("translateY(-" + ((scroll / HAND_PARA) + (scroll / SCREEN_PARA)).toString() + "px)"))
     }
+    $("#photo-verification-hand-2").css("transform", "translateY(-" + Math.max(Math.min((150 + ((scroll - 1500) / HAND_PARA)), 400), 0).toString() + "px)")
+    $("#schedule-phone").css("transform", ("translateY(" + (Math.max(Math.min(((scroll - 600) / (PHONE_PARA)) - 60, 200), -120) * (-1)).toString() + "px)"))
+    $("#paid-phone").css("transform", ("translateY(" + (Math.max(Math.min(((scroll - 1950) / (PHONE_PARA)) - 120, 200), -120) * (-1)).toString() + "px)"))
   }
-  catch (e) {}
+  catch (e) {
+    console.log(e)
+  }
 })
