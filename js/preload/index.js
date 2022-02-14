@@ -63,8 +63,8 @@ if (IS_MOBILE) {
   $(document).ready(() => {
     $("#phone-in-hand-graphic")[0].src = "./assets/images/phone-in-hand-fixed.png"
     $("#screenshot")[0].remove()
+    $("#photo-verification-hand-2")[0].style.transform = "translateY(-400px)"
   })
-  $("#photo-verification-hand-2")[0].style.transform = "translateY(-400px)"
 }
 $(window).scroll(() => {
   const scroll = $(window).scrollTop()
