@@ -1,22 +1,39 @@
+let RETURNS = ESTIMATED_RETURN
+
 const slider = (obj) => {
   const deposit = Math.round(obj.value)
-  const returns = (Math.floor(deposit * ((ESTIMATED_RETURN / 100) + 1) * 100) / 100)
+  const returns = ((Math.floor(deposit * ((RETURNS / 100) + 1) * 100) - 1) / 100)
   document.getElementById("deposit-amount").innerHTML = deposit.toString()
   document.getElementById("return-amount").innerHTML = Math.floor(returns).toString()
   document.getElementById("return-amount-cents").innerHTML = ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0"))
 }
 
 const sliderInit = (obj) => {
-  obj.value = (Math.floor(Math.random() * (SLIDER_INIT_MAX - SLIDER_INIT_MIN)) + SLIDER_INIT_MIN)
+  const steps = 60
+  const finalPosition = (Math.floor(Math.random() * (SLIDER_INIT_MAX - SLIDER_INIT_MIN)) + SLIDER_INIT_MIN)
+  const duration = ((SLIDER_DURATION_MS / SLIDER_INIT_MAX) * finalPosition)
+  let counter = 0
+  obj.value = 5
   slider(obj)
+  const interval = setInterval(() => {
+    if (counter < steps) {
+      obj.value = (5 + ((finalPosition - 5) * Math.pow((counter / steps), (1 / 3))))
+      slider(obj)
+      counter++
+    }
+    else {
+      obj.value = finalPosition
+      slider(obj)
+      clearInterval(interval)
+    }
+  }, (duration / steps))
 }
 
 const estimateAlert = () => {
-  const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
-  const returns =  (Math.floor(deposit * ((ESTIMATED_RETURN / 100) + 1) * 100) / 100)
-  const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padEnd(2, "0")))
-  const text = ("This $" + dollarString + " return figure is based on our beta tests and subject to change.")
-  alert(text)
+  const dollarString = ($("#return-amount")[0].innerText + $("#return-amount-cents")[0].innerText)
+  const text = ("This $" + dollarString + " average return is based on the last 30 days of Paywake user data and includes both the extra payment and refunded deposit amounts.")
+  MODAL.hide()
+  MODAL.displayHTML("<p>" + text + "</p>")
 }
 
 const getStartedClick = () => {
@@ -66,3 +83,18 @@ $(window).scroll(() => {
     console.log(e)
   }
 })
+
+const fetchEarnings = () => {
+  $.ajax({
+    url: (API + "/earnings"),
+    type: "GET",
+    success: (data) => {
+      RETURNS = (data.lastMonth || ESTIMATED_RETURN)
+      try {
+        slider($("#slider")[0])
+      } catch (e) {}
+    }
+  })
+}
+
+fetchEarnings()

@@ -44,6 +44,7 @@
 
     <!--STYLING-->
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/range.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/home.css">
@@ -68,6 +69,7 @@
     <script src="js/constants.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/preload/copysheet.js"></script>
+    <script src="js/preload/modal.js"></script>
     <script src="js/preload/index.js"></script>
     <link rel="preload" as="image" href="./assets/images/sun-192.png" media="(max-width: 192px)">
     <link rel="preload" as="image" href="./assets/images/phone-in-hand.png" media="(max-width: 2444px)">
@@ -105,7 +107,7 @@
         <img id="sun" src="assets/images/sun-192.png">
         <h1>Paywake</h1>
       </a>
-      <a href="./login"><button class="gradient">My Account</button></a>
+      <a href="./login"><button class="gradient" id="my-account">Get Started</button></a>
     </div>
     <div class="content">
       <div class="splash">
@@ -134,7 +136,7 @@
           <small>Tonight</small>
           <small>Tomorrow</small>
         </div>
-        <input class="slider" type="range" value="30" min="5" max="99" onchange="slider(this)" oninput="slider(this)">
+        <input id="slider" class="slider" type="range" value="30" min="5" max="99" onchange="slider(this)" oninput="slider(this)">
         <div class="range bounds">
           <small>$5 USD</small>
           <small>$99</small>

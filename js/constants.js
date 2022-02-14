@@ -1,7 +1,7 @@
 const YEAR = (new Date()).getFullYear()
 
 let API = "https://sf7d6paxe6.execute-api.us-east-1.amazonaws.com/prod"
-const ESTIMATED_RETURN = 10
+const ESTIMATED_RETURN = 8
 const SLIDER_INIT_MIN = 30
 const SLIDER_INIT_MAX = 80
 const SLIDER_DURATION_MS = 1200
