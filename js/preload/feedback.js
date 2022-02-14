@@ -1,7 +1,7 @@
 const __FOOTER_LINKS = {
   "FAQ": "./faq",
   "Tutorial": "./tutorial",
-  "Terms": "",
+  "Terms": "./terms",
   "Support": "mailto:support@paywake.net",
 }
 
