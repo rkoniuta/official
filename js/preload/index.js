@@ -31,7 +31,7 @@ const sliderInit = (obj) => {
 
 const estimateAlert = () => {
   const dollarString = ($("#return-amount")[0].innerText + $("#return-amount-cents")[0].innerText)
-  const text = ("This $" + dollarString + " average return is based on the last 30 days of Paywake user data and includes both the extra payment and refunded deposit amounts.")
+  const text = ("This $" + dollarString + " average return is based on the last 30 days of Paywake user data and includes both the extra payment and refunded deposit amounts. This is not an earnings guarantee.")
   MODAL.hide()
   MODAL.displayHTML("<p>" + text + "</p>")
 }
