@@ -46,10 +46,13 @@ const REDIRECTS = {
 
 const __ensureInContinentalUS = () => {
   try {
+    const __CONTINENTAL_PAGE = window.location.pathname.toLowerCase().trim().split("/").pop().split(".").shift()
     let timeDiff = (((moment().tz(TIME_ZONE).utcOffset() - moment().utcOffset()) / 60) * (-1))
     timeDiff += 0;
     if (!(timeDiff <= 3 && (-1) <= timeDiff)) {
-      leavePage("./international")
+      if (!(__CONTINENTAL_PAGE === "international")) {
+        leavePage("./international")
+      }
     }
   }
   catch (e) {}
