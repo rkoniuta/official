@@ -243,7 +243,7 @@ $(document).ready(() => {
 (() => {
   let __url = new URLSearchParams(window.location.search)
   if (__url.get("source")) {
-    let __source = decodeURIComponent(url.get("source"))
+    let __source = decodeURIComponent(__url.get("source"))
     if (__source !== "dev") {
       localStorage.setItem(LOCAL_STORAGE_TAG + "source", __source)
       window.history.replaceState(null, null, window.location.pathname)
@@ -257,6 +257,9 @@ $(document).ready(() => {
     $.ajax({
       url: (API + "/source"),
       type: "PUT",
+      data: {
+        source: __asource.toString()
+      },
       xhrFields: {
         withCredentials: true
       },
