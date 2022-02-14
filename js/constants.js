@@ -183,30 +183,32 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
   const GREEN_2X_ELEMENT = ("<span class='twoX'>2X</span>")
   const __TWOX_MODE_PAGE = window.location.pathname.toLowerCase().trim().split("/").pop().split(".").shift()
   $(document).ready(() => {
-    $("*").addClass("__twox-mode")
-    if (__TWOX_MODE_PAGE === "dashboard") {
-      $(".toolbar")[0].childNodes[1].querySelector("img").src = "assets/images/home-2xmode.png"
-      $("#__twox-mode-target-0")[0].innerHTML = ("Past Earnings " + GREEN_2X_ELEMENT)
-      $("#__twox-mode-target-1")[0].innerHTML = ("users with 2X who deposited")
-      $("#schedule-button")[0].innerHTML = ("Schedule a " + GREEN_2X_ELEMENT + " Wakeup")
-    }
-    else if (__TWOX_MODE_PAGE === "schedule") {
-      $(".toolbar")[0].childNodes[3].querySelector("img").src = "assets/images/schedule-2xmode.png"
-    }
-    else if (__TWOX_MODE_PAGE === "settings") {
-      $(".toolbar")[0].childNodes[5].querySelector("img").src = "assets/images/settings-2xmode.png"
-      try {
-        $("#award-icon[src='assets/images/award-3.png']")[0].src = "assets/images/award-3-green.png"
-      } catch (e) {}
-      try {
-        $("#award-icon[src='assets/images/award-4.png']")[0].src = "assets/images/award-4-green.png"
-      } catch (e) {}
-      try {
-        $("#award-icon[src='assets/images/award-5.png']")[0].src = "assets/images/award-5-green.png"
-      } catch (e) {}
-    }
-    else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "faq" || __TWOX_MODE_PAGE === "international") {
-      $("#sun")[0].src = "assets/images/sun-192-green.png"
+    if (!(__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "create")) {
+      $("*").addClass("__twox-mode")
+      if (__TWOX_MODE_PAGE === "dashboard") {
+        $(".toolbar")[0].childNodes[1].querySelector("img").src = "assets/images/home-2xmode.png"
+        $("#__twox-mode-target-0")[0].innerHTML = ("Past Earnings " + GREEN_2X_ELEMENT)
+        $("#__twox-mode-target-1")[0].innerHTML = ("users with 2X who deposited")
+        $("#schedule-button")[0].innerHTML = ("Schedule a " + GREEN_2X_ELEMENT + " Wakeup")
+      }
+      else if (__TWOX_MODE_PAGE === "schedule") {
+        $(".toolbar")[0].childNodes[3].querySelector("img").src = "assets/images/schedule-2xmode.png"
+      }
+      else if (__TWOX_MODE_PAGE === "settings") {
+        $(".toolbar")[0].childNodes[5].querySelector("img").src = "assets/images/settings-2xmode.png"
+        try {
+          $("#award-icon[src='assets/images/award-3.png']")[0].src = "assets/images/award-3-green.png"
+        } catch (e) {}
+        try {
+          $("#award-icon[src='assets/images/award-4.png']")[0].src = "assets/images/award-4-green.png"
+        } catch (e) {}
+        try {
+          $("#award-icon[src='assets/images/award-5.png']")[0].src = "assets/images/award-5-green.png"
+        } catch (e) {}
+      }
+      else if (__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "tutorial" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "faq" || __TWOX_MODE_PAGE === "international") {
+        $("#sun")[0].src = "assets/images/sun-192-green.png"
+      }
     }
   })
 }
