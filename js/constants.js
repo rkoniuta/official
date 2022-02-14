@@ -50,7 +50,7 @@ const __ensureInContinentalUS = () => {
     let timeDiff = (((moment().tz(TIME_ZONE).utcOffset() - moment().utcOffset()) / 60) * (-1))
     timeDiff += 0;
     if (!(timeDiff <= 3 && (-1) <= timeDiff)) {
-      if (!(__CONTINENTAL_PAGE === "international" || __CONTINENTAL_PAGE === "terms")) {
+      if (!(__CONTINENTAL_PAGE === "international" || __CONTINENTAL_PAGE === "terms" || __CONTINENTAL_PAGE === "index" || __CONTINENTAL_PAGE === "" || __CONTINENTAL_PAGE === "press" || __CONTINENTAL_PAGE === "faq")) {
         leavePage("./international")
       }
     }
