@@ -251,27 +251,30 @@ $(document).ready(() => {
   }
 })();
 
-(() => {
-  if (USER && (localStorage.getItem(LOCAL_STORAGE_TAG + "source") || "").length) {
-    let __asource = localStorage.getItem(LOCAL_STORAGE_TAG + "source")
-    $.ajax({
-      url: (API + "/source"),
-      type: "PUT",
-      data: {
-        source: __asource.toString()
-      },
-      xhrFields: {
-        withCredentials: true
-      },
-      beforeSend: (xhr) => {
-        xhr.setRequestHeader("Authorization", ID_TOKEN)
-      },
-      success: (data) => {
-        localStorage.removeItem(LOCAL_STORAGE_TAG + "source")
-      }
-    })
+$(document).ready(() => {
+  try {
+    if (USER && (localStorage.getItem(LOCAL_STORAGE_TAG + "source") || "").length) {
+      let __asource = localStorage.getItem(LOCAL_STORAGE_TAG + "source")
+      $.ajax({
+        url: (API + "/source"),
+        type: "PUT",
+        data: {
+          source: __asource.toString()
+        },
+        xhrFields: {
+          withCredentials: true
+        },
+        beforeSend: (xhr) => {
+          xhr.setRequestHeader("Authorization", ID_TOKEN)
+        },
+        success: (data) => {
+          localStorage.removeItem(LOCAL_STORAGE_TAG + "source")
+        }
+      })
+    }
   }
-})();
+  catch (e) {}
+});
 
 __scamNotice()
 console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
