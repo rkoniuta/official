@@ -1,0 +1,33 @@
+p {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin-top: 0px;
+}
+
+.subheading {
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: bold;
+  color: rgba(0,0,0,0.4);
+}
+
+.heading {
+  font-size: 30px;
+  line-height: 30px;
+  margin-top: 40px;
+  margin-bottom: -16px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+}
+
+.subsubheading {
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+}
