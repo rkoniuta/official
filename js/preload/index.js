@@ -89,7 +89,7 @@ const fetchEarnings = () => {
     url: (API + "/earnings"),
     type: "GET",
     success: (data) => {
-      RETURNS = (data.lastMonth || ESTIMATED_RETURN)
+      RETURNS = ((data.lastMonth * 100) || ESTIMATED_RETURN)
       try {
         slider($("#slider")[0])
       } catch (e) {}
