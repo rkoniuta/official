@@ -241,13 +241,32 @@ $(document).ready(() => {
 });
 
 (() => {
-  const __url = new URLSearchParams(window.location.search)
+  let __url = new URLSearchParams(window.location.search)
   if (__url.get("source")) {
-    const __source = decodeURIComponent(url.get("source"))
+    let __source = decodeURIComponent(url.get("source"))
     if (__source !== "dev") {
       localStorage.setItem(LOCAL_STORAGE_TAG + "source", __source)
       window.history.replaceState(null, null, window.location.pathname)
     }
+  }
+})();
+
+(() => {
+  if (USER && (localStorage.getItem(LOCAL_STORAGE_TAG + "source") || "").length) {
+    let __asource = localStorage.getItem(LOCAL_STORAGE_TAG + "source")
+    $.ajax({
+      url: (API + "/source"),
+      type: "PUT",
+      xhrFields: {
+        withCredentials: true
+      },
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", ID_TOKEN)
+      },
+      success: (data) => {
+        localStorage.removeItem(LOCAL_STORAGE_TAG + "source")
+      }
+    })
   }
 })();
 
