@@ -54,7 +54,6 @@
 #__modal {
   width: min(calc(60vw + 75px), calc(60vh + 150px));
   box-sizing: border-box;
-  overflow-y: scroll;
 }
 
 #__modal > h3 {
@@ -71,6 +70,21 @@
   color: rgba(0,0,0,0.6);
   font-weight: 400;
   font-size: 16px;
+}
+
+#__modal > p > a.gradient {
+  font-weight: 600;
+  border-bottom: 3px solid #dfe3e7;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  cursor: pointer;
+  text-decoration: none;
 }
 
 #__modal > .button-group {

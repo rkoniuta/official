@@ -63,15 +63,12 @@
 
     <!--PRELOAD-->
     <script src="js/constants.js"></script>
-    <script src="js/preload/copysheet.js"></script>
-    <script src="js/auth/logged-in-only.js"></script>
     <script src="js/auth/auth.js"></script>
     <script src="js/auth/routines.js"></script>
-    <script src="js/preload/paid.js"></script>
     <link rel="preload" as="image" href="assets/images/sun-192.png" media="(max-width: 192px)">
 
     <!--TITLE-->
-    <title>Paywake - You Just Got Paid!</title>
+    <title>Paywake - Reimbursement</title>
 
     <!--GOOGLE ANALYTICS-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFT65MQ7W0"></script>
@@ -96,6 +93,7 @@
         <div class="middle">
           <img id="loader" src="./assets/images/loader-grey.svg">
         </div>
+        <p id="redirect">If you're not redirected, click <a href="https://forms.gle/qm3Gn84TAEoFL9qMA" class="gradient">here</a></p>
       </div>
       <div class="footer-container">
         <div class="footer">
@@ -109,5 +107,8 @@
         </div>
       </div>
     </div>
+    <script>
+      window.location.replace("https://forms.gle/qm3Gn84TAEoFL9qMA")
+    </script>
   </body>
 </html>

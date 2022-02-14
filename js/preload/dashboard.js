@@ -61,7 +61,7 @@ const estimateAlert = () => {
   }
   const deposit = Math.round(document.getElementsByClassName("slider")[0].value)
   const returns =  (Math.floor(deposit * ((historic / 100) + 1) * 100) / 100)
-  const dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0")))
+  let dollarString = (Math.floor(returns).toString() + ("." + Math.round((returns - Math.floor(returns)) * 100).toString().padStart(2, "0")))
   let add = "the last 30 days of Paywake user data"
   if (RETURN_TOGGLE === 1) {
     if (YESTERDAY_FLAG) {
@@ -71,6 +71,7 @@ const estimateAlert = () => {
       add = "today's Paywake user data"
     }
   }
+  dollarString = ($("#return-amount")[0].innerText + $("#return-amount-cents")[0].innerText)
   const text = ("This $" + dollarString + " average return is based on " + add + " and includes both the extra payment and refunded deposit amounts.")
   MODAL.hide()
   MODAL.displayHTML("<p>" + text + "</p>")
@@ -134,7 +135,7 @@ const cancelWakeup = (wakeup, node) => {
   elements.push(title)
   elements.push(node)
   let text = document.createElement("p")
-  let fee = Math.min(Math.max(Math.floor(wakeup.deposit * 0.015), 15), balance)
+  let fee = Math.min(Math.max(Math.floor((wakeup.is2x ? (wakeup.deposit / 2) : wakeup.deposit) * 0.015), 15), balance)
   let dollars = Math.floor(fee / 100)
   let cents = Math.floor(fee % 100)
   if (fee > 0) {
@@ -463,7 +464,11 @@ const displayIfFailure = () => {
         } catch (e) {}
       }
     }
-    document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+    try {
+      document.getElementById("wakeup-" + wakeupID).querySelector("img").click()
+    } catch (e) {
+      display2XMode()
+    }
   }
 }
 
@@ -611,12 +616,12 @@ const genEarningsChart = (data) => {
     }
     labels.push(moment().subtract(30,"day").format(labelFormat))
     labels.reverse()
-    let maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 3)
+    let maxValue = Math.round(Math.max(...(data.earnings || []).map((e) => (e.earnings * 100))) + 1)
     //$("#chart-last-day").text(moment().subtract(30,"day").format(labelFormat))
     $("#chart-last-day").text("")
     $("#chart-top-percent").text(maxValue.toString() + "%")
     if (IS_2X) {
-      $("#chart-top-percent").text((((maxValue - 3) * 2) + 2).toString() + "%")
+      $("#chart-top-percent").text((((maxValue - 1) * 2) + 1).toString() + "%")
     }
     const chartData = (data.earnings || []).sort((a,b) => {
       return a.day - b.day
@@ -705,7 +710,7 @@ const genEarningsChart = (data) => {
                 color: "rgba(0,0,0,0)"
               },
               min: 0,
-              max: maxValue,
+              max: (maxValue + 2),
             },
           },
           plugins: {

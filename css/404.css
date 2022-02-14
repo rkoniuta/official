@@ -15,6 +15,12 @@
   z-index: -1;
 }
 
+button.gradient, .footer-container {
+  background: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%) !important;
+  background: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%) !important;
+  background: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%) !important;
+}
+
 @media (max-height: 720px) and (max-width: 400px) {
   #four-0-four {
     top: calc(77px + 2vh);

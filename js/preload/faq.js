@@ -102,6 +102,9 @@ const renderFAQS = () => {
       $("#faq-container")[0].appendChild(noResults)
     }
   }
+  if (IS_2X) {
+    $("a.gradient").addClass("__twox-mode")
+  }
 }
 
 const parseSearch = () => {

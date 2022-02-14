@@ -49,6 +49,9 @@ const fetchHistory = () => {
 
 const addAward = (src, _title, _text) => {
   const award = document.createElement("img")
+  if (IS_2X) {
+    src = src.replace(".png", "-green.png")
+  }
   award.src = src
   award.id = "award-icon"
   award.onclick = () => {
@@ -69,6 +72,9 @@ const addAward = (src, _title, _text) => {
     let a = document.createElement("a")
     a.innerHTML = "Rewards coming soon."
     a.className = "gradient"
+    if (IS_2X) {
+      a.className = "gradient __twox-mode"
+    }
     rewards.id = "rewards-soon"
     rewards.appendChild(a)
     elements.push(center)
@@ -85,28 +91,33 @@ const setHistory = (data) => {
   HISTORY = data
   FLAT_HISTORY = JSON.parse(JSON.stringify(data))
   $("#awards")[0].innerHTML = ("")
+  const births = []
   for (let item of HISTORY) {
     if (item.data.event === "BIRTH") {
-      $("#user-number")[0].innerHTML = numberWithCommas(parseInt(item.data.data.userNumber))
-      $("#account-birthday")[0].innerHTML = moment(item.time).format("MMMM DDDo, YYYY")
-      let hasAwards = false
-      if (moment(item.time).isBefore("2022-02-16")) {
-        addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there since day 1!")
-        hasAwards = true
-      }
-      if (item.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the team, thanks for helping make Paywake what it is today.")
-        hasAwards = true
-      }
-      if (item.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
-        addAward("assets/images/award-3.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake. Congratulations!")
-        hasAwards = true
-      }
-      if (!hasAwards) {
-        $("#awards-stat")[0].remove()
-      }
-      break;
+      births.push(item)
     }
+  }
+  births.sort((a,b) => {
+    return ((new Date(a.time)).getTime() - (new Date(b.time)).getTime())
+  })
+  const birth = births[0]
+  $("#user-number")[0].innerHTML = numberWithCommas(parseInt(birth.data.data.userNumber))
+  $("#account-birthday")[0].innerHTML = moment(birth.time).format("MMMM Do, YYYY")
+  let hasAwards = false
+  if (moment(birth.time).isBefore("2022-02-16")) {
+    addAward("assets/images/award-5.png", "Launch Day User", "You participated in <b>Paywake's launch day</b>. Thanks for being there since day 1!")
+    hasAwards = true
+  }
+  if (birth.data.data.userNumber < (DIAMOND_USER_THRESHOLD + 1)) {
+    addAward("assets/images/award-4.png", "Paywake Diamond User", "You were one of the <b>first 500 users</b> to join Paywake. From all of us on the team, thanks for helping make Paywake what it is today.")
+    hasAwards = true
+  }
+  if (birth.data.data.userNumber < (FOUNDING_USER_THRESHOLD + 1)) {
+    addAward("assets/images/award-3.png", "Paywake Founding User", "You were one of the <b>first 10,000 users</b> to join Paywake. Congratulations!")
+    hasAwards = true
+  }
+  if (!hasAwards) {
+    $("#awards-stat")[0].remove()
   }
   let totalScheduled = 0
   for (let item of HISTORY) {
@@ -431,7 +442,7 @@ const genWakeups = () => {
       selectID(pSpan)
     }
     $("#transfer-container")[0].appendChild(p)
-    if ((transfer.data.data.status || "pending") === "pending" && transfer.data.data.success) {
+    if (((transfer.data.data.status || "pending") === "pending" || ((transfer.data.data.status || "pending") === "sent")) && transfer.data.data.success) {
       fetchTransferStatus(transfer)
     }
   }
@@ -439,6 +450,9 @@ const genWakeups = () => {
     let p = document.createElement("p")
     p.id = "transfer-empty"
     p.innerHTML = "Nothing to see here. <a class='gradient' href='./transfer'>Make a transfer</a>"
+    if (IS_2X) {
+      p.innerHTML = "Nothing to see here. <a class='gradient __twox-mode' href='./transfer'>Make a transfer</a>"
+    }
     $("#transfer-container")[0].appendChild(p)
   }
 }
@@ -544,7 +558,7 @@ const cancelWakeup = (wakeup, node) => {
   elements.push(title)
   elements.push(node)
   let text = document.createElement("p")
-  let fee = Math.min(Math.max(Math.floor(wakeup.deposit * 0.015), 15), balance)
+  let fee = Math.min(Math.max(Math.floor((wakeup.is2x ? (wakeup.deposit / 2) : wakeup.deposit) * 0.015), 15), balance)
   let dollars = Math.floor(fee / 100)
   let cents = Math.floor(fee % 100)
   if (fee > 0) {
@@ -614,7 +628,7 @@ const setTransferStatus = (transfer, data) => {
   }
   setHistory(FLAT_HISTORY)
   if (data.status === "failed") {
-    fetchBalance()
+    fetchBalance(false)
   }
   if (data.status !== ORIGINAL_STATUS) {
     fetchHistory()

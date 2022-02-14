@@ -117,7 +117,7 @@
           <input id="screen-1-input" inputmode="numeric" pattern="[0-9]*" type="text" name="otp-code" auto-complete="one-time-code" spellcheck="false" placeholder="Type your code here..." maxlength="6" onkeyup="codeFormatter(this)" onpaste="codeFormatter(this)" onblur="verifyCode(this)">
           <br>
           <div class="spread">
-            <a id="pre-resend" class="back" onclick="resend()">Didn't get the code? <u>Resend</u></a>
+            <a id="pre-resend" class="back" onclick="previousScreen()">Go back</a>
             <a id="post-resend" class="back invisible">We resent your code.</a>
             <button class="small" onclick="verify()" id="button-1">Verify</button>
           </div>
@@ -125,7 +125,10 @@
         <div class="screen unloaded bottom" id="screen-2">
           <h3>Your account is recovered.</h3>
           <h1>New password</h1>
-          <input id="screen-2-input" type="password" name="password" max-length="64" spellcheck="false" placeholder="Type here..." onblur="verifyPassword(this)">
+          <div id="__show-password-container" class="dark">
+            <input id="screen-2-input" type="password" name="password" max-length="64" spellcheck="false" placeholder="Type here..." onblur="verifyPassword(this)">
+            <div id="__show-password" target="#screen-2-input"></div>
+          </div>
           <small id="subtext-2">Password must be at least 8 characters.</small>
           <br>
           <div class="spread">

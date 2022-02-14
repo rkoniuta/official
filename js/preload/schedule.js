@@ -248,6 +248,24 @@ const initDays = () => {
   }
 }
 
+const cacheValue = (input) => {
+  input.setAttribute("cache", input.value)
+  input.placeholder = input.value
+  input.value = ""
+}
+const uncacheValue = (input) => {
+  if (!input.value.length) {
+    input.value = input.getAttribute("cache")
+  }
+  input.removeAttribute("cache")
+  if (input.className === "minute-input") {
+    input.placeholder = "00"
+  }
+  else if (input.className === "hour-input") {
+    input.placeholder = "8"
+  }
+}
+
 const genWakeups = () => {
   const data = WAKEUPS.sort((a, b) => {
     return (a.day - b.day)
@@ -303,7 +321,11 @@ const genWakeups = () => {
     hourInput.pattern = "[0-9]*"
     hourInput.placeholder = Math.floor(DEFAULT_WAKEUP_TIME / 60).toString()
     hourInput.value = hour
+    hourInput.onfocus = () => {
+      cacheValue(hourInput)
+    }
     hourInput.onblur = () => {
+      uncacheValue(hourInput)
       setWakeupHour(wakeup, hourInput)
     }
     const adjustment = () => {
@@ -323,7 +345,11 @@ const genWakeups = () => {
     minuteInput.pattern = "[0-9]*"
     minuteInput.placeholder = Math.floor(DEFAULT_WAKEUP_TIME % 60).toString().padStart(2, "0")
     minuteInput.value = minute.padStart(2, "0")
+    minuteInput.onfocus = () => {
+      cacheValue(minuteInput)
+    }
     minuteInput.onblur = () => {
+      uncacheValue(minuteInput)
       setWakeupMinute(wakeup, minuteInput)
     }
     let am = document.createElement("span")
@@ -500,10 +526,10 @@ const schedule = () => {
       $("#__modal-dismiss").removeClass("loading")
       $("#schedule-button").removeClass("loading")
       if (c > 0) {
-        MODAL.displayHTML("<p>Server error - only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully.")
+        MODAL.displayHTML("<p><b>Card declined.</b> Only " + c.toString() + "/" + WAKEUPS.length.toString() + " wakeups were scheduled successfully. Please check your card balance or try a different card.")
       }
       else {
-        MODAL.displayHTML("<p>Server error - your wakeup(s) could not be scheduled.")
+        MODAL.displayHTML("<p><b>Card declined.</b> Please check your card balance or try a different card.")
       }
     }
     let customerID = ""
@@ -620,7 +646,7 @@ const confirmSchedule = () => {
   }
 }
 
-const STRIPE_ELEMENTS = stripe.elements({
+const STRIPE_ELEMENTS = STRIPE.elements({
   fonts: [{
     cssSrc: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap"
   }]
@@ -653,7 +679,7 @@ const submitToken = (callback) => {
     })
   }
   else {
-    stripe.createToken(PAYMENT_INFO).then((result) => {
+    STRIPE.createToken(PAYMENT_INFO).then((result) => {
       if (result.error) {
         callback(false)
       } else {

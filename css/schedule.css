@@ -234,7 +234,8 @@ p.subtitle {
   padding: 0px !important;
   width: 24px;
   border-radius: 3px;
-  border-bottom: 3px solid transparent;
+  border-bottom: 3px solid #dfe3e7;
+  border-color: #dfe3e7;
   transition: border-color linear 0.1s;
   -webkit-transition: border-color linear 0.1s;
 }
@@ -246,10 +247,6 @@ p.subtitle {
 .minute-input {
   width: 48px;
   text-align: left;
-}
-
-.minute-input:focus, .hour-input:focus {
-  border-color: #dfe3e7;
 }
 
 .day-container > .day.selected.twox {
@@ -348,4 +345,21 @@ a.gradient {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+#__modal {
+  overflow-y: scroll !important;
+}
+
+#powered-by-stripe {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  width: 144px;
+  opacity: 0.2;
+  transition: opacity linear 0.1s;
+  -webkit-transition: opacity linear 0.1s;
+}
+
+#powered-by-stripe:active {
+  opacity: 0.4;
 }
