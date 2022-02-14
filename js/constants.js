@@ -183,7 +183,7 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
   const GREEN_2X_ELEMENT = ("<span class='twoX'>2X</span>")
   const __TWOX_MODE_PAGE = window.location.pathname.toLowerCase().trim().split("/").pop().split(".").shift()
   $(document).ready(() => {
-    if (!(__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "create" || __TWOX_MODE_PAGE === "press")) {
+    if (!(__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "create" || __TWOX_MODE_PAGE === "press" || __TWOX_MODE_PAGE === "terms" || __TWOX_MODE_PAGE === "privacy")) {
       $("*").addClass("__twox-mode")
       if (__TWOX_MODE_PAGE === "dashboard") {
         $(".toolbar")[0].childNodes[1].querySelector("img").src = "assets/images/home-2xmode.png"
