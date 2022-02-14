@@ -151,6 +151,7 @@
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
+  background-attachment: initial;
   background-attachment: fixed;
   line-height: 60px;
 }
