@@ -3,7 +3,7 @@ let FILTER_STRING = ""
 let FAQ_FILTER_THRESHOLD = 0.6
 
 const filterResults = (obj) => {
-  FILTER_STRING = obj.value.trim().replaceAll("[^a-zA-Z0-9]", "").toLowerCase()
+  FILTER_STRING = obj.value.trim().replace(/[^a-zA-Z0-9\- ]+/g, "").toLowerCase()
   renderFAQS()
 }
 
@@ -44,7 +44,7 @@ const renderFAQS = () => {
         if (token.length) {
           possibleHits++;
           console.log()
-          if (faq.question.replace(/[^a-zA-Z\.\- ]+/g, "").toLowerCase().includes(token) || faq.answer.replace(/[^a-zA-Z\.\- ]+/g, "").toLowerCase().includes(token)) {
+          if (faq.question.replace(/[^a-zA-Z0-9\- ]+/g, "").toLowerCase().includes(token) || faq.answer.replace(/[^a-zA-Z0-9\- ]+/g, "").toLowerCase().includes(token)) {
             hitCount++;
           }
         }
