@@ -66,11 +66,6 @@ const updateTransferButton = () => {
   else {
     button.removeAttribute("disabled")
   }
-  //FIXME: remove when Venmo working
-  if (DESTINATION === 1) {
-    button.setAttribute("disabled", true)
-    button.innerHTML = "Coming Soon"
-  }
 }
 
 const balanceToString = (balance = BALANCE) => {
