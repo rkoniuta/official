@@ -346,7 +346,7 @@ const confirmTransfer = (onSuccess = () => {}, onError = () => {}) => {
   elements.push(title)
   let text = document.createElement("p")
   if (DESTINATION === 1) {
-    text.innerHTML = ("Are you sure you want to transfer <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> to your Venmo account?")
+    text.innerHTML = ("Are you sure you want to transfer <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> to your Venmo account, <b>+1 " + $("#phone")[0].value.toString() + "</b>?")
   }
   else {
     text.innerHTML = ("Are you sure you want to transfer <b>$" + balanceToString($("#transfer-slider")[0].value) + "</b> to your bank account?")
