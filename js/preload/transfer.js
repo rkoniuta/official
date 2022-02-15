@@ -306,6 +306,7 @@ const setBankData = (data = {}) => {
   }
   if (BANK_DATA.phone && BANK_DATA.phone.length) {
     $("#phone")[0].value = BANK_DATA.phone
+    phoneFormatter($("#phone")[0])
   }
 }
 
