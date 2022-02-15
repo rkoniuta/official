@@ -1,0 +1,48 @@
+p {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin-top: 0px;
+}
+
+.subheading {
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: bold;
+  color: rgba(0,0,0,0.4);
+}
+
+.heading {
+  font-size: 30px;
+  line-height: 30px;
+  margin-top: 40px;
+  margin-bottom: -16px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+}
+
+.subsubheading {
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+}
+
+a.gradient {
+  font-weight: 600;
+  border-bottom: 3px solid #dfe3e7;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: -moz-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: -webkit-linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  background-image: linear-gradient(340deg, rgba(102,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,204,0,1) 100%);
+  cursor: pointer;
+  text-decoration: none;
+}

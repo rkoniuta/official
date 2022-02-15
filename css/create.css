@@ -268,3 +268,10 @@ input[invalid=true] {
 #first-name {
   text-transform: capitalize;
 }
+
+#terms-link, #privacy-link {
+  text-decoration: none;
+  border-bottom: 3px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  color: black;
+}

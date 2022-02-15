@@ -46,10 +46,13 @@ const REDIRECTS = {
 
 const __ensureInContinentalUS = () => {
   try {
+    const __CONTINENTAL_PAGE = window.location.pathname.toLowerCase().trim().split("/").pop().split(".").shift()
     let timeDiff = (((moment().tz(TIME_ZONE).utcOffset() - moment().utcOffset()) / 60) * (-1))
     timeDiff += 0;
     if (!(timeDiff <= 3 && (-1) <= timeDiff)) {
-      leavePage("./international")
+      if (!(__CONTINENTAL_PAGE === "international" || __CONTINENTAL_PAGE === "terms" || __CONTINENTAL_PAGE === "index" || __CONTINENTAL_PAGE === "" || __CONTINENTAL_PAGE === "press" || __CONTINENTAL_PAGE === "faq")) {
+        leavePage("./international")
+      }
     }
   }
   catch (e) {}
@@ -183,7 +186,7 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "2x-mode") === "true") {
   const GREEN_2X_ELEMENT = ("<span class='twoX'>2X</span>")
   const __TWOX_MODE_PAGE = window.location.pathname.toLowerCase().trim().split("/").pop().split(".").shift()
   $(document).ready(() => {
-    if (!(__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "create")) {
+    if (!(__TWOX_MODE_PAGE === "index" || __TWOX_MODE_PAGE === "" || __TWOX_MODE_PAGE === "login" || __TWOX_MODE_PAGE === "create" || __TWOX_MODE_PAGE === "press" || __TWOX_MODE_PAGE === "terms" || __TWOX_MODE_PAGE === "privacy")) {
       $("*").addClass("__twox-mode")
       if (__TWOX_MODE_PAGE === "dashboard") {
         $(".toolbar")[0].childNodes[1].querySelector("img").src = "assets/images/home-2xmode.png"
@@ -238,7 +241,43 @@ $(document).ready(() => {
       }
     }
   } catch (e) {}
-})
+});
+
+(() => {
+  let __url = new URLSearchParams(window.location.search)
+  if (__url.get("source")) {
+    let __source = decodeURIComponent(__url.get("source"))
+    if (__source !== "dev") {
+      localStorage.setItem(LOCAL_STORAGE_TAG + "source", __source)
+      window.history.replaceState(null, null, window.location.pathname)
+    }
+  }
+})();
+
+$(document).ready(() => {
+  try {
+    if (USER && (localStorage.getItem(LOCAL_STORAGE_TAG + "source") || "").length) {
+      let __asource = localStorage.getItem(LOCAL_STORAGE_TAG + "source")
+      $.ajax({
+        url: (API + "/source"),
+        type: "PUT",
+        data: {
+          source: __asource.toString()
+        },
+        xhrFields: {
+          withCredentials: true
+        },
+        beforeSend: (xhr) => {
+          xhr.setRequestHeader("Authorization", ID_TOKEN)
+        },
+        success: (data) => {
+          localStorage.removeItem(LOCAL_STORAGE_TAG + "source")
+        }
+      })
+    }
+  }
+  catch (e) {}
+});
 
 __scamNotice()
 console.log("\u00A9 " + YEAR.toString() + " Paywake Corporation")
