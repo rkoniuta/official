@@ -18,3 +18,7 @@ if (localStorage.getItem(LOCAL_STORAGE_TAG + "screen")) {
 else {
   setScreen(0)
 }
+
+if (SCREEN === 4) {
+  ROUTINES.resend(() => {})
+}
