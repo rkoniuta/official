@@ -255,7 +255,7 @@ const transferSuccess = () => {
   title.style.marginBottom = "24px"
   let text = document.createElement("p")
   if (DESTINATION === 1) {
-    text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> transfer to Venmo was successful. The funds will show up in your Venmo account shortly.")
+    text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value - 25) + "</b> transfer to Venmo was successful. The funds will show up in your Venmo account within the next few minutes.")
   }
   else {
     text.innerHTML = ("Your <b>$" + balanceToString($("#transfer-slider")[0].value) + "</b> bank transfer was initiated successfully. The funds will show up in your bank account within <b>1 to 3 business days</b>.")
