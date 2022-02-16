@@ -1,0 +1,11 @@
+.splash {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 300;
+}
