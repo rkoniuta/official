@@ -14,7 +14,7 @@ const unsubscribe = () => {
   }
   if (verifyEmail($("#email")[0])) {
     $.ajax({
-      url: (API + "/history"),
+      url: (API + "/unsubscribe"),
       type: "PUT",
       data: {
           email: $("#email")[0].value.trim(),
