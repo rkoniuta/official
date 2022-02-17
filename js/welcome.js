@@ -28,3 +28,7 @@ else {
 
 setEarnings(JSON.parse(localStorage.getItem(LOCAL_STORAGE_TAG + "earnings")) || DEFAULT_EARNINGS_DATA)
 fetchEarnings()
+
+if (navigator.platform.includes("Win")) {
+  $(".screen").css("overflow-y","hidden")
+}

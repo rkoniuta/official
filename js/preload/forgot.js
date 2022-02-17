@@ -106,9 +106,23 @@ const verify = () => {
   }
 }
 
+const recaptchaError = () => {
+  document.getElementById("subtext-2").innerHTML = "Please complete the reCAPTCHA."
+}
+
+const verifyRecaptcha = () => {
+  if ((RECAPTCHA_TOKEN || "").length) {
+    return RECAPTCHA_TOKEN
+  }
+  else {
+    recaptchaError()
+  }
+  return false
+}
+
 const updatePassword = () => {
   const codeInput = document.getElementById("screen-1-input")
-  if (verifyPassword(document.getElementById("screen-2-input"))) {
+  if (verifyPassword(document.getElementById("screen-2-input")) && verifyRecaptcha()) {
     const phone = ("+1" + cleanPhone(document.getElementById("screen-0-input").value))
     const code = codeInput.value
     const password = document.getElementById("screen-2-input").value
@@ -122,11 +136,13 @@ const updatePassword = () => {
         codeInput.setAttribute("invalid", "true")
         codeInput.value = ""
         previousScreen()
+        grecaptcha.reset()
       }
       else {
         ROUTINES.login(
           localStorage.getItem(LOCAL_STORAGE_TAG + "temp-username"),
           localStorage.getItem(LOCAL_STORAGE_TAG + "temp-password"),
+          RECAPTCHA_TOKEN,
           (err) => {
             $("#button-2").removeClass("loading")
             localStorage.removeItem(LOCAL_STORAGE_TAG + "temp-username")
@@ -138,3 +154,10 @@ const updatePassword = () => {
     })
   }
 }
+
+let RECAPTCHA_TOKEN = null
+const setRecaptchaToken = (token) => {
+  RECAPTCHA_TOKEN = token
+}
+
+window.setRecaptchaToken = setRecaptchaToken
