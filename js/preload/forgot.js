@@ -137,6 +137,7 @@ const updatePassword = () => {
         codeInput.value = ""
         previousScreen()
         grecaptcha.reset()
+        RECAPTCHA_TOKEN = null
       }
       else {
         ROUTINES.login(
