@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+	<url>
+		<loc>https://paywake.net/</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/login</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/create</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/faq</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/terms</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.60</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/privacy</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.60</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/press</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.60</priority>
+	</url>
+	<url>
+		<loc>https://paywake.net/forgot</loc>
+		<lastmod>2022-02-17T21:19:41+00:00</lastmod>
+		<priority>0.5</priority>
+	</url>
+</urlset>
