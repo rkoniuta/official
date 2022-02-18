@@ -27,6 +27,9 @@ const setFAQS = () => {
     FAQS.push(faq)
   }
   renderFAQS()
+  if (!FAQS.length) {
+    setTimeout(setFAQS, 100)
+  }
 }
 
 const htmlSafe = (s) => {
