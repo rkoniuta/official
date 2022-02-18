@@ -225,6 +225,7 @@ const setRecaptchaTokenSecond = (token) => {
     RECAPTCHA_TOKEN,
     (err) => {
       if (err) {
+        grecaptcha.reset()
         localStorage.setItem(LOCAL_STORAGE_TAG + "screen", (5).toString())
         setScreen(5)
       }
