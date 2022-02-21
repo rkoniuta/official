@@ -64,7 +64,7 @@ const __COPYSHEET = {
   if (subdomain === "dev" || subdomain === "/us") {
     SHEET_NAME = "/dev"
   }
-  const sheetData = await fetch("https://opensheet.vercel.app/" + SHEET_ID + SHEET_NAME).then(r => r.json()).then((data) => {
+  const sheetData = await fetch("https://opensheet.elk.sh/" + SHEET_ID + SHEET_NAME).then(r => r.json()).then((data) => {
     let res = []
     for (let row of data) {
       const ret = {}
